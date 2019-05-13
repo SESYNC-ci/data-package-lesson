@@ -1,0 +1,13 @@
+---
+title: 
+output: html_document
+---
+
+## Publishing your data
+
+
+Picking a repository
+Uploading requirements
+Uploading data and metadata
+Getting a DOI
+

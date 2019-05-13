@@ -1,15 +1,22 @@
 # Site
 
-title:
-handouts:
-tag:
+title: Documenting and Publishing your Data
+handouts: 
+  - worksheet.sh
+tag: v0.2
 lesson:
-instructor:
+instructor: Rachael Blake
 authors:
+  - Rachael Blake
 
 # Slides
 
 slide_sorter:
+  - intro
+  - data
+  - metadata
+  - prov
+  - publish
 
 #####################################
 # Only modify content above or risk #

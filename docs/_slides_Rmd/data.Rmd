@@ -1,0 +1,16 @@
+---
+title: 
+output: html_document
+---
+
+
+## Data
+
+formatting data
+naming data files
+outputting derived data
+
+consistency is key
+using controlled vocab or standard way of describing things, even if only within your project
+
+

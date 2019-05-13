@@ -1,0 +1,20 @@
+---
+title: 
+output: html_document
+---
+
+## What is a data package?
+
+Loose definition of a "data package".
+Two important parts - data and metadata. Define each. 
+
+## Integrating data documentation 
+
+Outline steps along the data doc and pub process, and how they are integrated through research process.
+
+## Key tips
+
+Review best practices from the basic git lesson.
+
+
+

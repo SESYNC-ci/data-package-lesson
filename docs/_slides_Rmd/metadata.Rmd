@@ -1,0 +1,38 @@
+---
+title: 
+output: html_document
+---
+
+## What is Metadata?
+
+Metadata is the information needed for someone else to understand and use your data.  
+
+
+## Metadata Standards
+
+Goal is to have machine-readable description of your data. 
+
+Metadata standards - review them
+Discipline-specific differences
+
+Controlled vocab again
+
+## Common components of metadata
+
+Define variable names
+Describe variables (maybe)
+Define allowed values for a variable
+Define units for variable
+
+Geographic area of data (generally)
+Data creator
+Funding source
+
+## Creating metadata
+
+Creating metadata
+  R packages (EML, dataspice)
+  Other scripted or online ways???
+  GUI for a repository
+
+  
