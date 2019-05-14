@@ -12,7 +12,7 @@ Project-level _and_ dataset-level
 
 ## Metadata Standards
 
-Goal is to have machine-readable description of your data. 
+Goal is to have machine and human readable description of your data. 
 
 Metadata standards - review them  (EML, ISO, etc. (make sure to include social science 
                                                    and spatial data if appropriate))
