@@ -7,14 +7,16 @@ output: html_document
 
 Metadata is the information needed for someone else to understand and use your data.  
 
-Project-level vs. dataset-level
+Project-level _and_ dataset-level
 
 
 ## Metadata Standards
 
 Goal is to have machine-readable description of your data. 
 
-Metadata standards - review them
+Metadata standards - review them  (EML, ISO, etc. (make sure to include social science 
+                                                   and spatial data if appropriate))
+
 Discipline-specific differences
 
 Controlled vocab again

@@ -3,6 +3,7 @@ title:
 output: html_document
 ---
 
+??? What dataset to use as an example dataset ???
 
 ## Data
 
@@ -15,11 +16,23 @@ outputting derived data
     - make sure blanks are NA or some other standard
     - check date format
     - check case, white space, etc.  
+    
+
+    
+Ideas from Openscapes: 
+work towards ready-to-analyze data incrementally, documenting both the intermediate data and the process
+“tidy data", which can be a powerful accelerator for analysis
+
+1. Each variable has its own column.
+2. Each observation has its own row.
+3. Each value has its own cell.
+Downstream operations require tidy data
+
 
 consistency is key
 using controlled vocab or standard way of describing things, even if only within your project
 
+https://r4ds.had.co.nz/   R for Data Science book by Hadley Wickham, Garrett Grolemund
 
 
 
-??? What dataset to use as an example dataset ???
