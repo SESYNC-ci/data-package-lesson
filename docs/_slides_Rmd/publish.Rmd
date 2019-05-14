@@ -7,7 +7,9 @@ output: html_document
 
 
 Picking a repository
+ - Include Zenodo, R3D(?), etc.
 Uploading requirements
 Uploading data and metadata
 Getting a DOI
+Citation
 

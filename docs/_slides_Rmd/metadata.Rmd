@@ -7,6 +7,8 @@ output: html_document
 
 Metadata is the information needed for someone else to understand and use your data.  
 
+Project-level vs. dataset-level
+
 
 ## Metadata Standards
 
@@ -19,14 +21,17 @@ Controlled vocab again
 
 ## Common components of metadata
 
+Project-level:
+Geographic area of data (generally)
+Data creator
+Funding source
+
+Dataset-level:
 Define variable names
 Describe variables (maybe)
 Define allowed values for a variable
 Define units for variable
 
-Geographic area of data (generally)
-Data creator
-Funding source
 
 ## Creating metadata
 
