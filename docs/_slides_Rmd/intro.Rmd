@@ -5,16 +5,44 @@ output: html_document
 
 ## What is a data package?
 
-Loose definition of a "data package".
-Two important parts - data and metadata. Define each. 
+A data package is a collection of data files and metadata files that describe the data and the project.  
+
+There are two equally important parts that make up a data package: data and metadata.  
+We will get into more details on these components in this lesson.  
+
+===
+
+## Why package and publish your data?  
+
+1. Funder requirement
+
+2. Publisher requirement
+
+3. Efficient collaboration
+
+4. Credit for your work
+
+5. Open, Reproducible Science
+
+===
 
 ## Integrating data documentation 
 
+(Tie back into the workflow from the git lesson. Maybe make a figure here?? Flowchart?)
+
+Raw data: may come with metadata if downloaded from somewhere; if you generate data, need to document it
+
+Data cleaning/compilation/synthesis: Scipt any manipulation of the raw data (don't change the raw data file!)
+
+Derived data: Output dervied data from script and document it
+
 Outline steps along the data doc and pub process, and how they are integrated through research process.
 
-## Key tips
+===
 
-Review best practices from the basic git lesson.
+## Goals of data packaging
 
+1. Improve sharing data with collaborators now.
 
+2. Easily publish your data in the future. 
 

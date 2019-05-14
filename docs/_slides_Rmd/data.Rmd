@@ -6,11 +6,20 @@ output: html_document
 
 ## Data
 
-formatting data
 naming data files
+formatting data
 outputting derived data
+
+?? Do a few checks to make sure the data is tidy.
+    - make sure data is long
+    - make sure blanks are NA or some other standard
+    - check date format
+    - check case, white space, etc.  
 
 consistency is key
 using controlled vocab or standard way of describing things, even if only within your project
 
 
+
+
+??? What dataset to use as an example dataset ???
