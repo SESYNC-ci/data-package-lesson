@@ -1,13 +1,12 @@
 ---
-title: 
-output: html_document
+
 ---
 
 ## What is Metadata?
 
 Metadata is the information needed for someone else to understand and use your data.  
 
-Project-level _and_ dataset-level
+Package-level _and_ dataset-level
 
 
 ## Metadata Standards
@@ -23,7 +22,7 @@ Controlled vocab again
 
 ## Common components of metadata
 
-Project-level:
+Package-level:
 Geographic area of data (generally)
 Data creator
 Funding source

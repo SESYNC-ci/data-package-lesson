@@ -1,6 +1,5 @@
 ---
-title: 
-output: html_document
+
 ---
 
 ??? What dataset to use as an example dataset ???
@@ -23,10 +22,13 @@ Ideas from Openscapes:
 work towards ready-to-analyze data incrementally, documenting both the intermediate data and the process
 “tidy data", which can be a powerful accelerator for analysis
 
+One table for each type of observation.
 1. Each variable has its own column.
 2. Each observation has its own row.
 3. Each value has its own cell.
-Downstream operations require tidy data
+Downstream operations require tidy data.
+
+** Potentially connection to the joins stuff from the data manipulation lesson
 
 
 consistency is key

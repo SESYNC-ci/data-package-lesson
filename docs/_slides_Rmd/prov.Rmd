@@ -3,6 +3,15 @@ title:
 output: html_document
 ---
 
+## Caveats
+
+Multiple excel files...how do you know you're using the same version of an excel file as your collaborator?
+DON'T EDIT RAW DATA FILES!    Make edits in your code!!!!!
+
+Potential ways forward for now: 
+1. Upload data to a repo with versioning but keep it private while working on your project.
+2. Google Sheets???
+
 ## And also...
 
 Mention provenance, give examples, etc. at the end, but don't devote a lot of space to it at this point. 
