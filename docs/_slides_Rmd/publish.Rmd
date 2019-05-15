@@ -1,15 +1,14 @@
 ---
-title: 
-output: html_document
+
 ---
 
 ## Publishing your data
 
 
-Picking a repository
+Picking a repository or way of publishing
  - Include Zenodo, R3D(?), etc.
 Uploading requirements
-Uploading data and metadata
+Uploading data and metadata - check to see if you can just upload a metadata file...will the repo "see" the metadata?
 Getting a DOI
 Citation
 

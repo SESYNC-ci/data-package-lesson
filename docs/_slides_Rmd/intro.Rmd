@@ -4,9 +4,10 @@
 
 ## What is a data package?
 
-A data package is a collection of data files and metadata files that describe the data and the project.  
+A data package is a collection of data files and metadata files that describe the data.  
+It essentially documents the what, where, why, and how of your data.  
 
-There are two equally important parts that make up a data package: data and metadata.  
+There are two equally important parts that make up a data package: _data_ and _metadata_.  
 We will get into more details on these components in this lesson.  
 
 ===

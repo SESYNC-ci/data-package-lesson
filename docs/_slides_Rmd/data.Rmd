@@ -2,39 +2,61 @@
 
 ---
 
-??? What dataset to use as an example dataset ???
-
 ## Data
 
-naming data files
-formatting data
-outputting derived data
+Consistency is key when managing your data!
 
-?? Do a few checks to make sure the data is tidy.
+1. At a minimum, use the same terms to refer to the same things throughout your data.
+2. Potentially use a discipline-wide published vocabulary (ex: hydrological vocab.)
+
+
+```{}
+# read in dataset here  ??? What dataset to use as an example dataset ???
+```
+
+===
+
+### Naming data files - review from basic-R-lesson
+
+```{}
+"CeNsus data*2ndTry 2/15/2017.csv"   
+"census_data_try_2.csv"  # No dates: remember you're using git to version control!
+```
+
+===
+
+### Formatting data - review from data-manipulation-R-lesson
+
+1. One table/file for each type of observation.
+2. Each variable has its own column.
+3. Each observation has its own row.
+4. Each value has its own cell.
+
+Downstream operations/analysis require tidy data. You can work towards read-to-analyze data incrementally,
+documenting the intermediate data and steps you took in your scripts.  This can be a powerful accelerator 
+for your analysis both now and in the future.  
+
+===
+
+Let's do a few checks to see if our data is tidy.
+```{}
     - make sure data is long
     - make sure blanks are NA or some other standard
     - check date format
     - check case, white space, etc.  
+```    
     
-
+===
     
-Ideas from Openscapes: 
-work towards ready-to-analyze data incrementally, documenting both the intermediate data and the process
-“tidy data", which can be a powerful accelerator for analysis
+### Outputting derived data - review from the basic-R-lesson
+    
+Because we followed the principle of one table/file for each type of observation, 
+we have three tables to be written out to files now.  
 
-One table for each type of observation.
-1. Each variable has its own column.
-2. Each observation has its own row.
-3. Each value has its own cell.
-Downstream operations require tidy data.
+```{}
 
-** Potentially connection to the joins stuff from the data manipulation lesson
+```
 
-
-consistency is key
-using controlled vocab or standard way of describing things, even if only within your project
-
-https://r4ds.had.co.nz/   R for Data Science book by Hadley Wickham, Garrett Grolemund
 
 
 

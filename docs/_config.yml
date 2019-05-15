@@ -15,8 +15,8 @@ slide_sorter:
   - intro
   - data
   - metadata
-  - prov
   - publish
+  - prov
 
 #####################################
 # Only modify content above or risk #
