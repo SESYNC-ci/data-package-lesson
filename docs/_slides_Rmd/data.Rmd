@@ -7,20 +7,24 @@
 Consistency is key when managing your data!
 
 1. At a minimum, use the same terms to refer to the same things throughout your data.
-2. Potentially use a discipline-wide published vocabulary (ex: hydrological vocab.)
 
-
-```{}
-# read in dataset here  ??? What dataset to use as an example dataset ???
-```
+2. Potentially use a discipline-wide published vocabulary (ex: [hydrological controlled vocab.]: http://vocabulary.odm2.org/)
 
 ===
 
 ### Naming data files - review from basic-R-lesson
 
-```{}
+Bad:
 "CeNsus data*2ndTry 2/15/2017.csv"   
+
+Good:
 "census_data_try_2.csv"  # No dates: remember you're using git to version control!
+
+```{r}
+library(tidyverse)
+
+cen_dat <- read_csv("data/ACS/sector_ACS_15_5YR_S2413.csv")
+
 ```
 
 ===
