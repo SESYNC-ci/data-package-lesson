@@ -6,39 +6,56 @@
 
 Metadata is the information needed for someone else to understand and use your data.  
 
-Package-level _and_ dataset-level
+This include package-level _and_ file-level
 
 
 ## Metadata Standards
 
-Goal is to have machine and human readable description of your data. 
+The goal is to have a machine and human readable description of your data. 
 
-Metadata standards - review them  (EML, ISO, etc. (make sure to include social science 
-                                                   and spatial data if appropriate))
+This can again mean using a controlled set of descriptors for your data specified by the standard. 
 
-Discipline-specific differences
+There are several metadata standards, and those standards can vary between disciplines
+and types of data.  
 
-Controlled vocab again
+Underlying one: XML
+
+General ones: Dublin Core
+
+Ecological/Environmental/Biological ones: EML, Darwin Core
+
+Social science ones: DDI, EAD
+
+Geospatial/Meterological/Oceanographic ones: ISO 19115, FGDC/CSDGM (no longer current)
+
 
 ## Common components of metadata
 
 Package-level:
-Geographic area of data (generally)
-Data creator
-Funding source
+ - Geographic area of data (generally)
+ - Data creator
+ - Funding source
 
-Dataset-level:
-Define variable names
-Describe variables (maybe)
-Define allowed values for a variable
-Define units for variable
+File-level:
+ - Define variable names
+ - Describe variables (units, etc.)
+ - Define allowed values for a variable
+ - Define units for variable
 
 
 ## Creating metadata
 
-Creating metadata
-  R packages (EML, dataspice)
-  Other scripted or online ways???
-  GUI for a repository
+Employer-specific methods (ex: USGS)
+
+Repository-specific methods
+
+   GUI for a repository - show pretty picture here: 
+
+   R packages (EML, dataspice)
+
+
+
+
+
 
   
