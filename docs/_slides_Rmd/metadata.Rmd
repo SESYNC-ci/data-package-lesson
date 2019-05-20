@@ -8,8 +8,9 @@ Metadata is the information needed for someone else to understand and use your d
 
 This include package-level _and_ file-level
 
+===
 
-## Metadata Standards
+### Metadata Standards
 
 The goal is to have a machine and human readable description of your data. 
 
@@ -18,18 +19,14 @@ This can again mean using a controlled set of descriptors for your data specifie
 There are several metadata standards, and those standards can vary between disciplines
 and types of data.  
 
-Underlying one: XML
+   - General: [Dublin Core]: http://dublincore.org/
+   - Ecological/Environmental/Biological: [EML]: https://knb.ecoinformatics.org/external//emlparser/docs/index.html, [Darwin Core]: https://dwc.tdwg.org/
+   - Social science: [DDI]: http://www.ddialliance.org/, [EAD]: https://www.loc.gov/ead/ 
+   - Geospatial/Meterological/Oceanographic: ISO 19115, FGDC/CSDGM (no longer current)
 
-General ones: Dublin Core
+===
 
-Ecological/Environmental/Biological ones: EML, Darwin Core
-
-Social science ones: DDI, EAD
-
-Geospatial/Meterological/Oceanographic ones: ISO 19115, FGDC/CSDGM (no longer current)
-
-
-## Common components of metadata
+### Common components of metadata
 
 Package-level:
  - Geographic area of data (generally)
@@ -42,8 +39,9 @@ File-level:
  - Define allowed values for a variable
  - Define units for variable
 
+===
 
-## Creating metadata
+### Creating metadata
 
 Employer-specific methods (ex: USGS)
 

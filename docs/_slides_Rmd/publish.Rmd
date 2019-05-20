@@ -4,12 +4,30 @@
 
 ## Publishing your data
 
+Choosing to publish your data products in a long-term repository can:
 
-Picking a repository or way of publishing
+   - fulfill a journal requirement to publish data
+   - facilitate citing your dataset by assigning a permanent uniquely identifiable code (DOI)
+   - improve discovery of and access to your dataset for others
+   - enable re-use and greater visibility of your work
+
+===
+
+### Picking a repository 
+ ?? Should I even include Zenodo, or does that confuse the situation, since data shouldn't be stored on GitHub ??
+ 
+ [QDR]: https://qdr.syr.edu/, [Data-PASS]: http://data-pass.org/
+ 
  - Include Zenodo, R3D(?), etc.
+ 
 Uploading requirements
+
 Uploading data and metadata - check to see if you can just upload a metadata file...will the repo "see" the metadata?
+
+Embargoing - controlling access
+
 Getting a DOI
+
 Citation
 
 Version unique ids for datasets - mention this
