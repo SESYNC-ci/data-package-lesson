@@ -37,17 +37,17 @@ File-level:
  - Define variable names
  - Describe variables (units, etc.)
  - Define allowed values for a variable
- - Define units for variable
 
 ===
 
 ### Creating metadata
 
-Employer-specific methods (ex: USGS)
+Employer-specific mandated methods (ex: USGS)
 
-Repository-specific methods
+Repository-specific standardized methods
 
-   GUI for a repository - show pretty picture here: 
+   GUI for a repository 
+   ![]({{ site.baseurl }}/images/knb_snap.PNG){: width="100%"} 
 
    R packages (EML, dataspice)
 
