@@ -32,7 +32,7 @@ Citation
 
 Version unique ids for datasets - mention this
 
-Get an ORCiD!!!
+Get an ORCiD!!!  To obtain an ORCID, register at https://orcid.org.
 
 
 rdataone R package

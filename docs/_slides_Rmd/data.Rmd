@@ -23,8 +23,7 @@ Good:
 ```{r}
 library(tidyverse)
 
-cen_dat <- read_csv("data/ACS/????????????????????.csv")
-####################NOTEEEEEE: make "messy" dataset for this demo 
+cen_dat <- read_csv("data/StormEvents.csv")
 ```
 
 ===
@@ -44,21 +43,21 @@ for your analysis both now and in the future.
 
 Let's do a few checks to see if our data is tidy.
 
- - make sure data is long
+ - make sure data meet criteria above
  - make sure blanks are NA or some other standard
-```{}
+```{r}
 head(cen_dat)
 tail(cen_dat)
 ```    
  
  - check date format
-```{}
+```{r}
 str(cen_dat)    
 ```  
 
  - check case, white space, etc.  
-```{}
-unique(cen_dat)     
+```{r}
+unique(cen_dat$EVENT_NARRATIVE)    
 ```
     
 ===
@@ -66,16 +65,24 @@ unique(cen_dat)
 ### Outputting derived data - review from the basic-R-lesson
     
 Because we followed the principle of one table/file for each type of observation, 
-we have ???? tables to be written out to files now.  
+we have one table to be written out to a file now.  
 
-```{}
-write_csv()
+```{r}
+write_csv(cen_dat, "data/StormEvents_d2006.csv")
 ```
 
 ===
     
 ### Versioning your derived data
 
-maybe talk here about uploading a version of your data early on in your research data process, and then versioning the derived data in the repository, taking advantage of the repo-built-in unique ids for each new version of your data - may help address the issue of collaborators using different versions of the data for analysis?
+Issue: Making sure you and your collaborators are using the same version of a dataset
+
+One solution: version your data in a repository
+    Upload a version of your data early on in your research data process.
+    Versioning in the repository will assign a unique ID to each version of your data
+    Can download/use a particular version of the data (even if not the most recent version)
+    Tell collaborators which version you used for analysis
+    
+May help address the issue of collaborators using different versions of the data for analysis.
 
 

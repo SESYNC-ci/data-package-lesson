@@ -51,9 +51,31 @@ Repository-specific standardized methods
 
    R packages (EML, dataspice)
 
+===
+
+```{r}
+library(dataspice)
+```
+
+Create data package templates
+```{r}
+create_spice()
+```
+ 
+The templates are empty, so now we need to populate them.  
+```{r}
+prep_attributes()  
+
+prep_access()
+
+```
 
 
 
 
 
-  
+
+
+
+
+
