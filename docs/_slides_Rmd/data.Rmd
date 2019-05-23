@@ -23,7 +23,7 @@ Good:
 ```{r}
 library(tidyverse)
 
-cen_dat <- read_csv("data/StormEvents.csv")
+stm_dat <- read_csv("data/StormEvents.csv")
 ```
 
 ===
@@ -46,18 +46,18 @@ Let's do a few checks to see if our data is tidy.
  - make sure data meet criteria above
  - make sure blanks are NA or some other standard
 ```{r}
-head(cen_dat)
-tail(cen_dat)
+head(stm_dat)
+tail(stm_dat)
 ```    
  
  - check date format
 ```{r}
-str(cen_dat)    
+str(stm_dat)    
 ```  
 
  - check case, white space, etc.  
 ```{r}
-unique(cen_dat$EVENT_NARRATIVE)    
+unique(stm_dat$EVENT_NARRATIVE)    
 ```
     
 ===
@@ -68,7 +68,7 @@ Because we followed the principle of one table/file for each type of observation
 we have one table to be written out to a file now.  
 
 ```{r}
-write_csv(cen_dat, "data/StormEvents_d2006.csv")
+write_csv(stm_dat, "data/StormEvents_d2006.csv")
 ```
 
 ===

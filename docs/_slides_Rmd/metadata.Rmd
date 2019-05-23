@@ -52,7 +52,7 @@ Repository-specific standardized methods
    R packages (EML, dataspice)
 
 ===
-
+We'll use the [dataspice]: https://github.com/ropenscilabs/dataspice package. 
 ```{r}
 library(dataspice)
 ```
