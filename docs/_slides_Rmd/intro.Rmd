@@ -5,7 +5,6 @@
 ## What is a data package?
 
 A data package is a collection of data files and metadata files that describe the data.  
-It essentially documents the who, what, where, why, and how of your data.  
 
 There are two equally important parts that make up a data package: _data_ and _metadata_.  
 We will get into more details on these components in this lesson.  
@@ -14,15 +13,17 @@ We will get into more details on these components in this lesson.
 
 ## Why package and publish your data?  
 
-1. Funder requirement
+1. Data is a valuable asset
 
-2. Publisher requirement
+2. Efficient collaboration
 
-3. Efficient collaboration
+3. Credit for your work 
 
-4. Credit for your work
+4. Funder requirement
 
-5. Open, Reproducible Science
+5. Publisher requirement
+
+6. Open, Reproducible Science
 
 ===
 

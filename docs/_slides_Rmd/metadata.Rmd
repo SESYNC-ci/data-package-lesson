@@ -4,9 +4,26 @@
 
 ## What is Metadata?
 
-Metadata is the information needed for someone else to understand and use your data.  
+Metadata is the information needed for someone else to understand and use your data.  It is the Who, What, When, Where, Why, and How about your data.  
 
-This include package-level _and_ file-level
+This includes package-level _and_ file-level metadata.  
+
+===
+
+### Common components of metadata
+
+Package-level:
+ - Geographic extent of data (generally)
+ - Data creator
+ - Funding source
+ - Licensing information (Creative Commons, etc.)
+ - Publication date
+
+File-level:
+ - Define variable names
+ - Describe variables (units, etc.)
+ - Define allowed values for a variable
+ - Describe file formats
 
 ===
 
@@ -17,26 +34,12 @@ The goal is to have a machine and human readable description of your data.
 This can again mean using a controlled set of descriptors for your data specified by the standard. 
 
 There are several metadata standards, and those standards can vary between disciplines
-and types of data.  
+and types of data.  Some examples include:
 
    - General: [Dublin Core]: http://dublincore.org/
    - Ecological/Environmental/Biological: [EML]: https://knb.ecoinformatics.org/external//emlparser/docs/index.html, [Darwin Core]: https://dwc.tdwg.org/
    - Social science: [DDI]: http://www.ddialliance.org/, [EAD]: https://www.loc.gov/ead/ 
-   - Geospatial/Meterological/Oceanographic: ISO 19115, FGDC/CSDGM (no longer current)
-
-===
-
-### Common components of metadata
-
-Package-level:
- - Geographic area of data (generally)
- - Data creator
- - Funding source
-
-File-level:
- - Define variable names
- - Describe variables (units, etc.)
- - Define allowed values for a variable
+   - Geospatial/Meterological/Oceanographic: [ISO 19115]: https://www.iso.org/standard/53798.html, FGDC/CSDGM (no longer current)
 
 ===
 
@@ -48,33 +51,76 @@ Repository-specific standardized methods
 
    GUI for a repository 
    ![]({{ site.baseurl }}/images/knb_snap.PNG){: width="100%"} 
+   
+   Data Curator 
 
-   R packages (EML, dataspice)
+   R packages (EML, dataspice, emld)
 
 ===
+
 We'll use the [dataspice]: https://github.com/ropenscilabs/dataspice package. 
 ```{r}
-library(dataspice)
+devtools::install_github("ropenscilabs/dataspice")
+library(dataspice) ; library(here)
 ```
 
 Create data package templates
 ```{r}
-create_spice()
+create_spice(dir = "data_package")  # this is for the class
 ```
  
-The templates are empty, so now we need to populate them.  
+=== 
+ 
+The templates are empty, so now we need to populate them. 
+We'll start with package-level metadata. 
+
+Add extent, coverage, license, publication, funder, keywords, etc. 
 ```{r}
-prep_attributes()  
+# extract the temporal extents
+range(stm_dat$YEAR)
 
-prep_access()
+# extract the spatial extents
+range(stm_dat$BEGIN_LAT, na.rm=TRUE)
+range(stm_dat$BEGIN_LON, na.rm=TRUE)
 
+edit_biblio(metadata_dir = here::here("data_package", "metadata"))
 ```
 
+===
 
+Describe the creators of the data. 
+```{r}
+edit_creators(metadata_dir = here::here("data_package", "metadata"))
+```
 
+===
 
+Add information about where the data can be accessed.
+```{r}
+prep_access(data_path = here::here("data_package"),
+            access_path = here::here("data_package", "metadata", "access.csv"))
 
+edit_access(metadata_dir = here::here("data_package", "metadata"))
+```
 
+===
+
+We'll describe the file-level metadata now.
+Add attributes of the data.
+```{r}
+prep_attributes(data_path = here::here("data_package"),
+                attributes_path = here::here("data_package", "metadata", "attributes.csv"))  
+
+edit_attributes(metadata_dir = here::here("data_package", "metadata"))
+```
+
+===
+
+Now we can write our metadata to a json-ld file.
+```{r}
+write_spice(metadata_dir = here::here("data_package", "metadata"))
+
+```
 
 
 

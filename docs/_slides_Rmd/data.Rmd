@@ -23,7 +23,7 @@ Good:
 ```{r}
 library(tidyverse)
 
-stm_dat <- read_csv("data/StormEvents.csv")
+stm_dat <- read_csv("data/data_package/StormEvents.csv")
 ```
 
 ===
@@ -68,7 +68,7 @@ Because we followed the principle of one table/file for each type of observation
 we have one table to be written out to a file now.  
 
 ```{r}
-write_csv(stm_dat, "data/StormEvents_d2006.csv")
+write_csv(stm_dat, "data_package/StormEvents_d2006.csv")
 ```
 
 ===
