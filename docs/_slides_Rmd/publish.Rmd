@@ -13,12 +13,26 @@ Choosing to publish your data products in a long-term repository can:
 
 ===
 
+### Get an ORCiD 
+ 
+ORCiDs identify you and link you to your publications and research products.  They are used by journals, repositories, etc. and often as a log in.  To obtain an ORCiD, register at [https://orcid.org]: https://orcid.org.
+
+===
+
 ### Picking a repository 
+
+There are many repositories out there, and it can seem overwhelming picking a suitable one for your data. 
+
+Many repositories can be subject or domain specific.  [re3data]: https://www.re3data.org/ lists repositories by subject and can help you pick an appropriate repository for your data.  
+
+For qualitative data, there are a few dedicated repositories: [QDR]: https://qdr.syr.edu/, [Data-PASS]: http://data-pass.org/
+
+
 Mention Zenodo in the context of archiving their code from GitHub (emphasize not the data though).
  
-For qualitative data -- [QDR]: https://qdr.syr.edu/, [Data-PASS]: http://data-pass.org/
- 
- - Include R3D, etc.
+===
+
+
  
 Uploading requirements
 
@@ -32,7 +46,7 @@ Citation
 
 Version unique ids for datasets - mention this
 
-Get an ORCiD!!!  To obtain an ORCID, register at https://orcid.org.
+
 
 
 rdataone R package
