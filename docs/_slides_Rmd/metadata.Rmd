@@ -133,14 +133,14 @@ write_spice(path = here::here("data_package", "metadata"))
 
 ===
 
-Now let's convert the json-ld file into EML (Ecological Metadata Language).
+Now convert the json-ld file into EML (Ecological Metadata Language).
 ```{r}
 library(emld) ; library(EML) ; library(jsonlite)
 
-json <- jsonlite::read_json("data_package/metadata/dataspice.json")
+json <- jsonlite::read_json("data/data_package/metadata/dataspice.json")
 eml <- emld::as_emld(json)
 # xml <- emld::as_xml(eml)
-write_eml(eml, "data_package/metadata/dataspice.xml")
+write_eml(eml, "data/data_package/metadata/dataspice.xml")
 
 ```
 

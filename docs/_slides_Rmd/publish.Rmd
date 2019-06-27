@@ -6,6 +6,7 @@
 
 Choosing to publish your data products in a long-term repository can:
 
+   - enable versioning of your data
    - fulfill a journal requirement to publish data
    - facilitate citing your dataset by assigning a permanent uniquely identifiable code (DOI)
    - improve discovery of and access to your dataset for others
@@ -13,9 +14,29 @@ Choosing to publish your data products in a long-term repository can:
 
 ===
 
+### When to publish your data?
+
+Near beginning?  At very end?  
+
+A couple issues to think about: 
+
+1) How do you know you're using the same version of a file as your collaborator?
+
+   Publish your data privately and use the unique ids of datasets to manage versions.
+
+2) How do you control access to your data until you're ready to go public with it?
+
+   Embargoing - controlling access for a certain period of time and then making your data public.
+
+===
+
 ### Get an ORCiD 
  
-ORCiDs identify you and link you to your publications and research products.  They are used by journals, repositories, etc. and often as a log in.  To obtain an ORCiD, register at [https://orcid.org]: https://orcid.org.
+ORCiDs identify you and link you to your publications and research products.  They are used by journals, repositories, etc. and often as a log in.  
+![]({{ site.baseurl }}/images/Sign_In_snap.PNG){: width="100%"} 
+
+To obtain an ORCiD, register at [https://orcid.org]: https://orcid.org.
+![]({{ site.baseurl }}/images/orcid_snap.PNG){: width="100%"} 
 
 ===
 
@@ -37,23 +58,109 @@ Though a bit different, [Zenodo]: https://zenodo.org/ facilitates publishing (wi
 
 ===
 
+### Uploading to a repository
 
- 
-Uploading requirements
+Uploading requirements can vary by repository and type of data.  The minimum you usually need is basic metadata, and a data file.  
+
+If you have a small number of files, using a repository GUI will usually be simpler.  For large numbers of files, automating uploads from R will save time.  
+
+===
+
+First we'll create a local data package using [`datapack`]: https://docs.ropensci.org/datapack/:
+
+```{r}
+library(datapack)
+library(uuid)
+
+dp <- new("DataPackage") # create empty data package
+```
+
+Add the metadata file we created earlier to the blank data package.
+```{r}
+emlFile <- system.file("data/data_package/metadata/dataspice.xml", package = "datapack")
+emlId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
+
+mdObj <- new("DataObject", id = emlId, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+
+dp <- addData(dp, mdObj)  # add metadata file to data package
+```
+
+===
+
+Add the data file we saved earlier to the data package.
+```{r}
+datafile <- system.file("data/data_package/StormEvents.csv", package = "datapack")
+dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
+
+dataObj <- new("DataObject", id = dataId, format = "text/csv", filename = datafile) 
+
+dp <- addData(dp, dataObj) # add data file to data package
+```
+
+Define the relationship between the data and metadata. 
+```{r}
+dp <- insertRelationship(dp, subjectID = emlId, objectIDs = dataId)
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Now to upload our data package to a repository, we need to use the `rdataone` package.  
+
+1) Get authentication token for DataONE (follow steps [here]: https://github.com/DataONEorg/rdataone/blob/master/vignettes/dataone-federation.Rmd)
+
+2) Upload your data package from R (from vignette for [rdataone]: https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd)
+
+
+
+You can also add scripts and derived data files to the data package.  See the `rdataone` vignettes for more details.
+
+===
+
+You can set the level of access to your data package.  
+#####################################################To grant read permission to all users (??????Is this just for a file or for the whole package???):
+```{r}
+sourceObj <- setPublicAccess(sourceObj)
+```
+
+<!-- To make your data package private:  -->
+<!-- ```{r} -->
+<!-- sourceObj <- setPrivateAccess(sourceObj) -->
+<!-- ``` -->
+
+
+
+
 
 Uploading data and metadata - check to see if you can just upload a metadata file...will the repo "see" the metadata?
 
-Embargoing - controlling access
+
+
+===
+
+### Citation
 
 Getting a DOI
 
-Citation
-
-Version unique ids for datasets - mention this
 
 
 
 
-rdataone R package
+
 
 
