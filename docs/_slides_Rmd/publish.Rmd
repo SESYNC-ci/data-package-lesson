@@ -69,71 +69,66 @@ If you have a small number of files, using a repository GUI will usually be simp
 First we'll create a local data package using [`datapack`]: https://docs.ropensci.org/datapack/:
 
 ```{r}
-library(datapack)
-library(uuid)
+library(datapack) ; library(uuid)
 
 dp <- new("DataPackage") # create empty data package
 ```
 
 Add the metadata file we created earlier to the blank data package.
 ```{r}
-emlFile <- system.file("data/data_package/metadata/dataspice.xml", package = "datapack")
+emlFile <- "data_package/metadata/dataspice.xml"
 emlId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
 mdObj <- new("DataObject", id = emlId, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
 
-dp <- addData(dp, mdObj)  # add metadata file to data package
+dp <- addMember(dp, mdObj)  # add metadata file to data package
 ```
 
 ===
 
 Add the data file we saved earlier to the data package.
 ```{r}
-datafile <- system.file("data/data_package/StormEvents.csv", package = "datapack")
+datafile <- "data_package/StormEvents_d2006.csv"
 dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
 dataObj <- new("DataObject", id = dataId, format = "text/csv", filename = datafile) 
 
-dp <- addData(dp, dataObj) # add data file to data package
+dp <- addMember(dp, dataObj) # add data file to data package
 ```
 
 Define the relationship between the data and metadata. 
 ```{r}
 dp <- insertRelationship(dp, subjectID = emlId, objectIDs = dataId)
-
-
 ```
 
+You can also add scripts and derived data files to the data package.  
 
+===
 
+Create a Resource Description Framework (RDF) of the relationships between data and metadata.
+```{r}
+serializationId <- paste("resourceMap", UUIDgenerate(), sep = "")
+filePath <- file.path(sprintf("%s/%s.rdf", tempdir(), serializationId))
+status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
+```
 
+Save the data package to a file, using the [BagIt]: https://tools.ietf.org/id/draft-kunze-bagit-16.html packaging format.  
+```{r}
+dp_bagit <- serializeToBagIt(dp) 
+```
 
+===
 
-
-
-
-
-
-
-
-
-
-
-
-Now to upload our data package to a repository, we need to use the `rdataone` package.  
+Now to upload our data package to a repository in the DataONE federation, we need to use the `rdataone` package.  
 
 1) Get authentication token for DataONE (follow steps [here]: https://github.com/DataONEorg/rdataone/blob/master/vignettes/dataone-federation.Rmd)
 
 2) Upload your data package from R (from vignette for [rdataone]: https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd)
 
-
-
-You can also add scripts and derived data files to the data package.  See the `rdataone` vignettes for more details.
-
 ===
 
 You can set the level of access to your data package.  
-#####################################################To grant read permission to all users (??????Is this just for a file or for the whole package???):
+##################################################### To grant read permission to all users (?????? Is this just for a file or for the whole package???):
 ```{r}
 sourceObj <- setPublicAccess(sourceObj)
 ```
@@ -142,13 +137,6 @@ sourceObj <- setPublicAccess(sourceObj)
 <!-- ```{r} -->
 <!-- sourceObj <- setPrivateAccess(sourceObj) -->
 <!-- ``` -->
-
-
-
-
-
-Uploading data and metadata - check to see if you can just upload a metadata file...will the repo "see" the metadata?
-
 
 
 ===
