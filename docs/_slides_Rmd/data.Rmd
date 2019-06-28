@@ -45,18 +45,18 @@ Let's do a few checks to see if our data is tidy.
 
  - make sure data meet criteria above
  - make sure blanks are NA or some other standard
-```{r}
+```{r, eval = FALSE}
 head(stm_dat)
 tail(stm_dat)
 ```    
  
  - check date format
-```{r}
+```{r, eval = FALSE}
 str(stm_dat)    
 ```  
 
  - check case, white space, etc.  
-```{r}
+```{r, eval = FALSE}
 unique(stm_dat$EVENT_NARRATIVE)    
 ```
     

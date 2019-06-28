@@ -115,7 +115,7 @@ Repositories can be subject or domain specific.  [re3data](https://www.re3data.o
 
 ===
 
-[DataONE](https://www.dataone.org/) is a federation of repositories housing many different types of data.  Some of these repositories include Knowledge Network for Biocomplexity[(KNB)](https://knb.ecoinformatics.org/), Environmental Data Initiative [(EDI)](https://environmentaldatainitiative.org/), [Dryad](https://datadryad.org/), [USGS Science Data Catalog](https://data.usgs.gov/datacatalog/)
+[DataONE](https://www.dataone.org/) is a federation of repositories housing many different types of data.  Some of these repositories include Knowledge Network for Biocomplexity [(KNB)](https://knb.ecoinformatics.org/), Environmental Data Initiative [(EDI)](https://environmentaldatainitiative.org/), [Dryad](https://datadryad.org/), [USGS Science Data Catalog](https://data.usgs.gov/datacatalog/)
 
 For qualitative data, there are a few dedicated repositories: [QDR](https://qdr.syr.edu/), [Data-PASS](http://data-pass.org/)
 

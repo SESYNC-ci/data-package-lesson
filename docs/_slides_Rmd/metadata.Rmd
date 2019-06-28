@@ -49,20 +49,17 @@ Employer-specific mandated methods (ex: USGS)
 
 Repository-specific methods
 
-   GUI for a repository (more on this later)
+   *GUI for a repository (more on this later)
    ![]({{ site.baseurl }}/images/knb_snap.PNG){: width="100%"} 
    
 Stand-alone software
    
-   [Data Curator]: https://github.com/ODIQueensland/data-curator - still in beta
+   *[Data Curator](https://github.com/ODIQueensland/data-curator) - still in beta
    ![]({{ site.baseurl }}/images/Data_Curator_snap.PNG){: width="100%"} 
-      
-   [Morpho]: https://knb.ecoinformatics.org/tools - stable but not terribly user friendly
-   ![]({{ site.baseurl }}/images/Morpho_snap.PNG){: width="100%"} 
-   
-Coding
 
-   R packages (EML, dataspice, emld)
+Coding 
+
+   *R packages (EML, dataspice, emld)
 
 ===
 
