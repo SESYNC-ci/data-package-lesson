@@ -40,33 +40,18 @@ To obtain an ORCiD, register at [https://orcid.org]: https://orcid.org.
 
 ===
 
-### Picking a repository 
+### Creating a data package
 
-There are many repositories out there, and it can seem overwhelming picking a suitable one for your data. 
+Data packages can include metadata, data, and script files, as well as descriptions of the relationships between those files.   
 
-Repositories can be subject or domain specific.  [re3data]: https://www.re3data.org/ lists repositories by subject and can help you pick an appropriate repository for your data.  
+Currently there are a few ways to make a data package.  
+[Frictionless Data]:  https://frictionlessdata.io/docs/data-package/ uses json-ld format, and has the R package [`datapackage.r`]: https://github.com/frictionlessdata/datapackage-r which creates metadata files using schema.org specifications and creates a data package.  
 
-===
-
-[DataONE]: https://www.dataone.org/ is a federation of repositories housing many different types of data.  Some of these repositories include Knowledge Network for Biocomplexity[(KNB)]: https://knb.ecoinformatics.org/, Environmental Data Initiative [(EDI)]: https://environmentaldatainitiative.org/, [Dryad]: https://datadryad.org/, [USGS Science Data Catalog]: https://data.usgs.gov/datacatalog/
-
-For qualitative data, there are a few dedicated repositories: [QDR]: https://qdr.syr.edu/, [Data-PASS]: http://data-pass.org/
+[DataONE]: https://www.dataone.org/ frequently uses EML format for metadata, and has related R packages `datapack` and `rdataone` that create data packages and upload data packages to a repository.  
 
 ===
 
-Though a bit different, [Zenodo]: https://zenodo.org/ facilitates publishing (with a DOI) and archiving all research outputs from all research fields.  This can be used to publish releases of your code that lives in a GitHub repository.  However, since GitHub is not designed for data storage and is not a persistent repository, this is not a recommended way to store or publish data.  
-
-===
-
-### Uploading to a repository
-
-Uploading requirements can vary by repository and type of data.  The minimum you usually need is basic metadata, and a data file.  
-
-If you have a small number of files, using a repository GUI will usually be simpler.  For large numbers of files, automating uploads from R will save time.  
-
-===
-
-First we'll create a local data package using [`datapack`]: https://docs.ropensci.org/datapack/:
+We'll create a local data package using [`datapack`]: https://docs.ropensci.org/datapack/:
 
 ```{r}
 library(datapack) ; library(uuid)
@@ -114,40 +99,83 @@ status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
 
 Save the data package to a file, using the [BagIt]: https://tools.ietf.org/id/draft-kunze-bagit-16.html packaging format.  
 ```{r}
-dp_bagit <- serializeToBagIt(dp) 
+dp_bagit <- serializeToBagIt(dp) # right now this creates a zipped file in the tmp directory
+# now we have to move the file out of the tmp directory
+file.copy(dp_bagit, "data_package/Storm_dp.zip") 
+# hopefully this will be changed soon!  https://github.com/ropensci/datapack/issues/108
 ```
 
 ===
 
-Now to upload our data package to a repository in the DataONE federation, we need to use the `rdataone` package.  
+### Picking a repository 
+
+There are many repositories out there, and it can seem overwhelming picking a suitable one for your data. 
+
+Repositories can be subject or domain specific.  [re3data]: https://www.re3data.org/ lists repositories by subject and can help you pick an appropriate repository for your data.  
+
+===
+
+[DataONE]: https://www.dataone.org/ is a federation of repositories housing many different types of data.  Some of these repositories include Knowledge Network for Biocomplexity[(KNB)]: https://knb.ecoinformatics.org/, Environmental Data Initiative [(EDI)]: https://environmentaldatainitiative.org/, [Dryad]: https://datadryad.org/, [USGS Science Data Catalog]: https://data.usgs.gov/datacatalog/
+
+For qualitative data, there are a few dedicated repositories: [QDR]: https://qdr.syr.edu/, [Data-PASS]: http://data-pass.org/
+
+===
+
+Though a bit different, [Zenodo]: https://zenodo.org/ facilitates publishing (with a DOI) and archiving all research outputs from all research fields.  This can be used to publish releases of your code that lives in a GitHub repository.  However, since GitHub is not designed for data storage and is not a persistent repository, this is not a recommended way to store or publish data.  
+
+===
+
+### Uploading to a repository
+
+Uploading requirements can vary by repository and type of data.  The minimum you usually need is basic metadata, and a data file.  
+
+If you have a small number of files, using a repository GUI will usually be simpler.  For large numbers of files, automating uploads from R will save time.  And it's reproducible!  
+
+If you choose, you can upload the data package to a repository in the DataONE federation using the `rdataone` package.  
 
 1) Get authentication token for DataONE (follow steps [here]: https://github.com/DataONEorg/rdataone/blob/master/vignettes/dataone-federation.Rmd)
 
-2) Upload your data package from R (from vignette for [rdataone]: https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd)
+2) Upload your data package using R (from vignette for [rdataone]: https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd)
 
 ===
 
 You can set the level of access to your data package.  
-##################################################### To grant read permission to all users (?????? Is this just for a file or for the whole package???):
 ```{r}
-sourceObj <- setPublicAccess(sourceObj)
+library(dataone)
+
+dpAccessRules <- data.frame(subject="http://orcid.org/0000-0000-0000-0000", permission="changePermission") 
+# this gives this particular orcid (person) permission to read, write, and change permissions for others for this package
+
+dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0000-0000-0000",
+                                         "http://orcid.org/0000-0000-0000-0001"),
+                             permission = c("changePermission", "read")
+                            )
 ```
+NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
 
-<!-- To make your data package private:  -->
-<!-- ```{r} -->
-<!-- sourceObj <- setPrivateAccess(sourceObj) -->
-<!-- ``` -->
+Upload data package
+```{r}
+########### How are you supposed to figure out the URN Node specifications???????????????
+d1c <- D1Client("STAGING", "urn:node:mnXXXXXX") # first set which repository you'll upload to
 
+packageId <- uploadDataPackage(d1c, dp_bagit, public = FALSE, accessRules = dpAccessRules, quiet = FALSE)
+```
 
 ===
 
 ### Citation
 
-Getting a DOI
+Getting a Digital Object Identifier (DOI) for your data package can make it easier for others to find and cite your data.  
 
+You can assign a DOI to the metadata file for your data package using: 
+```{r}
+cn <- CNode("STAGING")
+mn <- getMNode(cn, "urn:node:mnXXXXXXXX")  ########### How are you supposed to figure out the URN Node specifications???????????????
+doi <- generateIdentifier(mn, "DOI")
 
-
-
+# now we'll overwrite our previous metadata fiel with the new DOI identified metadata file
+mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+```
 
 
 
