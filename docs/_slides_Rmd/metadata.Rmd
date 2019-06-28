@@ -91,14 +91,16 @@ range(stm_dat$YEAR)
 # extract the spatial extents
 range(stm_dat$BEGIN_LAT, na.rm=TRUE)
 range(stm_dat$BEGIN_LON, na.rm=TRUE)
+```
 
+```{r, eval = FALSE}
 edit_biblio(metadata_dir = here::here("data_package", "metadata"))
 ```
 
 ===
 
 Describe the creators of the data. 
-```{r}
+```{r, eval = FALSE}
 edit_creators(metadata_dir = here::here("data_package", "metadata"))
 ```
 
@@ -108,7 +110,9 @@ Add information about where the data can be accessed.
 ```{r}
 prep_access(data_path = here::here("data_package"),
             access_path = here::here("data_package", "metadata", "access.csv"))
+```
 
+```{r, eval = FALSE}
 edit_access(metadata_dir = here::here("data_package", "metadata"))
 ```
 
@@ -119,7 +123,9 @@ Add attributes of the data.
 ```{r}
 prep_attributes(data_path = here::here("data_package"),
                 attributes_path = here::here("data_package", "metadata", "attributes.csv"))  
+```
 
+```{r, eval = FALSE}
 edit_attributes(metadata_dir = here::here("data_package", "metadata"))
 ```
 
@@ -128,7 +134,6 @@ edit_attributes(metadata_dir = here::here("data_package", "metadata"))
 Now we can write our metadata to a json-ld file.
 ```{r}
 write_spice(path = here::here("data_package", "metadata"))
-
 ```
 
 ===
@@ -141,7 +146,6 @@ json <- jsonlite::read_json("data_package/metadata/dataspice.json")
 eml <- emld::as_emld(json)
 # xml <- emld::as_xml(eml)
 write_eml(eml, "data_package/metadata/dataspice.xml")
-
 ```
 
 ===
