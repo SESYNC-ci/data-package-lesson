@@ -33,7 +33,7 @@ We will get into more details on these components in this lesson.
 
 Raw data: may come with metadata if downloaded from somewhere; if you generate data, need to document it
 
-Data cleaning/compilation/synthesis: Scipt any manipulation of the raw data (don't change the raw data file!)  Record all the steps used to process data.
+Data cleaning/compilation/synthesis: Script any manipulation of the raw data (don't change the raw data file!)  Record all the steps used to process data.
 
 Derived data: Output dervied data from script and document it
 

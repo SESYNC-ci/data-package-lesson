@@ -8,7 +8,7 @@ Consistency is key when managing your data!
 
 1. At a minimum, use the same terms to refer to the same things throughout your data.
 
-2. Potentially use a discipline-wide published vocabulary (ex: [hydrological controlled vocab.]: http://vocabulary.odm2.org/)
+2. Potentially use a discipline-wide published vocabulary (ex: [hydrological controlled vocab.](http://vocabulary.odm2.org/))
 
 ===
 

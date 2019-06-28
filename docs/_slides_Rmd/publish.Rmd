@@ -35,7 +35,7 @@ A couple issues to think about:
 ORCiDs identify you and link you to your publications and research products.  They are used by journals, repositories, etc. and often as a log in.  
 ![]({{ site.baseurl }}/images/Sign_In_snap.PNG){: width="100%"} 
 
-To obtain an ORCiD, register at [https://orcid.org]: https://orcid.org.
+To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
 ![]({{ site.baseurl }}/images/orcid_snap.PNG){: width="100%"} 
 
 ===
@@ -45,13 +45,13 @@ To obtain an ORCiD, register at [https://orcid.org]: https://orcid.org.
 Data packages can include metadata, data, and script files, as well as descriptions of the relationships between those files.   
 
 Currently there are a few ways to make a data package.  
-[Frictionless Data]:  https://frictionlessdata.io/docs/data-package/ uses json-ld format, and has the R package [`datapackage.r`]: https://github.com/frictionlessdata/datapackage-r which creates metadata files using schema.org specifications and creates a data package.  
+[Frictionless Data](https://frictionlessdata.io/docs/data-package/) uses json-ld format, and has the R package [`datapackage.r`](https://github.com/frictionlessdata/datapackage-r) which creates metadata files using schema.org specifications and creates a data package.  
 
-[DataONE]: https://www.dataone.org/ frequently uses EML format for metadata, and has related R packages `datapack` and `rdataone` that create data packages and upload data packages to a repository.  
+[DataONE](https://www.dataone.org/) frequently uses EML format for metadata, and has related R packages `datapack` and `rdataone` that create data packages and upload data packages to a repository.  
 
 ===
 
-We'll create a local data package using [`datapack`]: https://docs.ropensci.org/datapack/:
+We'll create a local data package using [`datapack`](https://docs.ropensci.org/datapack/):
 
 ```{r}
 library(datapack) ; library(uuid)
@@ -97,7 +97,7 @@ filePath <- file.path(sprintf("%s/%s.rdf", tempdir(), serializationId))
 status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
 ```
 
-Save the data package to a file, using the [BagIt]: https://tools.ietf.org/id/draft-kunze-bagit-16.html packaging format.  
+Save the data package to a file, using the [BagIt](https://tools.ietf.org/id/draft-kunze-bagit-16.html) packaging format.  
 ```{r}
 dp_bagit <- serializeToBagIt(dp) # right now this creates a zipped file in the tmp directory
 # now we have to move the file out of the tmp directory
@@ -111,17 +111,17 @@ file.copy(dp_bagit, "data_package/Storm_dp.zip")
 
 There are many repositories out there, and it can seem overwhelming picking a suitable one for your data. 
 
-Repositories can be subject or domain specific.  [re3data]: https://www.re3data.org/ lists repositories by subject and can help you pick an appropriate repository for your data.  
+Repositories can be subject or domain specific.  [re3data](https://www.re3data.org/) lists repositories by subject and can help you pick an appropriate repository for your data.  
 
 ===
 
-[DataONE]: https://www.dataone.org/ is a federation of repositories housing many different types of data.  Some of these repositories include Knowledge Network for Biocomplexity[(KNB)]: https://knb.ecoinformatics.org/, Environmental Data Initiative [(EDI)]: https://environmentaldatainitiative.org/, [Dryad]: https://datadryad.org/, [USGS Science Data Catalog]: https://data.usgs.gov/datacatalog/
+[DataONE](https://www.dataone.org/) is a federation of repositories housing many different types of data.  Some of these repositories include Knowledge Network for Biocomplexity[(KNB)](https://knb.ecoinformatics.org/), Environmental Data Initiative [(EDI)](https://environmentaldatainitiative.org/), [Dryad](https://datadryad.org/), [USGS Science Data Catalog](https://data.usgs.gov/datacatalog/)
 
-For qualitative data, there are a few dedicated repositories: [QDR]: https://qdr.syr.edu/, [Data-PASS]: http://data-pass.org/
+For qualitative data, there are a few dedicated repositories: [QDR](https://qdr.syr.edu/), [Data-PASS](http://data-pass.org/)
 
 ===
 
-Though a bit different, [Zenodo]: https://zenodo.org/ facilitates publishing (with a DOI) and archiving all research outputs from all research fields.  This can be used to publish releases of your code that lives in a GitHub repository.  However, since GitHub is not designed for data storage and is not a persistent repository, this is not a recommended way to store or publish data.  
+Though a bit different, [Zenodo](https://zenodo.org/) facilitates publishing (with a DOI) and archiving all research outputs from all research fields.  This can be used to publish releases of your code that lives in a GitHub repository.  However, since GitHub is not designed for data storage and is not a persistent repository, this is not a recommended way to store or publish data.  
 
 ===
 
@@ -133,9 +133,9 @@ If you have a small number of files, using a repository GUI will usually be simp
 
 If you choose, you can upload the data package to a repository in the DataONE federation using the `rdataone` package.  
 
-1) Get authentication token for DataONE (follow steps [here]: https://github.com/DataONEorg/rdataone/blob/master/vignettes/dataone-federation.Rmd)
+1) Get authentication token for DataONE (follow steps [here](https://github.com/DataONEorg/rdataone/blob/master/vignettes/dataone-federation.Rmd))
 
-2) Upload your data package using R (from vignette for [rdataone]: https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd)
+2) Upload your data package using R (from vignette for [rdataone](https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd))
 
 ===
 
