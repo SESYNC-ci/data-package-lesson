@@ -20,7 +20,7 @@ Bad:
 Good:
 "census_data_try_2.csv"  
 
-```{r}
+```{r, message = FALSE, title = "{{ site.handouts[1] }}"}
 library(tidyverse)
 
 stm_dat <- read_csv("data/data_package/StormEvents.csv")
@@ -35,7 +35,7 @@ stm_dat <- read_csv("data/data_package/StormEvents.csv")
 3. Each observation has its own row.
 4. Each value has its own cell.
 
-Downstream operations/analysis require tidy data. You can work towards read-to-analyze data incrementally,
+Downstream operations/analysis require tidy data. You can work towards ready-to-analyze data incrementally,
 documenting the intermediate data and steps you took in your scripts.  This can be a powerful accelerator 
 for your analysis both now and in the future.  
 
@@ -67,7 +67,7 @@ unique(stm_dat$EVENT_NARRATIVE)
 Because we followed the principle of one table/file for each type of observation, 
 we have one table to be written out to a file now.  
 
-```{r}
+```{r, title = "{{ site.handouts[1] }}"}
 write_csv(stm_dat, "data_package/StormEvents_d2006.csv")
 ```
 

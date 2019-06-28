@@ -22,11 +22,11 @@ A couple issues to think about:
 
 1) How do you know you're using the same version of a file as your collaborator?
 
-   Publish your data privately and use the unique ids of datasets to manage versions.
+   - Publish your data privately and use the unique ids of datasets to manage versions.
 
 2) How do you control access to your data until you're ready to go public with it?
 
-   Embargoing - controlling access for a certain period of time and then making your data public.
+   - Embargoing - controlling access for a certain period of time and then making your data public.
 
 ===
 
@@ -44,23 +44,23 @@ To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
 
 Data packages can include metadata, data, and script files, as well as descriptions of the relationships between those files.   
 
-Currently there are a few ways to make a data package.  
-[Frictionless Data](https://frictionlessdata.io/docs/data-package/) uses json-ld format, and has the R package [`datapackage.r`](https://github.com/frictionlessdata/datapackage-r) which creates metadata files using schema.org specifications and creates a data package.  
+Currently there are a few ways to make a data package"  
+- [Frictionless Data](https://frictionlessdata.io/docs/data-package/) uses json-ld format, and has the R package [`datapackage.r`](https://github.com/frictionlessdata/datapackage-r) which creates metadata files using schema.org specifications and creates a data package.  
 
-[DataONE](https://www.dataone.org/) frequently uses EML format for metadata, and has related R packages `datapack` and `rdataone` that create data packages and upload data packages to a repository.  
+- [DataONE](https://www.dataone.org/) frequently uses EML format for metadata, and has related R packages `datapack` and `rdataone` that create data packages and upload data packages to a repository.  
 
 ===
 
 We'll create a local data package using [`datapack`](https://docs.ropensci.org/datapack/):
 
-```{r}
+```{r, message = FALSE, title = "{{ site.handouts[3] }}"}
 library(datapack) ; library(uuid)
 
 dp <- new("DataPackage") # create empty data package
 ```
 
 Add the metadata file we created earlier to the blank data package.
-```{r}
+```{r, title = "{{ site.handouts[3] }}"}
 emlFile <- "data_package/metadata/dataspice.xml"
 emlId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
@@ -72,7 +72,7 @@ dp <- addMember(dp, mdObj)  # add metadata file to data package
 ===
 
 Add the data file we saved earlier to the data package.
-```{r}
+```{r, title = "{{ site.handouts[3] }}"}
 datafile <- "data_package/StormEvents_d2006.csv"
 dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
@@ -82,7 +82,7 @@ dp <- addMember(dp, dataObj) # add data file to data package
 ```
 
 Define the relationship between the data and metadata. 
-```{r}
+```{r, title = "{{ site.handouts[3] }}"}
 dp <- insertRelationship(dp, subjectID = emlId, objectIDs = dataId)
 ```
 
@@ -91,14 +91,14 @@ You can also add scripts and derived data files to the data package.
 ===
 
 Create a Resource Description Framework (RDF) of the relationships between data and metadata.
-```{r}
+```{r, title = "{{ site.handouts[3] }}"}
 serializationId <- paste("resourceMap", UUIDgenerate(), sep = "")
 filePath <- file.path(sprintf("%s/%s.rdf", tempdir(), serializationId))
 status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
 ```
 
 Save the data package to a file, using the [BagIt](https://tools.ietf.org/id/draft-kunze-bagit-16.html) packaging format.  
-```{r}
+```{r, message = FALSE, title = "{{ site.handouts[3] }}"}
 dp_bagit <- serializeToBagIt(dp) # right now this creates a zipped file in the tmp directory
 # now we have to move the file out of the tmp directory
 file.copy(dp_bagit, "data_package/Storm_dp.zip") 
@@ -139,8 +139,8 @@ If you choose, you can upload the data package to a repository in the DataONE fe
 
 ===
 
-You can set the level of access to your data package.  
-```{r, eval = FALSE}
+####You can set the level of access to your data package.  
+```{r, eval = FALSE, title = "{{ site.handouts[3] }}"}
 library(dataone)
 
 dpAccessRules <- data.frame(subject="http://orcid.org/0000-0000-0000-0000", permission="changePermission") 
@@ -153,8 +153,8 @@ dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0000-0000-0000",
 ```
 NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
 
-Upload data package
-```{r, eval = FALSE}
+####Upload data package
+```{r, eval = FALSE, title = "{{ site.handouts[3] }}"}
 ########### How are you supposed to figure out the URN Node specifications???????????????
 d1c <- D1Client("STAGING", "urn:node:mnXXXXXX") # first set which repository you'll upload to
 
@@ -168,7 +168,7 @@ packageId <- uploadDataPackage(d1c, dp_bagit, public = FALSE, accessRules = dpAc
 Getting a Digital Object Identifier (DOI) for your data package can make it easier for others to find and cite your data.  
 
 You can assign a DOI to the metadata file for your data package using: 
-```{r, eval = FALSE}
+```{r, eval = FALSE, title = "{{ site.handouts[3] }}"}
 cn <- CNode("STAGING")
 mn <- getMNode(cn, "urn:node:mnXXXXXXXX")  ########### How are you supposed to figure out the URN Node specifications???????????????
 doi <- generateIdentifier(mn, "DOI")

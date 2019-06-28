@@ -68,13 +68,13 @@ Coding
 
 ### Example of coding up some metadata
 
-We'll use the [dataspice]: https://github.com/ropenscilabs/dataspice package. 
-```{r}
+We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package. 
+```{r, message = FALSE, title = "{{ site.handouts[2] }}"}
 library(dataspice) ; library(here)
 ```
 
 Create data package templates
-```{r}
+```{r, title = "{{ site.handouts[2] }}"}
 create_spice(dir = "data_package")
 ```
  
@@ -93,26 +93,26 @@ range(stm_dat$BEGIN_LAT, na.rm=TRUE)
 range(stm_dat$BEGIN_LON, na.rm=TRUE)
 ```
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, title = "{{ site.handouts[2] }}"}
 edit_biblio(metadata_dir = here::here("data_package", "metadata"))
 ```
 
 ===
 
 Describe the creators of the data. 
-```{r, eval = FALSE}
+```{r, eval = FALSE, title = "{{ site.handouts[2] }}"}
 edit_creators(metadata_dir = here::here("data_package", "metadata"))
 ```
 
 ===
 
 Add information about where the data can be accessed.
-```{r}
+```{r, warning = FALSE, title = "{{ site.handouts[2] }}"}
 prep_access(data_path = here::here("data_package"),
             access_path = here::here("data_package", "metadata", "access.csv"))
 ```
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, title = "{{ site.handouts[2] }}"}
 edit_access(metadata_dir = here::here("data_package", "metadata"))
 ```
 
@@ -120,31 +120,30 @@ edit_access(metadata_dir = here::here("data_package", "metadata"))
 
 We'll describe the file-level metadata now.
 Add attributes of the data.
-```{r}
+```{r, warning = FALSE, title = "{{ site.handouts[2] }}"}
 prep_attributes(data_path = here::here("data_package"),
                 attributes_path = here::here("data_package", "metadata", "attributes.csv"))  
 ```
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, title = "{{ site.handouts[2] }}"}
 edit_attributes(metadata_dir = here::here("data_package", "metadata"))
 ```
 
 ===
 
 Now we can write our metadata to a json-ld file.
-```{r}
+```{r, title = "{{ site.handouts[2] }}"}
 write_spice(path = here::here("data_package", "metadata"))
 ```
 
 ===
 
 Now convert the json-ld file into EML (Ecological Metadata Language).
-```{r}
+```{r, message = FALSE, title = "{{ site.handouts[2] }}"}
 library(emld) ; library(EML) ; library(jsonlite)
 
 json <- jsonlite::read_json("data_package/metadata/dataspice.json")
 eml <- emld::as_emld(json)
-# xml <- emld::as_xml(eml)
 write_eml(eml, "data_package/metadata/dataspice.xml")
 ```
 
