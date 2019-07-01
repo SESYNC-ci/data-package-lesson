@@ -36,7 +36,7 @@ ORCiDs identify you and link you to your publications and research products.  Th
 ![]({{ site.baseurl }}/images/Sign_In_snap.PNG){: width="100%"} 
 
 To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
-![]({{ site.baseurl }}/images/orcid_snap2.PNG){: width="100%"} 
+![]({{ site.baseurl }}/images/orcid_snap2.png){: width="100%"} 
 
 ===
 

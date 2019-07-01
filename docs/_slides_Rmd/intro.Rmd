@@ -29,15 +29,29 @@ We will get into more details on these components in this lesson.
 
 ## Integrating data documentation 
 
-(Tie back into the workflow from the git lesson. Maybe make a figure here?? Flowchart?)
+It is important to incorporate documentation of your data throughout your reproducible research pipeline.  
 
-Raw data: may come with metadata if downloaded from somewhere; if you generate data, need to document it
 
-Data cleaning/compilation/synthesis: Script any manipulation of the raw data (don't change the raw data file!)  Record all the steps used to process data.
+1. Aquire raw data from online repository.
 
-Derived data: Output dervied data from script and document it
+   - __Download metadata if it's available.__
 
-Outline steps along the data doc and pub process, and how they are integrated through research process.
+2. Extract, transform, and load data into storage for analysis.
+
+   - __Create metadata, and document your data transformations in your scripts.__
+
+3. Perform data analysis (e.g. model inference) and visualization.
+
+   - __Script your data -> visuals process.__
+
+4. Update documentation and reports.
+
+   - __Revise metadata for your derived data.__ 
+
+5. Publish results, including reports, data and code/software.
+ 
+   - __Publish your data package (metadata + data + scripts)!__
+
 
 ===
 
