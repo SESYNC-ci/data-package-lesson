@@ -1,0 +1,219 @@
+---
+
+---
+
+## Publishing your data
+
+Choosing to publish your data in a long-term repository can:
+
+   - enable versioning of your data
+   - fulfill a journal requirement to publish data
+   - facilitate citing your dataset by assigning a permanent uniquely identifiable code (DOI)
+   - improve discovery of and access to your dataset for others
+   - enable re-use and greater visibility of your work
+
+===
+
+### When to publish your data?
+
+Near the beginning?  At the very end?  
+
+A couple issues to think about: 
+
+1) How do you know you're using the same version of a file as your collaborator?
+
+   - Publish your data privately and use the unique ids of datasets to manage versions.
+
+2) How do you control access to your data until you're ready to go public with it?
+
+   - Embargoing - controlling access for a certain period of time and then making your data public.
+
+===
+
+### Get an ORCiD 
+ 
+ORCiDs identify you and link you to your publications and research products.  They are used by journals, repositories, etc. and often as a log in.  
+![]({% include asset.html path="images/Sign_In_snap.PNG" %}){: width="100%"} 
+
+To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
+![]({% include asset.html path="images/orcid_snap2.png" %}){: width="100%"} 
+
+===
+
+### Creating a data package
+
+Data packages can include metadata, data, and script files, as well as descriptions of the relationships between those files.   
+
+Currently there are a few ways to make a data package"  
+- [Frictionless Data](https://frictionlessdata.io/docs/data-package/) uses json-ld format, and has the R package [`datapackage.r`](https://github.com/frictionlessdata/datapackage-r) which creates metadata files using schema.org specifications and creates a data package.  
+
+- [DataONE](https://www.dataone.org/) frequently uses EML format for metadata, and has related R packages `datapack` and `rdataone` that create data packages and upload data packages to a repository.  
+
+===
+
+We'll create a local data package using [`datapack`](https://docs.ropensci.org/datapack/):
+
+
+
+~~~r
+library(datapack) ; library(uuid)
+
+dp <- new("DataPackage") # create empty data package
+~~~
+{:title="{{ site.data.lesson.handouts[3] }}" .text-document}
+
+
+Add the metadata file we created earlier to the blank data package.
+
+
+~~~r
+emlFile <- "data_package/metadata/dataspice.xml"
+emlId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
+
+mdObj <- new("DataObject", id = emlId, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+
+dp <- addMember(dp, mdObj)  # add metadata file to data package
+~~~
+{:title="{{ site.data.lesson.handouts[3] }}" .text-document}
+
+
+===
+
+Add the data file we saved earlier to the data package.
+
+
+~~~r
+datafile <- "data_package/StormEvents_d2006.csv"
+dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
+
+dataObj <- new("DataObject", id = dataId, format = "text/csv", filename = datafile) 
+
+dp <- addMember(dp, dataObj) # add data file to data package
+~~~
+{:title="{{ site.data.lesson.handouts[3] }}" .text-document}
+
+
+Define the relationship between the data and metadata. 
+
+
+~~~r
+dp <- insertRelationship(dp, subjectID = emlId, objectIDs = dataId)
+~~~
+{:title="{{ site.data.lesson.handouts[3] }}" .text-document}
+
+
+You can also add scripts and derived data files to the data package.  
+
+===
+
+Create a Resource Description Framework (RDF) of the relationships between data and metadata.
+
+
+~~~r
+serializationId <- paste("resourceMap", UUIDgenerate(), sep = "")
+filePath <- file.path(sprintf("%s/%s.rdf", tempdir(), serializationId))
+status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
+~~~
+{:title="{{ site.data.lesson.handouts[3] }}" .text-document}
+
+
+Save the data package to a file, using the [BagIt](https://tools.ietf.org/id/draft-kunze-bagit-16.html) packaging format.  
+
+
+~~~r
+# right now this creates a zipped file in the tmp directory
+dp_bagit <- serializeToBagIt(dp) 
+# now we have to move the file out of the tmp directory
+file.copy(dp_bagit, "data_package/Storm_dp.zip") 
+# hopefully this will be changed soon!  https://github.com/ropensci/datapack/issues/108
+~~~
+{:title="{{ site.data.lesson.handouts[3] }}" .no-eval .text-document}
+
+
+===
+
+### Picking a repository 
+
+There are many repositories out there, and it can seem overwhelming picking a suitable one for your data. 
+
+Repositories can be subject or domain specific.  [re3data](https://www.re3data.org/) lists repositories by subject and can help you pick an appropriate repository for your data.  
+
+===
+
+[DataONE](https://www.dataone.org/) is a federation of repositories housing many different types of data.  Some of these repositories include Knowledge Network for Biocomplexity [(KNB)](https://knb.ecoinformatics.org/), Environmental Data Initiative [(EDI)](https://environmentaldatainitiative.org/), [Dryad](https://datadryad.org/), [USGS Science Data Catalog](https://data.usgs.gov/datacatalog/)
+
+For qualitative data, there are a few dedicated repositories: [QDR](https://qdr.syr.edu/), [Data-PASS](http://data-pass.org/)
+
+===
+
+Though a bit different, [Zenodo](https://zenodo.org/) facilitates publishing (with a DOI) and archiving all research outputs from all research fields.  This can be used to publish releases of your code that lives in a GitHub repository.  However, since GitHub is not designed for data storage and is not a persistent repository, this is not a recommended way to store or publish data.  
+
+===
+
+### Uploading to a repository
+
+Uploading requirements can vary by repository and type of data.  The minimum you usually need is basic metadata, and a data file.  
+
+If you have a small number of files, using a repository GUI will usually be simpler.  For large numbers of files, automating uploads from R will save time.  And it's reproducible!  
+
+If you choose, you can upload the data package to a repository in the DataONE federation using the `rdataone` package.  
+
+1) Get authentication token for DataONE (follow steps [here](https://github.com/DataONEorg/rdataone/blob/master/vignettes/dataone-federation.Rmd))
+
+2) Upload your data package using R (from vignette for [rdataone](https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd))
+
+===
+
+#### You can set the level of access to your data package.  
+
+
+~~~r
+library(dataone)
+
+dpAccessRules <- data.frame(subject="http://orcid.org/0000-0000-0000-0000", permission="changePermission") 
+# this gives this particular orcid (person) permission to read, write, and change permissions for others for this package
+
+dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0000-0000-0000",
+                                         "http://orcid.org/0000-0000-0000-0001"),
+                             permission = c("changePermission", "read")
+                            )
+~~~
+{:title="{{ site.data.lesson.handouts[3] }}" .no-eval .text-document}
+
+NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
+
+#### Upload data package
+
+
+~~~r
+########### How are you supposed to figure out the URN Node specifications???????????????
+d1c <- D1Client("STAGING", "urn:node:mnXXXXXX") # first set which repository you'll upload to
+
+packageId <- uploadDataPackage(d1c, dp_bagit, public = FALSE, accessRules = dpAccessRules, quiet = FALSE)
+~~~
+{:title="{{ site.data.lesson.handouts[3] }}" .no-eval .text-document}
+
+
+===
+
+### Citation
+
+Getting a Digital Object Identifier (DOI) for your data package can make it easier for others to find and cite your data.  
+
+You can assign a DOI to the metadata file for your data package using: 
+
+
+~~~r
+cn <- CNode("STAGING")
+mn <- getMNode(cn, "urn:node:mnXXXXXXXX")  ########### How are you supposed to figure out the URN Node specifications???????????????
+doi <- generateIdentifier(mn, "DOI")
+
+# now we'll overwrite our previous metadata fiel with the new DOI identified metadata file
+mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+~~~
+{:title="{{ site.data.lesson.handouts[3] }}" .no-eval .text-document}
+
+
+
+
+

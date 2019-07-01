@@ -20,11 +20,15 @@ Bad:
 Good:
 "census_data_try_2.csv"  
 
-```{r, message = FALSE, handout = 1}
+
+
+~~~r
 library(tidyverse)
 
 stm_dat <- read_csv("data/data_package/StormEvents.csv")
-```
+~~~
+{:title="{{ site.data.lesson.handouts[1] }}" .text-document}
+
 
 ===
 
@@ -45,20 +49,32 @@ Let's do a few checks to see if our data is tidy.
 
  - make sure data meet criteria above
  - make sure blanks are NA or some other standard
-```{r, eval = FALSE}
-head(stm_dat)
-tail(stm_dat)
-```    
+
+
+~~~r
+> head(stm_dat)
+> tail(stm_dat)
+~~~
+{:title="Console" .no-eval .input}
+
  
  - check date format
-```{r, eval = FALSE}
-str(stm_dat)    
-```  
+
+
+~~~r
+> str(stm_dat)    
+~~~
+{:title="Console" .no-eval .input}
+
 
  - check case, white space, etc.  
-```{r, eval = FALSE}
-unique(stm_dat$EVENT_NARRATIVE)    
-```
+
+
+~~~r
+> unique(stm_dat$EVENT_NARRATIVE)    
+~~~
+{:title="Console" .no-eval .input}
+
 
 ===
     
@@ -67,10 +83,25 @@ unique(stm_dat$EVENT_NARRATIVE)
 Because we followed the principle of one table/file for each type of observation, 
 we have one table to be written out to a file now.  
 
-```{r, handout = 1}
-dir.create('data_package', showWarnings = FALSE)
+
+
+~~~r
+dir.create('data_package')
+~~~
+{:title="{{ site.data.lesson.handouts[1] }}" .text-document}
+
+
+~~~
+Warning in dir.create("data_package"): 'data_package' already exists
+~~~
+{:.output}
+
+
+~~~r
 write_csv(stm_dat, "data_package/StormEvents_d2006.csv")
-```
+~~~
+{:title="{{ site.data.lesson.handouts[1] }}" .text-document}
+
 
 ===
     

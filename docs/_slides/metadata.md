@@ -50,13 +50,11 @@ Employer-specific mandated methods (ex: USGS)
 Repository-specific methods
 
    - GUI for a repository (more on this later)
-   
    ![]({% include asset.html path="images/knb_snap.PNG" %}){: width="100%"} 
    
 Stand-alone software
    
    - [Data Curator](https://github.com/ODIQueensland/data-curator) - still in beta
-   
    ![]({% include asset.html path="images/Data_Curator_snap.PNG" %}){: width="100%"} 
 
 Coding 
@@ -68,14 +66,22 @@ Coding
 ### Example of coding up some metadata  
 
 We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package. 
-```{r, message = FALSE, handout = 2}
+
+
+~~~r
 library(dataspice) ; library(here)
-```
+~~~
+{:title="{{ site.data.lesson.handouts[2] }}" .text-document}
+
 
 Create data package templates
-```{r, handout = 2}
+
+
+~~~r
 create_spice(dir = "data_package")
-```
+~~~
+{:title="{{ site.data.lesson.handouts[2] }}" .text-document}
+
  
 === 
  
@@ -83,65 +89,101 @@ The templates are empty, so now we need to populate them.
 We'll start with package-level metadata. 
 
 Add extent, coverage, license, publication, funder, keywords, etc. 
-```{r, eval = FALSE}
-range(stm_dat$YEAR)
 
-range(stm_dat$BEGIN_LAT, na.rm=TRUE)
-range(stm_dat$BEGIN_LON, na.rm=TRUE)
-```
 
-```{r, eval = FALSE, handout = 2}
+~~~r
+> range(stm_dat$YEAR)
+> 
+> range(stm_dat$BEGIN_LAT, na.rm=TRUE)
+> range(stm_dat$BEGIN_LON, na.rm=TRUE)
+~~~
+{:title="Console" .no-eval .input}
+
+
+
+
+~~~r
 edit_biblio(metadata_dir = here::here("data_package", "metadata"))
-```
+~~~
+{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+
 
 ===
 
 Describe the creators of the data. 
-```{r, eval = FALSE, handout = 2}
+
+
+~~~r
 edit_creators(metadata_dir = here::here("data_package", "metadata"))
-```
+~~~
+{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+
 
 ===
 
 Add information about where the data can be accessed.
-```{r, eval = FALSE, handout = 2}
+
+
+~~~r
 prep_access(data_path = here::here("data_package"),
             access_path = here::here("data_package", "metadata", "access.csv"))
-```
+~~~
+{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
 
-```{r, eval = FALSE, handout = 2}
+
+
+
+~~~r
 edit_access(metadata_dir = here::here("data_package", "metadata"))
-```
+~~~
+{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+
 
 ===
 
 We'll describe the file-level metadata now.
 Add attributes of the data.
-```{r, eval = FALSE, handout = 2}
+
+
+~~~r
 prep_attributes(data_path = here::here("data_package"),
                 attributes_path = here::here("data_package", "metadata", "attributes.csv"))  
-```
+~~~
+{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
 
-```{r, eval = FALSE, handout = 2}
+
+
+
+~~~r
 edit_attributes(metadata_dir = here::here("data_package", "metadata"))
-```
+~~~
+{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+
 
 ===
 
 Now we can write our metadata to a json-ld file.
-```{r, handout = 2, eval = FALSE}
+
+
+~~~r
 write_spice(path = here::here("data_package", "metadata"))
-```
+~~~
+{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+
 
 ===
 
 Now convert the json-ld file into EML (Ecological Metadata Language).
-```{r, message = FALSE, handout = 2, eval = FALSE}
+
+
+~~~r
 library(emld) ; library(EML) ; library(jsonlite)
 
 json <- jsonlite::read_json("data_package/metadata/dataspice.json")
 eml <- emld::as_emld(json)
 EML::write_eml(eml, "data_package/metadata/dataspice.xml")
-```
+~~~
+{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+
 
 ===
