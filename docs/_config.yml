@@ -1,35 +1,17 @@
-# Site
+# Build Configuration
 
-title: Documenting and Publishing your Data
-handouts: 
-  - worksheet.sh
-tag: v0.2
-lesson:
-instructor: Rachael Blake
-authors:
-  - Rachael Blake
-
-# Slides
-
-slide_sorter:
-  - intro
-  - data
-  - metadata
-  - publish
-  - prov
-
-#####################################
-# Only modify content above or risk #
-# merge conflicts with upstream.    #
-#####################################
-
-# Style
-
-styleurl: https://cdn.rawgit.com/sesync-ci/lesson-style/v2.0/docs
-reveal: https://cdn.rawgit.com/hakimel/reveal.js/3.5.0
-
-# Jekyll
-
-markdown: kramdown
+markdown: kramdown 
 collections:
-  - slides
+  slides:
+    output: false
+  views:
+    output: true
+    permalink: /:name/
+  archive:
+    output: true
+    permalink: /:year/:month/:day/:title:output_ext
+
+# Asset Location
+
+imageurl: /assets/images/
+styleurl: /assets/css/
