@@ -4,7 +4,7 @@
 
 ## Publishing your data
 
-Choosing to publish your data products in a long-term repository can:
+Choosing to publish your data in a long-term repository can:
 
    - enable versioning of your data
    - fulfill a journal requirement to publish data
@@ -16,7 +16,7 @@ Choosing to publish your data products in a long-term repository can:
 
 ### When to publish your data?
 
-Near beginning?  At very end?  
+Near the beginning?  At the very end?  
 
 A couple issues to think about: 
 
@@ -36,7 +36,7 @@ ORCiDs identify you and link you to your publications and research products.  Th
 ![]({{ site.baseurl }}/images/Sign_In_snap.PNG){: width="100%"} 
 
 To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
-![]({{ site.baseurl }}/images/orcid_snap.PNG){: width="100%"} 
+![]({{ site.baseurl }}/images/orcid_snap2.PNG){: width="100%"} 
 
 ===
 
@@ -98,8 +98,9 @@ status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
 ```
 
 Save the data package to a file, using the [BagIt](https://tools.ietf.org/id/draft-kunze-bagit-16.html) packaging format.  
-```{r, message = FALSE, title = "{{ site.handouts[3] }}"}
-dp_bagit <- serializeToBagIt(dp) # right now this creates a zipped file in the tmp directory
+```{r, eval = FALSE, title = "{{ site.handouts[3] }}"}
+# right now this creates a zipped file in the tmp directory
+dp_bagit <- serializeToBagIt(dp) 
 # now we have to move the file out of the tmp directory
 file.copy(dp_bagit, "data_package/Storm_dp.zip") 
 # hopefully this will be changed soon!  https://github.com/ropensci/datapack/issues/108
@@ -139,7 +140,7 @@ If you choose, you can upload the data package to a repository in the DataONE fe
 
 ===
 
-####You can set the level of access to your data package.  
+#### You can set the level of access to your data package.  
 ```{r, eval = FALSE, title = "{{ site.handouts[3] }}"}
 library(dataone)
 
@@ -153,7 +154,7 @@ dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0000-0000-0000",
 ```
 NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
 
-####Upload data package
+#### Upload data package
 ```{r, eval = FALSE, title = "{{ site.handouts[3] }}"}
 ########### How are you supposed to figure out the URN Node specifications???????????????
 d1c <- D1Client("STAGING", "urn:node:mnXXXXXX") # first set which repository you'll upload to

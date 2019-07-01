@@ -49,17 +49,17 @@ Employer-specific mandated methods (ex: USGS)
 
 Repository-specific methods
 
-   *GUI for a repository (more on this later)
+   - GUI for a repository (more on this later)
    ![]({{ site.baseurl }}/images/knb_snap.PNG){: width="100%"} 
    
 Stand-alone software
    
-   *[Data Curator](https://github.com/ODIQueensland/data-curator) - still in beta
+   - [Data Curator](https://github.com/ODIQueensland/data-curator) - still in beta
    ![]({{ site.baseurl }}/images/Data_Curator_snap.PNG){: width="100%"} 
 
 Coding 
 
-   *R packages (EML, dataspice, emld)
+   - R packages ([EML](https://github.com/ropensci/EML), [dataspice](https://github.com/ropenscilabs/dataspice), [emld](https://github.com/ropensci/emld))
 
 ===
 
@@ -81,11 +81,9 @@ The templates are empty, so now we need to populate them.
 We'll start with package-level metadata. 
 
 Add extent, coverage, license, publication, funder, keywords, etc. 
-```{r}
-# extract the temporal extents
+```{r, eval = FALSE}
 range(stm_dat$YEAR)
 
-# extract the spatial extents
 range(stm_dat$BEGIN_LAT, na.rm=TRUE)
 range(stm_dat$BEGIN_LON, na.rm=TRUE)
 ```
@@ -104,7 +102,7 @@ edit_creators(metadata_dir = here::here("data_package", "metadata"))
 ===
 
 Add information about where the data can be accessed.
-```{r, warning = FALSE, title = "{{ site.handouts[2] }}"}
+```{r, eval = FALSE, title = "{{ site.handouts[2] }}"}
 prep_access(data_path = here::here("data_package"),
             access_path = here::here("data_package", "metadata", "access.csv"))
 ```
@@ -117,7 +115,7 @@ edit_access(metadata_dir = here::here("data_package", "metadata"))
 
 We'll describe the file-level metadata now.
 Add attributes of the data.
-```{r, warning = FALSE, title = "{{ site.handouts[2] }}"}
+```{r, eval = FALSE, title = "{{ site.handouts[2] }}"}
 prep_attributes(data_path = here::here("data_package"),
                 attributes_path = here::here("data_package", "metadata", "attributes.csv"))  
 ```
@@ -141,7 +139,7 @@ library(emld) ; library(EML) ; library(jsonlite)
 
 json <- jsonlite::read_json("data_package/metadata/dataspice.json")
 eml <- emld::as_emld(json)
-write_eml(eml, "data_package/metadata/dataspice.xml")
+EML::write_eml(eml, "data_package/metadata/dataspice.xml")
 ```
 
 ===
