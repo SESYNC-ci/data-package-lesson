@@ -50,11 +50,13 @@ Employer-specific mandated methods (ex: USGS)
 Repository-specific methods
 
    - GUI for a repository (more on this later)
+   
    ![]({% include asset.html path="images/knb_snap.PNG" %}){: width="100%"} 
    
 Stand-alone software
    
    - [Data Curator](https://github.com/ODIQueensland/data-curator) - still in beta
+   
    ![]({% include asset.html path="images/Data_Curator_snap.PNG" %}){: width="100%"} 
 
 Coding 
@@ -71,7 +73,7 @@ We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package.
 ~~~r
 library(dataspice) ; library(here)
 ~~~
-{:title="{{ site.data.lesson.handouts[2] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
 Create data package templates
@@ -80,7 +82,7 @@ Create data package templates
 ~~~r
 create_spice(dir = "data_package")
 ~~~
-{:title="{{ site.data.lesson.handouts[2] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
  
 === 
@@ -105,7 +107,7 @@ Add extent, coverage, license, publication, funder, keywords, etc.
 ~~~r
 edit_biblio(metadata_dir = here::here("data_package", "metadata"))
 ~~~
-{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -116,7 +118,7 @@ Describe the creators of the data.
 ~~~r
 edit_creators(metadata_dir = here::here("data_package", "metadata"))
 ~~~
-{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -128,7 +130,7 @@ Add information about where the data can be accessed.
 prep_access(data_path = here::here("data_package"),
             access_path = here::here("data_package", "metadata", "access.csv"))
 ~~~
-{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 
@@ -136,7 +138,7 @@ prep_access(data_path = here::here("data_package"),
 ~~~r
 edit_access(metadata_dir = here::here("data_package", "metadata"))
 ~~~
-{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -149,7 +151,7 @@ Add attributes of the data.
 prep_attributes(data_path = here::here("data_package"),
                 attributes_path = here::here("data_package", "metadata", "attributes.csv"))  
 ~~~
-{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 
@@ -157,7 +159,7 @@ prep_attributes(data_path = here::here("data_package"),
 ~~~r
 edit_attributes(metadata_dir = here::here("data_package", "metadata"))
 ~~~
-{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -168,7 +170,7 @@ Now we can write our metadata to a json-ld file.
 ~~~r
 write_spice(path = here::here("data_package", "metadata"))
 ~~~
-{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -183,7 +185,7 @@ json <- jsonlite::read_json("data_package/metadata/dataspice.json")
 eml <- emld::as_emld(json)
 EML::write_eml(eml, "data_package/metadata/dataspice.xml")
 ~~~
-{:title="{{ site.data.lesson.handouts[2] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===

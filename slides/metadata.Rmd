@@ -50,14 +50,12 @@ Employer-specific mandated methods (ex: USGS)
 Repository-specific methods
 
    - GUI for a repository (more on this later)
-   
-   ![]({% include asset.html path="images/knb_snap.PNG" %}){: width="100%"} 
+     ![]({% include asset.html path="images/knb_snap.PNG" %}){: width="100%"} 
    
 Stand-alone software
    
    - [Data Curator](https://github.com/ODIQueensland/data-curator) - still in beta
-   
-   ![]({% include asset.html path="images/Data_Curator_snap.PNG" %}){: width="100%"} 
+     ![]({% include asset.html path="images/Data_Curator_snap.PNG" %}){: width="100%"} 
 
 Coding 
 
@@ -89,7 +87,7 @@ range(stm_dat$YEAR)
 range(stm_dat$BEGIN_LAT, na.rm=TRUE)
 range(stm_dat$BEGIN_LON, na.rm=TRUE)
 ```
-
+  
 ```{r, eval = FALSE, handout = 0}
 edit_biblio(metadata_dir = here::here("data_package", "metadata"))
 ```
@@ -108,7 +106,7 @@ Add information about where the data can be accessed.
 prep_access(data_path = here::here("data_package"),
             access_path = here::here("data_package", "metadata", "access.csv"))
 ```
-
+  
 ```{r, eval = FALSE, handout = 0}
 edit_access(metadata_dir = here::here("data_package", "metadata"))
 ```
@@ -121,7 +119,7 @@ Add attributes of the data.
 prep_attributes(data_path = here::here("data_package"),
                 attributes_path = here::here("data_package", "metadata", "attributes.csv"))  
 ```
-
+  
 ```{r, eval = FALSE, handout = 0}
 edit_attributes(metadata_dir = here::here("data_package", "metadata"))
 ```

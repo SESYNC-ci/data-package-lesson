@@ -33,9 +33,11 @@ A couple issues to think about:
 ### Get an ORCiD 
  
 ORCiDs identify you and link you to your publications and research products.  They are used by journals, repositories, etc. and often as a log in.  
+
 ![]({% include asset.html path="images/Sign_In_snap.PNG" %}){: width="100%"} 
 
 To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
+
 ![]({% include asset.html path="images/orcid_snap2.png" %}){: width="100%"} 
 
 ===
@@ -60,7 +62,7 @@ library(datapack) ; library(uuid)
 
 dp <- new("DataPackage") # create empty data package
 ~~~
-{:title="{{ site.data.lesson.handouts[3] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
 Add the metadata file we created earlier to the blank data package.
@@ -74,7 +76,7 @@ mdObj <- new("DataObject", id = emlId, format = "eml://ecoinformatics.org/eml-2.
 
 dp <- addMember(dp, mdObj)  # add metadata file to data package
 ~~~
-{:title="{{ site.data.lesson.handouts[3] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
 ===
@@ -90,7 +92,7 @@ dataObj <- new("DataObject", id = dataId, format = "text/csv", filename = datafi
 
 dp <- addMember(dp, dataObj) # add data file to data package
 ~~~
-{:title="{{ site.data.lesson.handouts[3] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
 Define the relationship between the data and metadata. 
@@ -99,7 +101,7 @@ Define the relationship between the data and metadata.
 ~~~r
 dp <- insertRelationship(dp, subjectID = emlId, objectIDs = dataId)
 ~~~
-{:title="{{ site.data.lesson.handouts[3] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
 You can also add scripts and derived data files to the data package.  
@@ -114,7 +116,7 @@ serializationId <- paste("resourceMap", UUIDgenerate(), sep = "")
 filePath <- file.path(sprintf("%s/%s.rdf", tempdir(), serializationId))
 status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
 ~~~
-{:title="{{ site.data.lesson.handouts[3] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
 Save the data package to a file, using the [BagIt](https://tools.ietf.org/id/draft-kunze-bagit-16.html) packaging format.  
@@ -127,7 +129,7 @@ dp_bagit <- serializeToBagIt(dp)
 file.copy(dp_bagit, "data_package/Storm_dp.zip") 
 # hopefully this will be changed soon!  https://github.com/ropensci/datapack/issues/108
 ~~~
-{:title="{{ site.data.lesson.handouts[3] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -178,7 +180,7 @@ dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0000-0000-0000",
                              permission = c("changePermission", "read")
                             )
 ~~~
-{:title="{{ site.data.lesson.handouts[3] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
 
@@ -191,7 +193,7 @@ d1c <- D1Client("STAGING", "urn:node:mnXXXXXX") # first set which repository you
 
 packageId <- uploadDataPackage(d1c, dp_bagit, public = FALSE, accessRules = dpAccessRules, quiet = FALSE)
 ~~~
-{:title="{{ site.data.lesson.handouts[3] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -211,7 +213,7 @@ doi <- generateIdentifier(mn, "DOI")
 # now we'll overwrite our previous metadata fiel with the new DOI identified metadata file
 mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
 ~~~
-{:title="{{ site.data.lesson.handouts[3] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 

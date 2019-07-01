@@ -25,9 +25,9 @@ Good:
 ~~~r
 library(tidyverse)
 
-stm_dat <- read_csv("data/data_package/StormEvents.csv")
+stm_dat <- read_csv("data/StormEvents.csv")
 ~~~
-{:title="{{ site.data.lesson.handouts[1] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
 ===
@@ -86,21 +86,10 @@ we have one table to be written out to a file now.
 
 
 ~~~r
-dir.create('data_package')
-~~~
-{:title="{{ site.data.lesson.handouts[1] }}" .text-document}
-
-
-~~~
-Warning in dir.create("data_package"): 'data_package' already exists
-~~~
-{:.output}
-
-
-~~~r
+dir.create('data_package', showWarnings = FALSE)
 write_csv(stm_dat, "data_package/StormEvents_d2006.csv")
 ~~~
-{:title="{{ site.data.lesson.handouts[1] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
 ===
