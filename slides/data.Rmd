@@ -20,7 +20,7 @@ Bad:
 Good:
 "census_data_try_2.csv"  
 
-```{r, message = FALSE, title = "{{ site.handouts[1] }}"}
+```{r, message = FALSE, handout = 1}
 library(tidyverse)
 
 stm_dat <- read_csv("data/data_package/StormEvents.csv")
@@ -59,7 +59,7 @@ str(stm_dat)
 ```{r, eval = FALSE}
 unique(stm_dat$EVENT_NARRATIVE)    
 ```
-    
+
 ===
     
 ### Outputting derived data - review from the basic-R-lesson
@@ -67,7 +67,8 @@ unique(stm_dat$EVENT_NARRATIVE)
 Because we followed the principle of one table/file for each type of observation, 
 we have one table to be written out to a file now.  
 
-```{r, title = "{{ site.handouts[1] }}"}
+```{r, handout = 1}
+dir.create('data_package')
 write_csv(stm_dat, "data_package/StormEvents_d2006.csv")
 ```
 
