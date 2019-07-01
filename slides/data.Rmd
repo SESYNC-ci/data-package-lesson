@@ -20,10 +20,10 @@ Bad:
 Good:
 "census_data_try_2.csv"  
 
-```{r, message = FALSE, handout = 1}
+```{r, message = FALSE, handout = 0}
 library(tidyverse)
 
-stm_dat <- read_csv("data/data_package/StormEvents.csv")
+stm_dat <- read_csv("data/StormEvents.csv")
 ```
 
 ===
@@ -67,7 +67,7 @@ unique(stm_dat$EVENT_NARRATIVE)
 Because we followed the principle of one table/file for each type of observation, 
 we have one table to be written out to a file now.  
 
-```{r, handout = 1}
+```{r, handout = 0}
 dir.create('data_package', showWarnings = FALSE)
 write_csv(stm_dat, "data_package/StormEvents_d2006.csv")
 ```
