@@ -77,12 +77,7 @@ write_csv(stm_dat, "data_package/StormEvents_d2006.csv")
 
 Issue: Making sure you and your collaborators are using the same version of a dataset
 
-One solution: version your data in a repository
-    Upload a version of your data early on in your research data process.
-    Versioning in the repository will assign a unique ID to each version of your data
-    Can download/use a particular version of the data (even if not the most recent version)
-    Tell collaborators which version you used for analysis
-    
-May help address the issue of collaborators using different versions of the data for analysis.
+One solution: version your data in a repository (more on this later)
+
 
 

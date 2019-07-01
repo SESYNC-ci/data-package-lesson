@@ -45,5 +45,5 @@ Outline steps along the data doc and pub process, and how they are integrated th
 
 1. Improve sharing data with collaborators now.
 
-2. Easily publish your data in the future. 
+2. Easily publish your data now or in the future. 
 

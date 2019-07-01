@@ -6,7 +6,7 @@
 
 Metadata is the information needed for someone else to understand and use your data.  It is the Who, What, When, Where, Why, and How about your data.  
 
-This includes package-level _and_ file-level metadata.  
+This includes _package-level_ and _file-level_ metadata.  
 
 ===
 
@@ -31,7 +31,7 @@ File-level:
 
 The goal is to have a machine and human readable description of your data. 
 
-This can again mean using a controlled set of descriptors for your data specified by the standard. 
+This can mean using a controlled set of descriptors for your data specified by the standard. 
 
 There are several metadata standards, and those standards can vary between disciplines
 and types of data.  Some examples include:
