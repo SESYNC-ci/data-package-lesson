@@ -46,9 +46,9 @@ Prov can be added to a data package using [`datapack`](https://github.com/ropens
 
 
 ~~~r
-> dp <- describeWorkflow(dp, sources = doIn, program = progObj, derivations = doOut)
+dp <- describeWorkflow(dp, sources = doIn, program = progObj, derivations = doOut)
 ~~~
-{:title="Console" .no-eval .input}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===

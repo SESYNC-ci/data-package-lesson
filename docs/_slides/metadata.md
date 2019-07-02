@@ -50,14 +50,12 @@ Employer-specific mandated methods (ex: USGS)
 Repository-specific methods
 
    - GUI for a repository (more on this later)
-   
-   ![]({% include asset.html path="images/knb_snap.PNG" %}){: width="100%"} 
+     ![]({% include asset.html path="images/knb_snap.PNG" %}){: width="100%"} 
    
 Stand-alone software
    
    - [Data Curator](https://github.com/ODIQueensland/data-curator) - still in beta
-   
-   ![]({% include asset.html path="images/Data_Curator_snap.PNG" %}){: width="100%"} 
+     ![]({% include asset.html path="images/Data_Curator_snap.PNG" %}){: width="100%"} 
 
 Coding 
 
@@ -101,7 +99,7 @@ Add extent, coverage, license, publication, funder, keywords, etc.
 ~~~
 {:title="Console" .no-eval .input}
 
-
+  
 
 
 ~~~r
@@ -132,7 +130,7 @@ prep_access(data_path = here::here("data_package"),
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
-
+  
 
 
 ~~~r
@@ -153,7 +151,7 @@ prep_attributes(data_path = here::here("data_package"),
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
-
+  
 
 
 ~~~r

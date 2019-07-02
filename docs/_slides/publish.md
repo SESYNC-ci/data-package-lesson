@@ -186,11 +186,34 @@ NOTE: When you upload the package, you also need to set `public = FALSE` if you 
 
 #### Upload data package
 
+The first argument here is the environment - "PROD" is production where you publish your data.
+"STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package.    
+
+The second argument is the repository specification.  A table of member node IDs: (data/Nodes.csv) 
+
+
 
 ~~~r
-########### How are you supposed to figure out the URN Node specifications???????????????
-d1c <- D1Client("STAGING", "urn:node:mnXXXXXX") # first set which repository you'll upload to
+> read.csv("data/Nodes.csv")
+~~~
+{:title="Console" .no-eval .input}
 
+
+First set the environment and repository you'll upload to:
+  
+
+
+~~~r
+d1c <- D1Client("PROD", "urn:node:DRYAD") 
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+
+  
+Now do the actual uploading of your data package:
+  
+
+
+~~~r
 packageId <- uploadDataPackage(d1c, dp_bagit, public = FALSE, accessRules = dpAccessRules, quiet = FALSE)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
@@ -206,11 +229,13 @@ You can assign a DOI to the metadata file for your data package using:
 
 
 ~~~r
-cn <- CNode("STAGING")
-mn <- getMNode(cn, "urn:node:mnXXXXXXXX")  ########### How are you supposed to figure out the URN Node specifications???????????????
+# again specify the environment and repository 
+cn <- CNode("PROD")
+mn <- getMNode(cn, "urn:node:DRYAD")  
+
 doi <- generateIdentifier(mn, "DOI")
 
-# now we'll overwrite our previous metadata fiel with the new DOI identified metadata file
+# now overwrite the previous metadata file with the new DOI identified metadata file
 mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}

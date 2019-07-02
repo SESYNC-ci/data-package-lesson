@@ -43,7 +43,7 @@ A couple examples include:
 
 Prov can be added to a data package using [`datapack`](https://github.com/ropensci/datapack/blob/master/vignettes/datapack-overview.Rmd) and the function below.  But see the linked vignette for more details.  
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, handout = 0}
 dp <- describeWorkflow(dp, sources = doIn, program = progObj, derivations = doOut)
 ```
 
