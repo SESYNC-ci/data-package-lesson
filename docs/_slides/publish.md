@@ -46,7 +46,7 @@ To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
 
 Data packages can include metadata, data, and script files, as well as descriptions of the relationships between those files.   
 
-Currently there are a few ways to make a data package"  
+Currently there are a few ways to make a data package  
 - [Frictionless Data](https://frictionlessdata.io/docs/data-package/) uses json-ld format, and has the R package [`datapackage.r`](https://github.com/frictionlessdata/datapackage-r) which creates metadata files using schema.org specifications and creates a data package.  
 
 - [DataONE](https://www.dataone.org/) frequently uses EML format for metadata, and has related R packages `datapack` and `rdataone` that create data packages and upload data packages to a repository.  
