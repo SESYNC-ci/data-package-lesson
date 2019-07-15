@@ -40,7 +40,7 @@ and types of data.
 
 ===
 
-![]({% include asset.html path="images/standards_xkcd.png" %}){: width="100%"} 
+![]({% include asset.html path="images/standards_xkcd.png" %}){: width="75%"} 
 
 ===
 
@@ -59,7 +59,7 @@ Employer-specific mandated methods (ex: USGS)
 
 Repository-specific methods
 
-   - GUI for a repository (more on this later)
+   - GUI for a repository 
      ![]({% include asset.html path="images/knb_snap.PNG" %}){: width="100%"} 
      
 ===     

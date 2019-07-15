@@ -8,17 +8,18 @@ Consistency is key when managing your data!
 
 1. At a minimum, use the same terms to refer to the same things throughout your data.
 
-2. Potentially use a discipline-wide published vocabulary (ex: [hydrological controlled vocab.](http://vocabulary.odm2.org/))
+   - "origin", not "starting place", "beginning location", and "source"
+   - "*Orcinus orca*", not "killer Whale", "Killer whale", "killer.whale", and "orca"
+
+2. Consider using a discipline-wide published vocabulary if appropriate (ex: [hydrological controlled vocab.](http://vocabulary.odm2.org/))
 
 ===
 
-### Naming data files - review from basic-R-lesson
+### Naming data files 
 
-Bad:
-"CeNsus data*2ndTry 2/15/2017.csv"   
+__Bad:__  "CeNsus data*2ndTry 2/15/2017.csv"   
 
-Good:
-"census_data_try_2.csv"  
+__Good:__  "census_data_try_2.csv"  
 
 
 
@@ -30,18 +31,23 @@ stm_dat <- read_csv("data/StormEvents.csv")
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
+For more details see the [basic-R-lesson](https://cyberhelp.sesync.org/basic-R-lesson/).  
+
 ===
 
-### Formatting data - review from data-manipulation-R-lesson
+### Formatting data
 
 1. One table/file for each type of observation.
 2. Each variable has its own column.
 3. Each observation has its own row.
 4. Each value has its own cell.
 
-Downstream operations/analysis require tidy data. You can work towards ready-to-analyze data incrementally,
-documenting the intermediate data and steps you took in your scripts.  This can be a powerful accelerator 
-for your analysis both now and in the future.  
+Downstream operations/analysis require tidy data. 
+
+You can work towards ready-to-analyze data incrementally, documenting the intermediate data and steps you took in your scripts.  This can be a powerful accelerator for your analysis both now and in the future.  
+{:.notes}
+
+For more details see the [data-manipulation-R-lesson](https://cyberhelp.sesync.org/data-manipulation-R-lesson/).  
 
 ===
 
@@ -49,6 +55,7 @@ Let's do a few checks to see if our data is tidy.
 
  - make sure data meet criteria above
  - make sure blanks are NA or some other standard
+ 
 
 
 ~~~r
@@ -78,7 +85,7 @@ Let's do a few checks to see if our data is tidy.
 
 ===
     
-### Outputting derived data - review from the basic-R-lesson
+### Outputting derived data 
     
 Because we followed the principle of one table/file for each type of observation, 
 we have one table to be written out to a file now.  
@@ -92,13 +99,15 @@ write_csv(stm_dat, "data_package/StormEvents_d2006.csv")
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
+For more details see the [basic-R-lesson](https://cyberhelp.sesync.org/basic-R-lesson/). 
+
 ===
     
 ### Versioning your derived data
 
 Issue: Making sure you and your collaborators are using the same version of a dataset
 
-One solution: version your data in a repository (more on this later)
+One solution: version your data in a repository (more on this [later](#versioning-data))
 
 
 

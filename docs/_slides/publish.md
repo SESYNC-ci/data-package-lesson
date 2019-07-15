@@ -14,6 +14,15 @@ Choosing to publish your data in a long-term repository can:
 
 ===
 
+### Why can't I just put my data on Dropbox, Google Drive, my website, etc?
+
+  - preservation (permanence)
+  - stability (replication / backup)
+  - access 
+  - standards
+  
+===
+
 ### When to publish your data?
 
 Near the beginning?  At the very end?  
@@ -53,6 +62,13 @@ Currently there are a few ways to make a data package
 
 ===
 
+| R Package   | What does it do?                                      |
+|-------------+-------------------------------------------------------|
+| `datapack`  | creates data package including file relationships     |
+| `uuid`      | creates a unique identifier for your metadata         |
+
+===
+
 We'll create a local data package using [`datapack`](https://docs.ropensci.org/datapack/):
 
 
@@ -66,6 +82,7 @@ dp <- new("DataPackage") # create empty data package
 
 
 Add the metadata file we created earlier to the blank data package.
+
 
 
 ~~~r
@@ -84,6 +101,7 @@ dp <- addMember(dp, mdObj)  # add metadata file to data package
 Add the data file we saved earlier to the data package.
 
 
+
 ~~~r
 datafile <- "data_package/StormEvents_d2006.csv"
 dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
@@ -96,6 +114,7 @@ dp <- addMember(dp, dataObj) # add data file to data package
 
 
 Define the relationship between the data and metadata. 
+
 
 
 ~~~r
@@ -111,6 +130,7 @@ You can also add scripts and derived data files to the data package.
 Create a Resource Description Framework (RDF) of the relationships between data and metadata.
 
 
+
 ~~~r
 serializationId <- paste("resourceMap", UUIDgenerate(), sep = "")
 filePath <- file.path(sprintf("%s/%s.rdf", tempdir(), serializationId))
@@ -120,6 +140,7 @@ status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
 
 
 Save the data package to a file, using the [BagIt](https://tools.ietf.org/id/draft-kunze-bagit-16.html) packaging format.  
+
 
 
 ~~~r
@@ -166,7 +187,14 @@ If you choose, you can upload the data package to a repository in the DataONE fe
 
 ===
 
+| R Package   | What does it do?                      |
+|-------------+---------------------------------------|
+| `dataone`   | uploads data package to repository    |
+
+
+
 #### You can set the level of access to your data package.  
+
 
 
 ~~~r

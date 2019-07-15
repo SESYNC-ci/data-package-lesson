@@ -3,9 +3,9 @@
 ---
 ## Lesson Objectives
 
-   -  Learn what a data package is
-   -  Review key concepts of making your data tidy
+   -  Review key concepts of making your data tidy  
    -  Learn what metadata actually is
+   -  Learn what a data package is
    -  Learn to publish your data from R
 
 ## Specific Achievements

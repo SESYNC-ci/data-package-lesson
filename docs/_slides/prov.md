@@ -5,10 +5,14 @@
 ## Versioning Data
 
 How do you know you're using the same version of a data file as your collaborator?
-Do not edit raw data files!    Make edits/changes via your code only, and then output a derived "clean" data file. 
 
-Potential ways forward for now: 
+ - Do not edit raw data files!  Make edits/changes via your code only, and then output a derived "clean" data file. 
+
+
+Potential ways forward: 
+
 1. Upload successive versions of the data to a repo with versioning, but keep it private until you've reached the final version or the end of the project.  (see below)
+
 2. Google Sheets has some support for viewing the edit history of cells, added or deleted columns and rows, changed formatting, etc.  
 
 
@@ -16,7 +20,7 @@ Potential ways forward for now:
 
 To take advantage of the versioning of data built into many repositories, you can update the data package (replace files with new versions).  
 
-Please see the vignettes for [`rdataone`](https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd), section on "Replace an object with a newer version".  
+Please see the vignettes for `rdataone`, section on ["Replace an object with a newer version"](https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd).  
 
 ===
 
@@ -41,7 +45,7 @@ A couple examples include:
 
 ### Adding provenance to your data package
 
-Prov can be added to a data package using [`datapack`](https://github.com/ropensci/datapack/blob/master/vignettes/datapack-overview.Rmd) and the function below.  But see the linked vignette for more details.  
+Prov can be added to a data package using `datapack` and the function below.  But see the [vignette](https://github.com/ropensci/datapack/blob/master/vignettes/datapack-overview.Rmd) for more details.  
 
 
 

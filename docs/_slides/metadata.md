@@ -19,6 +19,8 @@ Package-level:
  - Licensing information (Creative Commons, etc.)
  - Publication date
 
+===
+
 File-level:
  - Define variable names
  - Describe variables (units, etc.)
@@ -33,8 +35,16 @@ The goal is to have a machine and human readable description of your data.
 
 This can mean using a controlled set of descriptors for your data specified by the standard. 
 
-There are several metadata standards, and those standards can vary between disciplines
-and types of data.  Some examples include:
+There are many metadata standards, and those standards can vary between disciplines
+and types of data.  
+
+===
+
+![]({% include asset.html path="images/standards_xkcd.png" %}){: width="75%"} 
+
+===
+
+Some examples include:
 
    - General: [Dublin Core](http://dublincore.org/)
    - Ecological/Environmental/Biological: [EML](https://knb.ecoinformatics.org/external//emlparser/docs/index.html), [Darwin Core](https://dwc.tdwg.org/)
@@ -49,8 +59,10 @@ Employer-specific mandated methods (ex: USGS)
 
 Repository-specific methods
 
-   - GUI for a repository (more on this later)
+   - GUI for a repository 
      ![]({% include asset.html path="images/knb_snap.PNG" %}){: width="100%"} 
+     
+===     
    
 Stand-alone software
    
@@ -65,7 +77,17 @@ Coding
 
 ### Example of coding up some metadata  
 
+| R Package   | What does it do?                                           |
+|-------------+------------------------------------------------------------|
+| `dataspice` | creates metadata files in json-ld format                   |
+| `here`      | facilitates finding your files in R                        |
+| `emld`      | aids conversion of metadata files between EML and json-ld  |
+| `EML`       | creates EML metadata files                                 |
+| `jsonlite`  | reads json and json-ld file formats in R                   |
+
+
 We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package. 
+
 
 
 ~~~r
@@ -74,7 +96,8 @@ library(dataspice) ; library(here)
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
-Create data package templates
+Create data package templates.
+
 
 
 ~~~r
@@ -83,12 +106,15 @@ create_spice(dir = "data_package")
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
  
+Look at your data_package folder, and see the CSV template files. 
+ 
 === 
  
 The templates are empty, so now we need to populate them. 
 We'll start with package-level metadata. 
 
 Add extent, coverage, license, publication, funder, keywords, etc. 
+
 
 
 ~~~r
@@ -113,6 +139,7 @@ edit_biblio(metadata_dir = here::here("data_package", "metadata"))
 Describe the creators of the data. 
 
 
+
 ~~~r
 edit_creators(metadata_dir = here::here("data_package", "metadata"))
 ~~~
@@ -122,6 +149,7 @@ edit_creators(metadata_dir = here::here("data_package", "metadata"))
 ===
 
 Add information about where the data can be accessed.
+
 
 
 ~~~r
@@ -142,7 +170,9 @@ edit_access(metadata_dir = here::here("data_package", "metadata"))
 ===
 
 We'll describe the file-level metadata now.
+
 Add attributes of the data.
+
 
 
 ~~~r
@@ -165,6 +195,7 @@ edit_attributes(metadata_dir = here::here("data_package", "metadata"))
 Now we can write our metadata to a json-ld file.
 
 
+
 ~~~r
 write_spice(path = here::here("data_package", "metadata"))
 ~~~
@@ -174,6 +205,7 @@ write_spice(path = here::here("data_package", "metadata"))
 ===
 
 Now convert the json-ld file into EML (Ecological Metadata Language).
+
 
 
 ~~~r
