@@ -4,7 +4,8 @@ Package your data and metadata for publication
   
 # Instructor Notes
   
-tips on running the tutorial for instructors
+ - ask learners if they have experience publishing their data or trying to use someone else's data
+ - 
   
 # Cyberhelp @SESYNC
   
