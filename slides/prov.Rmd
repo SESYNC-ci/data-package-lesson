@@ -5,10 +5,14 @@
 ## Versioning Data
 
 How do you know you're using the same version of a data file as your collaborator?
-Do not edit raw data files!    Make edits/changes via your code only, and then output a derived "clean" data file. 
 
-Potential ways forward for now: 
+ - Do not edit raw data files!  Make edits/changes via your code only, and then output a derived "clean" data file. 
+
+
+Potential ways forward: 
+
 1. Upload successive versions of the data to a repo with versioning, but keep it private until you've reached the final version or the end of the project.  (see below)
+
 2. Google Sheets has some support for viewing the edit history of cells, added or deleted columns and rows, changed formatting, etc.  
 
 
