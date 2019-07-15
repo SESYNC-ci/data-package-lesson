@@ -1,6 +1,21 @@
 ---
  
 ---
+## Lesson Objectives
+
+   -  Learn what a data package is
+   -  Review key concepts of making your data tidy
+   -  Learn what metadata actually is
+   -  Learn to publish your data from R
+
+## Specific Achievements
+
+   -  Create metadata locally
+   -  Build data package locally
+   -  Learn how data versioning can help you collaborate more efficiently
+   -  Practice uploading data package to repository (exercise outside lesson)
+
+===
 
 ## What is a data package?
 

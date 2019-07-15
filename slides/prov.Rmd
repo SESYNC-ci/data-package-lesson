@@ -45,7 +45,7 @@ A couple examples include:
 
 ### Adding provenance to your data package
 
-Prov can be added to a data package using [`datapack`](https://github.com/ropensci/datapack/blob/master/vignettes/datapack-overview.Rmd) and the function below.  But see the linked vignette for more details.  
+Prov can be added to a data package using `datapack` and the function below.  But see the [vignette](https://github.com/ropensci/datapack/blob/master/vignettes/datapack-overview.Rmd) for more details.  
 
 ```{r, eval = FALSE, handout = 0}
 dp <- describeWorkflow(dp, sources = doIn, program = progObj, derivations = doOut)
