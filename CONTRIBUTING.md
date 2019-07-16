@@ -65,17 +65,19 @@ lesson go automatically to `docs/_archive`.
 
 A `*.Rproj` is optional but convenient for starting an R session with the
 appropriate working directory. A `handouts.Rproj` file will be included in the
-handouts associated with any lesson having a `*.Rproj` file. All handouts
-(including data and worksheets) must be listed in the `docs/_data/lesson.yml`.
+handouts associated with any lesson having a `*.Rproj` file and a .R or .Rmd
+worksheet. All handouts (including data and worksheets) must be listed in the
+`docs/_data/lesson.yml`.
 
 Please **note** the following useful details about how content is rendered:
 
 - Code chunks within a document are rendered to either look like content within
 a text editor or content typed directly into the interpreter/console. The
-console-look is the default. To achieve the editor-look, add `title = "{{
-site.handouts[i] }}"` to the code chunk options, replacing `i` with the
-(zero-indexed) position of the worksheet in the list of handouts.
-- If an expression in a code chunk generates results, it will render as multiple
+console-look is the default. To achieve the editor-look in a Rmd script, add
+`handout = i` to the code chunk options, replacing `i` with the (zero-indexed)
+position of the worksheet in the list of handouts. Alternatively, explicitly set
+the `title="{{ site.data.lesson.handouts[i] }}"` attribute to a Markdown chunk.
+- If an expression in a code chunk generates results, it may render as multiple
 code chunks with the result interspersed. Prefer to only end code chunks with
 expressions that print output or generate plots.
 - Vertical slide breaks are introduced with `===` on a line by itself.
@@ -135,7 +137,7 @@ variables following this template:
 title: ...       # the lesson's title
 handouts:        # a list of handouts, e.g. worksheets and data
  - ...
-tag: ...         # next release version
+tag: ...         # current handout release version
 lesson: ...      # the number of the lesson (for /instructor view)
 instructor: ...  # the name of the instructor (for /instructor view)
 authors:         # a list of those writing the lesson
@@ -156,14 +158,26 @@ also possible to build and view locally. The following instructions work with a
 
 From RStudio, choose "Build All" from the "Build" tab. This builds a static
 Jekyll site if any of the content has been updated since the last site build. To
-view the built page in a browser, use the `servr` R package:
+view the built page in a browser under the default port, use the `servr` R package:
 
 ```r
-servr::httw('docs/_site', initpath = 'instructor')
+servr::httw('docs/_site')
 ```
 
-Other valid `initpath` arguments are `course`, `slides`, or nothing.
+If needed, additionally specify an `initpath` value of `'instructor'`, `'course'`, or `'slides'`.
 
+If the default port is in use, try a different port, e.g.:
+
+```r
+servr::httw('docs/_site', port = 4322)
+```
+
+For the site to load correctly, you must update the "RSTUDIO_PROXY"
+environment variable using the next line of code and then force the site to build again.
+
+```r
+Sys.setenv(RSTUDIO_PROXY=rstudioapi::translateLocalUrl('http://127.0.0.1:4322'))
+```
 
 ## Versioning and Releases
 
