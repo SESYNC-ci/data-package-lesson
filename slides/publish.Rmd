@@ -180,7 +180,7 @@ dpAccessRules <- data.frame(subject="http://orcid.org/0000-0000-0000-0000", perm
 dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0000-0000-0000",
                                          "http://orcid.org/0000-0000-0000-0001"),
                              permission = c("changePermission", "read")
-                            )
+                             )
 ```
 NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
 
