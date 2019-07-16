@@ -206,7 +206,7 @@ dpAccessRules <- data.frame(subject="http://orcid.org/0000-0000-0000-0000", perm
 dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0000-0000-0000",
                                          "http://orcid.org/0000-0000-0000-0001"),
                              permission = c("changePermission", "read")
-                            )
+                             )
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 

@@ -59,7 +59,7 @@ dp <- describeWorkflow(dp, sources = doIn, program = progObj, derivations = doOu
 
 ## Closing thoughts
 
-Integrating data documentation and publication into your research workflow will increase your efficiency, reproducibility, and reach.  
+Integrating data documentation and publication into your research workflow will increase your efficiency, reproducibility, and impact in the science community.  
 
 
 
