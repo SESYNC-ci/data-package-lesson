@@ -16,6 +16,8 @@ Choosing to publish your data in a long-term repository can:
 
 ### Why can't I just put my data on Dropbox, Google Drive, my website, etc?
 
+![]({% include asset.html path="images/facepalm.png" %}){: width="50%"} 
+
   - preservation (permanence)
   - stability (replication / backup)
   - access 
