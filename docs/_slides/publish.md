@@ -2,7 +2,7 @@
 
 ---
 
-## Publishing your data
+## Publishing your data 
 
 Choosing to publish your data in a long-term repository can:
 

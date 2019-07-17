@@ -1,5 +1,5 @@
 # Data package lesson
-  
+   
 Package your data and metadata for publication
   
 # Instructor Notes
