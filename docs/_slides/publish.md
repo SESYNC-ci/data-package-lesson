@@ -16,7 +16,7 @@ Choosing to publish your data in a long-term repository can:
 
 ### Why can't I just put my data on Dropbox, Google Drive, my website, etc?
 
-![]({% include asset.html path="images/facepalm.png" %}){: width="50%"} 
+![]({% include asset.html path="images/facepalm.png" %}){: width="45%"} 
 
   - preservation (permanence)
   - stability (replication / backup)
@@ -57,10 +57,13 @@ To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
 
 Data packages can include metadata, data, and script files, as well as descriptions of the relationships between those files.   
 
-Currently there are a few ways to make a data package  
+Currently there are a few ways to make a data package:   
+
 - [Frictionless Data](https://frictionlessdata.io/docs/data-package/) uses json-ld format, and has the R package [`datapackage.r`](https://github.com/frictionlessdata/datapackage-r) which creates metadata files using schema.org specifications and creates a data package.  
 
-- [DataONE](https://www.dataone.org/) frequently uses EML format for metadata, and has related R packages `datapack` and `rdataone` that create data packages and upload data packages to a repository.  
+- [DataONE](https://www.dataone.org/) frequently uses EML format for metadata, and has related R packages [`datapack`](){:.rlib} and [`rdataone`](){:.rlib} that create data packages and upload data packages to a repository.  
+
+We'll follow the DataONE way of creating a data package in this lesson.  
 
 ===
 
@@ -71,12 +74,13 @@ Currently there are a few ways to make a data package
 
 ===
 
-We'll create a local data package using [`datapack`](https://docs.ropensci.org/datapack/):
+We'll create a local data package using [`datapack`](){:.rlib}:
 
 
 
 ~~~r
-library(datapack) ; library(uuid)
+library(datapack) 
+library(uuid)
 
 dp <- new("DataPackage") # create empty data package
 ~~~
@@ -88,7 +92,7 @@ Add the metadata file we created earlier to the blank data package.
 
 
 ~~~r
-emlFile <- "data_package/metadata/dataspice.xml"
+emlFile <- "storm_project/metadata/dataspice.xml"
 emlId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
 mdObj <- new("DataObject", id = emlId, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
@@ -105,7 +109,7 @@ Add the data file we saved earlier to the data package.
 
 
 ~~~r
-datafile <- "data_package/StormEvents_d2006.csv"
+datafile <- "storm_project/StormEvents_d2006.csv"
 dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
 dataObj <- new("DataObject", id = dataId, format = "text/csv", filename = datafile) 
@@ -149,7 +153,7 @@ Save the data package to a file, using the [BagIt](https://tools.ietf.org/id/dra
 # right now this creates a zipped file in the tmp directory
 dp_bagit <- serializeToBagIt(dp) 
 # now we have to move the file out of the tmp directory
-file.copy(dp_bagit, "data_package/Storm_dp.zip") 
+file.copy(dp_bagit, "storm_project/Storm_dp.zip") 
 # hopefully this will be changed soon!  https://github.com/ropensci/datapack/issues/108
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
@@ -181,11 +185,11 @@ Uploading requirements can vary by repository and type of data.  The minimum you
 
 If you have a small number of files, using a repository GUI will usually be simpler.  For large numbers of files, automating uploads from R will save time.  And it's reproducible!  
 
-If you choose, you can upload the data package to a repository in the DataONE federation using the `rdataone` package.  
+If you choose, you can upload the data package to a repository in the DataONE federation using the [`rdataone`](){:.rlib} package.  
 
 1) Get authentication token for DataONE (follow steps [here](https://github.com/DataONEorg/rdataone/blob/master/vignettes/dataone-federation.Rmd))
 
-2) Upload your data package using R (from vignette for [rdataone](https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd))
+2) Upload your data package using R (from vignette for [rdataone](){:.rlib})
 
 ===
 
@@ -195,7 +199,7 @@ If you choose, you can upload the data package to a repository in the DataONE fe
 
 
 
-#### You can set the level of access to your data package.  
+#### Set access rules for data package
 
 
 

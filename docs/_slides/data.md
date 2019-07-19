@@ -2,7 +2,10 @@
 
 ---
 
-## Data  
+## Preparing Data for Publication
+
+Both raw data and derived data (data you've assembled or processed in some way) from a project need to be neat and tidy before publication.  Following principles of tidy data from the beginning will make your workflows more efficient during a project, and will make it easier for others to undertand and use your data once published.  However, if your data isn't yet tidy, you can make it tidier before you publish it.  
+{:.notes} 
 
 Consistency is key when managing your data!
 
@@ -19,7 +22,7 @@ Consistency is key when managing your data!
 
 __Bad:__  "CeNsus data*2ndTry 2/15/2017.csv"   
 
-__Good:__  "census_data_try_2.csv"  
+__Good:__  "census_data.csv"  
 
 
 
@@ -31,8 +34,6 @@ stm_dat <- read_csv("data/StormEvents.csv")
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
-For more details see the [basic-R-lesson](https://cyberhelp.sesync.org/basic-R-lesson/).  
-
 ===
 
 ### Formatting data
@@ -42,12 +43,13 @@ For more details see the [basic-R-lesson](https://cyberhelp.sesync.org/basic-R-l
 3. Each observation has its own row.
 4. Each value has its own cell.
 
-Downstream operations/analysis require tidy data. 
+Downstream operations/analysis require tidy data.  
 
-You can work towards ready-to-analyze data incrementally, documenting the intermediate data and steps you took in your scripts.  This can be a powerful accelerator for your analysis both now and in the future.  
+These principles closely map to best practices for “normalization” in database design.  R developer Hadley Wickham further describes the priciples of tidy data in this paper [(Wickham 2014)](http://www.jstatsoft.org/v59/i10/paper). 
 {:.notes}
 
-For more details see the [data-manipulation-R-lesson](https://cyberhelp.sesync.org/data-manipulation-R-lesson/).  
+You can work towards ready-to-analyze data incrementally, documenting the intermediate data and cleaning steps you took in your scripts.  This can be a powerful accelerator for your analysis both now and in the future.  
+{:.notes}
 
 ===
 
@@ -93,13 +95,11 @@ we have one table to be written out to a file now.
 
 
 ~~~r
-dir.create('data_package', showWarnings = FALSE)
-write_csv(stm_dat, "data_package/StormEvents_d2006.csv")
+dir.create('storm_project', showWarnings = FALSE)
+write_csv(stm_dat, "storm_project/StormEvents_d2006.csv")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
-
-For more details see the [basic-R-lesson](https://cyberhelp.sesync.org/basic-R-lesson/). 
 
 ===
     

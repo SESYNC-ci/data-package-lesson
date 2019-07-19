@@ -186,7 +186,7 @@ edit_attributes(metadata_dir = here("storm_project", "metadata"))
 
 Now we can write our metadata to a json-ld file.
 
-```{r, handout = 0, eval = FALSE}
+```{r, handout = 0}
 write_spice(path = here("storm_project", "metadata"))
 ```
 
@@ -194,7 +194,7 @@ write_spice(path = here("storm_project", "metadata"))
 
 Now convert the json-ld file into EML (Ecological Metadata Language) format.
 
-```{r, message = FALSE, handout = 0, eval = FALSE}
+```{r, message = FALSE, handout = 0}
 library(emld) 
 library(EML) 
 library(jsonlite)
