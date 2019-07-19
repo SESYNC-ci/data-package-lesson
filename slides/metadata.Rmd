@@ -13,8 +13,8 @@ This includes _package-level_ and _file-level_ metadata.
 ### Common components of metadata
 
 Package-level:
- - Geographic extent of data (generally)
- - Data creator
+ - Data creator 
+ - Geographic and temporal extents of data (generally)
  - Funding source
  - Licensing information (Creative Commons, etc.)
  - Publication date
@@ -71,8 +71,8 @@ Stand-alone software
 
 Coding 
 
-   - R packages ([EML](https://github.com/ropensci/EML), [dataspice](https://github.com/ropenscilabs/dataspice), [emld](https://github.com/ropensci/emld))
-
+   - R packages ([EML](){:.rlib}, [dataspice](https://github.com/ropenscilabs/dataspice), [emld](){:.rlib})
+ 
 ===
 
 ### Example of coding up some metadata  
@@ -86,16 +86,17 @@ Coding
 | `jsonlite`  | reads json and json-ld file formats in R                   |
 
 
-We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package. 
+We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package to create metadata in the EML metadata standard. 
 
 ```{r, message = FALSE, handout = 0}
-library(dataspice) ; library(here)
+library(dataspice) 
+library(here)
 ```
 
 Create data package templates.
 
 ```{r, handout = 0}
-create_spice(dir = "data_package")
+create_spice(dir = "storm_project")
 ```
  
 Look at your data_package folder, and see the CSV template files. 
@@ -107,6 +108,8 @@ We'll start with package-level metadata.
 
 Add extent, coverage, license, publication, funder, keywords, etc. 
 
+We can get the temporal and geographic extent information using the `range()` function. 
+
 ```{r, eval = FALSE}
 range(stm_dat$YEAR)
 
@@ -114,8 +117,10 @@ range(stm_dat$BEGIN_LAT, na.rm=TRUE)
 range(stm_dat$BEGIN_LON, na.rm=TRUE)
 ```
   
+This extent information can now be added to the `biblio.csv` metadata file.  
+  
 ```{r, eval = FALSE, handout = 0}
-edit_biblio(metadata_dir = here::here("data_package", "metadata"))
+edit_biblio(metadata_dir = here("storm_project", "metadata"))
 ```
 
 ===
@@ -123,20 +128,24 @@ edit_biblio(metadata_dir = here::here("data_package", "metadata"))
 Describe the creators of the data. 
 
 ```{r, eval = FALSE, handout = 0}
-edit_creators(metadata_dir = here::here("data_package", "metadata"))
+edit_creators(metadata_dir = here("storm_project", "metadata"))
 ```
 
 ===
 
 Add information about where the data can be accessed.
 
+The `prep_access()` function tries to discover the metadata for itself.  
+
 ```{r, eval = FALSE, handout = 0}
-prep_access(data_path = here::here("data_package"),
-            access_path = here::here("data_package", "metadata", "access.csv"))
+prep_access(data_path = here("storm_project"),
+            access_path = here("storm_project", "metadata", "access.csv"))
 ```
   
+The `edit_access()` function can be used to edit the generated metadata, or used by itself to manually enter access metadata.    
+  
 ```{r, eval = FALSE, handout = 0}
-edit_access(metadata_dir = here::here("data_package", "metadata"))
+edit_access(metadata_dir = here("storm_project", "metadata"))
 ```
 
 ===
@@ -145,13 +154,17 @@ We'll describe the file-level metadata now.
 
 Add attributes of the data.
 
+The `prep_attributes()` function tries also to discover the metadata for itself.  
+
 ```{r, eval = FALSE, handout = 0}
-prep_attributes(data_path = here::here("data_package"),
-                attributes_path = here::here("data_package", "metadata", "attributes.csv"))  
+prep_attributes(data_path = here("storm_project"),
+                attributes_path = here("storm_project", "metadata", "attributes.csv"))  
 ```
   
+The `edit_attributes()` function can be used to further edit the file attribute metadata.    
+  
 ```{r, eval = FALSE, handout = 0}
-edit_attributes(metadata_dir = here::here("data_package", "metadata"))
+edit_attributes(metadata_dir = here("storm_project", "metadata"))
 ```
 
 ===
@@ -159,19 +172,21 @@ edit_attributes(metadata_dir = here::here("data_package", "metadata"))
 Now we can write our metadata to a json-ld file.
 
 ```{r, handout = 0, eval = FALSE}
-write_spice(path = here::here("data_package", "metadata"))
+write_spice(path = here("storm_project", "metadata"))
 ```
 
 ===
 
-Now convert the json-ld file into EML (Ecological Metadata Language).
+Now convert the json-ld file into EML (Ecological Metadata Language) format.
 
 ```{r, message = FALSE, handout = 0, eval = FALSE}
-library(emld) ; library(EML) ; library(jsonlite)
+library(emld) 
+library(EML) 
+library(jsonlite)
 
-json <- jsonlite::read_json("data_package/metadata/dataspice.json")
-eml <- emld::as_emld(json)
-EML::write_eml(eml, "data_package/metadata/dataspice.xml")
+json <- read_json("storm_project/metadata/dataspice.json")
+eml <- as_emld(json)
+write_eml(eml, "storm_project/metadata/dataspice.xml")
 ```
 
 ===

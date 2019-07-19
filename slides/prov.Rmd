@@ -20,7 +20,7 @@ Potential ways forward:
 
 To take advantage of the versioning of data built into many repositories, you can update the data package (replace files with new versions).  
 
-Please see the vignettes for `rdataone`, section on ["Replace an object with a newer version"](https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd).  
+Please see the vignettes for [`rdataone`](){:.rlib} , section on ["Replace an object with a newer version"](https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd).  
 
 ===
 
@@ -45,7 +45,7 @@ A couple examples include:
 
 ### Adding provenance to your data package
 
-Prov can be added to a data package using `datapack` and the function below.  But see the [vignette](https://github.com/ropensci/datapack/blob/master/vignettes/datapack-overview.Rmd) for more details.  
+Prov can be added to a data package using [`datapack`](){:.rlib} and the function below.  But see the [vignette](https://github.com/ropensci/datapack/blob/master/vignettes/datapack-overview.Rmd) for more details.  
 
 ```{r, eval = FALSE, handout = 0}
 dp <- describeWorkflow(dp, sources = doIn, program = progObj, derivations = doOut)
@@ -55,7 +55,7 @@ dp <- describeWorkflow(dp, sources = doIn, program = progObj, derivations = doOu
 
 ## Closing thoughts
 
-Integrating data documentation and publication into your research workflow will increase your efficiency, reproducibility, and impact in the science community.  
+Integrating data documentation and publication into your research workflow will increase collaboration efficiency, reproducibility, and impact in the science community.  
 
 
 

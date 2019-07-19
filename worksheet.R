@@ -1,6 +1,6 @@
 # Documenting and Publishing your Data Worksheet
 
-# Data
+# Preparing Data for Publication
 library(...)
 
 stm_dat <- ...("data/StormEvents.csv")
@@ -13,7 +13,7 @@ stm_dat <- ...("data/StormEvents.csv")
 ...('data_package', showWarnings = FALSE)
 ...(stm_dat, "data_package/StormEvents_d2006.csv")
 
-# Metadata
+# Creating metadata
 library(...) ; library(...)
 
 ...(dir = "data_package")
@@ -42,7 +42,7 @@ json <- ...("data_package/metadata/dataspice.json")
 eml <- ...(json)
 ...(eml, "data_package/metadata/dataspice.xml")
 
-# Package
+# Creating a data package
 library(...) ; library(...)
 
 dp <- ...("DataPackage") # create empty data package
