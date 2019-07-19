@@ -30,9 +30,9 @@ Data packages also frequently include 1) code scripts that clean, process, or pe
 
 ## Why package and publish your data?  
 
-1. Data is a valuable asset
+1. *Data is a valuable asset - easily publish your data now or in the future*
 
-2. Efficient collaboration
+2. *Efficient collaboration - improve sharing data with collaborators now*
 
 3. Credit for your work 
 
@@ -48,14 +48,8 @@ Data packages also frequently include 1) code scripts that clean, process, or pe
 
 It is important to incorporate documentation of your data throughout your reproducible research pipeline.  
 
-![]({% include asset.html path="images/wrkflow_diagram.png" %}){: width="100%"} 
+![]({% include asset.html path="images/wrkflow_diagram.png" %}){: width="75%"} 
 
 
 ===
-
-## Goals of data packaging
-
-1. Improve sharing data with collaborators now.
-
-2. Easily publish your data now or in the future. 
-
+  
