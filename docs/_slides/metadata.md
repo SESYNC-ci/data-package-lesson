@@ -48,7 +48,7 @@ Metadata standards are often developed by user communities.
 For example, [EML](https://knb.ecoinformatics.org/external//emlparser/docs/index.html) was developed by ecologists to describe environmental and ecological data.  
 {:.notes}
 
-Theefore, the standards can vary between disciplines and types of data.  
+Therefore, the standards can vary between disciplines and types of data.  
 
 ===
 
