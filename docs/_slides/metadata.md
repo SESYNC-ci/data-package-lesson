@@ -35,7 +35,7 @@ The goal is to have a machine and human readable description of your data.
  
 Metadata standards create a structural expression of metadata necessary to document a data set.  
 This can mean using a controlled set of descriptors for your data specified by the standard. 
-
+===
 Without metadata standards, your digital data may be irretrievable, unidentifiable or unusable. 
 Metadata standards contain definitions of the data elements and standardised ways of representing them in digital formats such as databases and XML (eXtensible Markup Language).
 {:.notes}
@@ -68,7 +68,7 @@ Some examples include:
 ### Creating metadata
 
 Employer-specific mandated methods (ex: USGS)
-
+===
 Repository-specific methods
 
    - website for a repository 
@@ -83,6 +83,8 @@ Stand-alone software
    
    - [Data Curator](https://github.com/ODIQueensland/data-curator) - still in beta
      ![]({% include asset.html path="images/Data_Curator_snap.PNG" %}){: width="100%"} 
+     
+===
 
 Coding 
 
@@ -100,6 +102,7 @@ Coding
 | `EML`       | creates EML metadata files                                 |
 | `jsonlite`  | reads json and json-ld file formats in R                   |
 
+===
 
 We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package to create metadata in the EML metadata standard. 
 
@@ -111,6 +114,8 @@ library(here)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
+
+===
 
 Create data package templates.
 
@@ -131,6 +136,8 @@ We'll start with package-level metadata.
 
 Add extent, coverage, license, publication, funder, keywords, etc. 
 
+===
+
 We can get the temporal and geographic extent information using the `range()` function. 
 
 
@@ -143,6 +150,8 @@ We can get the temporal and geographic extent information using the `range()` fu
 ~~~
 {:title="Console" .no-eval .input}
 
+  
+===  
   
 This extent information can now be added to the `biblio.csv` metadata file.  
   
@@ -181,6 +190,8 @@ prep_access(data_path = here("storm_project"),
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
   
+===  
+  
 The `edit_access()` function can be used to edit the generated metadata, or used by itself to manually enter access metadata.    
   
 
@@ -207,6 +218,8 @@ prep_attributes(data_path = here("storm_project"),
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
+  
+===  
   
 The `edit_attributes()` function can be used to further edit the file attribute metadata.    
   

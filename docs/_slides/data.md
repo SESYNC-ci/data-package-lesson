@@ -13,6 +13,8 @@ Consistency is key when managing your data!
 
    - "origin", not "starting place", "beginning location", and "source"
    - "*Orcinus orca*", not "killer Whale", "Killer whale", "killer.whale", and "orca"
+   
+===
 
 2. Consider using a discipline-wide published vocabulary if appropriate (ex: [hydrological controlled vocab.](http://vocabulary.odm2.org/))
 
@@ -66,7 +68,7 @@ Let's do a few checks to see if our data is tidy.
 ~~~
 {:title="Console" .no-eval .input}
 
- 
+=== 
  - check date format
 
 

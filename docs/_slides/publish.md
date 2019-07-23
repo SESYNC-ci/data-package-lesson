@@ -18,6 +18,8 @@ Choosing to publish your data in a long-term repository can:
 
 ![]({% include asset.html path="images/facepalm.png" %}){: width="45%"} 
 
+===
+
   - preservation (permanence)
   - stability (replication / backup)
   - access 
@@ -35,6 +37,8 @@ A couple issues to think about:
 
    - Publish your data privately and use the unique ids of datasets to manage versions.
 
+===
+
 2) How do you control access to your data until you're ready to go public with it?
 
    - Embargoing - controlling access for a certain period of time and then making your data public.
@@ -46,6 +50,8 @@ A couple issues to think about:
 ORCiDs identify you and link you to your publications and research products.  They are used by journals, repositories, etc. and often as a log in.  
 
 ![]({% include asset.html path="images/Sign_In_snap.PNG" %}){: width="100%"} 
+
+===
 
 To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
 
@@ -60,6 +66,8 @@ Data packages can include metadata, data, and script files, as well as descripti
 Currently there are a few ways to make a data package:   
 
 - [Frictionless Data](https://frictionlessdata.io/docs/data-package/) uses json-ld format, and has the R package [`datapackage.r`](https://github.com/frictionlessdata/datapackage-r) which creates metadata files using schema.org specifications and creates a data package.  
+
+===
 
 - [DataONE](https://www.dataone.org/) frequently uses EML format for metadata, and has related R packages [`datapack`](){:.rlib} and [`rdataone`](){:.rlib} that create data packages and upload data packages to a repository.  
 
@@ -86,6 +94,8 @@ dp <- new("DataPackage") # create empty data package
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
+
+===
 
 Add the metadata file we created earlier to the blank data package.
 
@@ -119,6 +129,8 @@ dp <- addMember(dp, dataObj) # add data file to data package
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
+===
+
 Define the relationship between the data and metadata. 
 
 
@@ -144,6 +156,8 @@ status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
+
+===
 
 Save the data package to a file, using the [BagIt](https://tools.ietf.org/id/draft-kunze-bagit-16.html) packaging format.  
 
@@ -175,7 +189,10 @@ For qualitative data, there are a few dedicated repositories: [QDR](https://qdr.
 
 ===
 
-Though a bit different, [Zenodo](https://zenodo.org/) facilitates publishing (with a DOI) and archiving all research outputs from all research fields.  This can be used to publish releases of your code that lives in a GitHub repository.  However, since GitHub is not designed for data storage and is not a persistent repository, this is not a recommended way to store or publish data.  
+Though a bit different, [Zenodo](https://zenodo.org/) facilitates publishing (with a DOI) and archiving all research outputs from all research fields.  
+
+This can be used to publish releases of your code that lives in a GitHub repository.  However, since GitHub is not designed for data storage and is not a persistent repository, this is not a recommended way to store or publish data.  
+{:.notes}
 
 ===
 
@@ -184,6 +201,8 @@ Though a bit different, [Zenodo](https://zenodo.org/) facilitates publishing (wi
 Uploading requirements can vary by repository and type of data.  The minimum you usually need is basic metadata, and a data file.  
 
 If you have a small number of files, using a repository GUI will usually be simpler.  For large numbers of files, automating uploads from R will save time.  And it's reproducible!  
+
+===
 
 If you choose, you can upload the data package to a repository in the DataONE federation using the [`rdataone`](){:.rlib} package.  
 
@@ -197,9 +216,9 @@ If you choose, you can upload the data package to a repository in the DataONE fe
 |-------------+---------------------------------------|
 | `dataone`   | uploads data package to repository    |
 
+===
 
-
-#### Set access rules for data package
+#### Set access rules 
 
 
 
@@ -207,8 +226,16 @@ If you choose, you can upload the data package to a repository in the DataONE fe
 library(dataone)
 
 dpAccessRules <- data.frame(subject="http://orcid.org/0000-0000-0000-0000", permission="changePermission") 
-# this gives this particular orcid (person) permission to read, write, and change permissions for others for this package
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
+This gives this particular orcid (person) permission to read, write, and change permissions for others for this package
+
+===
+
+
+
+~~~r
 dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0000-0000-0000",
                                          "http://orcid.org/0000-0000-0000-0001"),
                              permission = c("changePermission", "read")
@@ -218,10 +245,14 @@ dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0000-0000-0000",
 
 NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
 
+===
+
 #### Upload data package
 
 The first argument here is the environment - "PROD" is production where you publish your data.
 "STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package.    
+
+===
 
 The second argument is the repository specification.  A table of member node IDs: (data/Nodes.csv) 
 
@@ -233,6 +264,8 @@ The second argument is the repository specification.  A table of member node IDs
 {:title="Console" .no-eval .input}
 
 
+===
+
 First set the environment and repository you'll upload to:
   
 
@@ -242,6 +275,8 @@ d1c <- D1Client("PROD", "urn:node:DRYAD")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
+  
+===  
   
 Now do the actual uploading of your data package:
   
@@ -259,17 +294,29 @@ packageId <- uploadDataPackage(d1c, dp_bagit, public = FALSE, accessRules = dpAc
 
 Getting a Digital Object Identifier (DOI) for your data package can make it easier for others to find and cite your data.  
 
+===
+
 You can assign a DOI to the metadata file for your data package using: 
+
+First specify the environment and repository.  
 
 
 ~~~r
-# again specify the environment and repository 
 cn <- CNode("PROD")
 mn <- getMNode(cn, "urn:node:DRYAD")  
 
 doi <- generateIdentifier(mn, "DOI")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
-# now overwrite the previous metadata file with the new DOI identified metadata file
+
+===
+
+Now overwrite the previous metadata file with the new DOI identified metadata file
+
+
+
+~~~r
 mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}

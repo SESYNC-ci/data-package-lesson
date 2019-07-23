@@ -8,6 +8,8 @@
    -  Learn what a data package is
    -  Prepare to publish your data from R
 
+===
+
 ## Specific Achievements
 
    -  Create metadata locally
@@ -33,7 +35,7 @@ Data packages also frequently include 1) code scripts that clean, process, or pe
 1. *Data is a valuable asset - easily publish your data now or in the future*
 
 2. *Efficient collaboration - improve sharing data with collaborators now*
-
+===
 3. Credit for your work 
 
 4. Funder requirement
@@ -47,7 +49,7 @@ Data packages also frequently include 1) code scripts that clean, process, or pe
 ## Integrating data documentation 
 
 It is important to incorporate documentation of your data throughout your reproducible research pipeline.  
-
+===
 ![]({% include asset.html path="images/wrkflow_diagram.png" %}){: width="75%"} 
 
 
