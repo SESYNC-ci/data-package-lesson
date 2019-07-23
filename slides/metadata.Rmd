@@ -35,7 +35,9 @@ The goal is to have a machine and human readable description of your data.
  
 Metadata standards create a structural expression of metadata necessary to document a data set.  
 This can mean using a controlled set of descriptors for your data specified by the standard. 
+
 ===
+
 Without metadata standards, your digital data may be irretrievable, unidentifiable or unusable. 
 Metadata standards contain definitions of the data elements and standardised ways of representing them in digital formats such as databases and XML (eXtensible Markup Language).
 {:.notes}
@@ -68,7 +70,9 @@ Some examples include:
 ### Creating metadata
 
 Employer-specific mandated methods (ex: USGS)
+
 ===
+
 Repository-specific methods
 
    - website for a repository 

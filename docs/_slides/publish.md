@@ -20,6 +20,8 @@ Choosing to publish your data in a long-term repository can:
 
 ===
 
+#### Key reasons to use a repository:
+
   - preservation (permanence)
   - stability (replication / backup)
   - access 
@@ -30,6 +32,8 @@ Choosing to publish your data in a long-term repository can:
 ### When to publish your data?
 
 Near the beginning?  At the very end?  
+
+===
 
 A couple issues to think about: 
 
@@ -62,6 +66,8 @@ To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
 ### Creating a data package
 
 Data packages can include metadata, data, and script files, as well as descriptions of the relationships between those files.   
+
+===
 
 Currently there are a few ways to make a data package:   
 

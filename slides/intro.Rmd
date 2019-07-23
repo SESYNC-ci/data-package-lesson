@@ -51,7 +51,9 @@ Data packages also frequently include 1) code scripts that clean, process, or pe
 ## Integrating data documentation 
 
 It is important to incorporate documentation of your data throughout your reproducible research pipeline.  
+
 ===
+
 ![]({% include asset.html path="images/wrkflow_diagram.png" %}){: width="75%"} 
 
 
