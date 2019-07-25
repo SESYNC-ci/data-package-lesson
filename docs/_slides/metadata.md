@@ -131,7 +131,7 @@ create_spice(dir = "storm_project")
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
  
-Look at your data_package folder, and see the CSV template files. 
+Look at your storm_project folder, and see the CSV template files. 
  
 === 
  

@@ -167,14 +167,15 @@ status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
 
 Save the data package to a file, using the [BagIt](https://tools.ietf.org/id/draft-kunze-bagit-16.html) packaging format.  
 
+Right now this creates a zipped file in the tmp directory.  We'll have to move the file 
+out of the temp directory after it is created.  Hopefully this will be [changed soon](https://github.com/ropensci/datapack/issues/108)!  
+{:.notes}
+
 
 
 ~~~r
-# right now this creates a zipped file in the tmp directory
 dp_bagit <- serializeToBagIt(dp) 
-# now we have to move the file out of the tmp directory
 file.copy(dp_bagit, "storm_project/Storm_dp.zip") 
-# hopefully this will be changed soon!  https://github.com/ropensci/datapack/issues/108
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
@@ -224,6 +225,16 @@ If you choose, you can upload the data package to a repository in the DataONE fe
 
 ===
 
+#### Load my API token
+
+
+
+~~~r
+source("D1_token.R")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+
+
 #### Set access rules 
 
 
@@ -231,7 +242,8 @@ If you choose, you can upload the data package to a repository in the DataONE fe
 ~~~r
 library(dataone)
 
-dpAccessRules <- data.frame(subject="http://orcid.org/0000-0000-0000-0000", permission="changePermission") 
+dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100", 
+                            permission="changePermission") 
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
@@ -242,7 +254,7 @@ This gives this particular orcid (person) permission to read, write, and change 
 
 
 ~~~r
-dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0000-0000-0000",
+dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0003-0847-9100",
                                          "http://orcid.org/0000-0000-0000-0001"),
                              permission = c("changePermission", "read")
                              )
@@ -277,7 +289,7 @@ First set the environment and repository you'll upload to:
 
 
 ~~~r
-d1c <- D1Client("PROD", "urn:node:DRYAD") 
+d1c <- D1Client("STAGING", "urn:node:KNB") 
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
@@ -289,7 +301,8 @@ Now do the actual uploading of your data package:
 
 
 ~~~r
-packageId <- uploadDataPackage(d1c, dp_bagit, public = FALSE, accessRules = dpAccessRules, quiet = FALSE)
+packageId <- uploadDataPackage(d1c, dp_bagit, public = FALSE, accessRules = dpAccessRules,
+                               quiet = FALSE)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 

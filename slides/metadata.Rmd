@@ -123,7 +123,7 @@ Create data package templates.
 create_spice(dir = "storm_project")
 ```
  
-Look at your data_package folder, and see the CSV template files. 
+Look at your storm_project folder, and see the CSV template files. 
  
 === 
  
