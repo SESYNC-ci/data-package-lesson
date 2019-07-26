@@ -38,7 +38,7 @@ Data packages also frequently include 1) code scripts that clean, process, or pe
 
 ===
 
-{:start = "3"}
+{:start="3"}
 3. Credit for your work 
 
 4. Funder requirement
