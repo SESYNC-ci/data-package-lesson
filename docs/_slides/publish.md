@@ -289,7 +289,7 @@ First set the environment and repository you'll upload to:
 
 
 ~~~r
-d1c <- D1Client("STAGING", "urn:node:KNB") 
+d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") 
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
@@ -301,7 +301,7 @@ Now do the actual uploading of your data package:
 
 
 ~~~r
-packageId <- uploadDataPackage(d1c, dp_bagit, public = FALSE, accessRules = dpAccessRules,
+packageId <- uploadDataPackage(d1c, dp, public = TRUE, accessRules = dpAccessRules,
                                quiet = FALSE)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
@@ -336,7 +336,8 @@ Now overwrite the previous metadata file with the new DOI identified metadata fi
 
 
 ~~~r
-mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", 
+             file = emlFile)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 

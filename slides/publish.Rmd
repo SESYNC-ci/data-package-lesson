@@ -247,7 +247,7 @@ read.csv("data/Nodes.csv")
 First set the environment and repository you'll upload to:
   
 ```{r, eval = FALSE, handout = 0}
-d1c <- D1Client("STAGING", "urn:node:KNB") 
+d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") 
 ```
   
 ===  
@@ -255,7 +255,7 @@ d1c <- D1Client("STAGING", "urn:node:KNB")
 Now do the actual uploading of your data package:
   
 ```{r, eval = FALSE, handout = 0}
-packageId <- uploadDataPackage(d1c, dp_bagit, public = FALSE, accessRules = dpAccessRules,
+packageId <- uploadDataPackage(d1c, dp, public = TRUE, accessRules = dpAccessRules,
                                quiet = FALSE)
 ```
 
@@ -282,7 +282,8 @@ doi <- generateIdentifier(mn, "DOI")
 Now overwrite the previous metadata file with the new DOI identified metadata file
 
 ```{r, eval = FALSE, handout = 0}
-mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", 
+             file = emlFile)
 ```
 
 
