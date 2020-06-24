@@ -211,6 +211,8 @@ source("D1_token.R")
 
 ```{r, eval = FALSE, handout = 0}
 library(dataone)
+library(curl) 
+library(redland) 
 
 dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100", 
                             permission="changePermission") 
