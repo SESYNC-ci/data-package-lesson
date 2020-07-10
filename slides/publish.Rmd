@@ -207,7 +207,7 @@ You'll need to do two basic steps:
 
 **Tokens:**
 
-Different environments in DataONE take different authentication tokens.  See below for description of environments.
+Different environments in DataONE take different authentication tokens.  See below for description of environments.  
 To get a token for the staging envrionment go here [https://dev.nceas.ucsb.edu](https://dev.nceas.ucsb.edu).  
 To get a token for production environment go here [https://search.dataone.org](https://search.dataone.org).  
 Then do the following: 
@@ -263,7 +263,7 @@ The first argument here is the environment - "PROD" is production where you publ
 
 ===
 
-The second argument is the repository specification.  A table of member node IDs: (data/Nodes.csv) 
+The second argument is the repository specification.  If you don't know your repository specs, look it up in this table of member node IDs: (data/Nodes.csv) 
 
 ```{r, eval = FALSE}
 read.csv("data/Nodes.csv")

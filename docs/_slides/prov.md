@@ -51,7 +51,7 @@ A couple examples include:
 
 ### Adding provenance to your data package
 
-Prov can be added to a data package using [`datapack`](){:.rlib} and the function below.  But see the [vignette](https://github.com/ropensci/datapack/blob/master/vignettes/datapack-overview.Rmd) or the [function documentation](https://docs.ropensci.org/datapack/reference/describeWorkflow.html) for more details.  
+Provenance can be added to a data package using [`datapack`](){:.rlib} and the function in the example code below.  But see the [vignette](https://github.com/ropensci/datapack/blob/master/vignettes/datapack-overview.Rmd) or the [function documentation](https://docs.ropensci.org/datapack/reference/describeWorkflow.html) for more details.  
 
 ===
 
@@ -60,16 +60,20 @@ Example code for provenance:
 
 
 ~~~r
-dp <- describeWorkflow(dp, sources = doIn, program = progObj, derivations = doOut)
+> dp <- describeWorkflow(dp, sources = doIn, program = progObj, derivations = doOut)
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+{:title="Console" .no-eval .input}
 
 
 ===
 
 ## Closing thoughts
 
+Starting to document your data at the beginning of your project will save you time and headache at the end of your project.
+
 Integrating data documentation and publication into your research workflow will increase collaboration efficiency, reproducibility, and impact in the science community.  
+
+
 
 
 
