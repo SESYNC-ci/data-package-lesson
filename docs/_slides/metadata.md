@@ -75,24 +75,33 @@ Employer-specific mandated methods (ex: USGS)
 
 Repository-specific methods
 
-   - website for a repository 
+Repository websites frequently guide you through metadata creation during the process of uploading your data.  
+{:.notes}
+
+   - website for metadata entry on the [Knowledge Network for Biocomplexity](https://knb.ecoinformatics.org) repository 
      ![]({% include asset.html path="images/knb_snap.PNG" %}){: width="100%"} 
      
-Some repository websites guide you through metadata creation during the process of uploading your data.  
-{:.notes}
+
      
 ===     
    
 Stand-alone software
+
+Software designed for data curation often has more features and options.  This software from the [Queensland Cyber Infratstructure Foundation](https://www.qcif.edu.au/) supports metadata creation, provenance, and data packaging.    
+{:.notes}
    
-   - [Data Curator](https://github.com/ODIQueensland/data-curator) - still in beta
+   - [Data Curator](https://github.com/qcif/data-curator)
      ![]({% include asset.html path="images/Data_Curator_snap.PNG" %}){: width="100%"} 
      
 ===
 
 Coding 
 
-   - R packages ([EML](){:.rlib}, [dataspice](https://github.com/ropenscilabs/dataspice), [emld](){:.rlib})
+Many methods for documenting and packaging data are also available in R packages developed by repository managers.  For example, `EMLassemblyline` was developed by the [Environmental Data Initiative](https://environmentaldatainitiative.org/) to facilitate documenting data in EML, and preparing data for publication.          
+{:.notes}
+
+   - R packages ([EML](){:.rlib}, [dataspice](https://github.com/ropenscilabs/dataspice), [emld](){:.rlib}),
+   [EMLassemblyline](https://ediorg.github.io/EMLassemblyline/)
  
 ===
 
@@ -101,7 +110,6 @@ Coding
 | R Package   | What does it do?                                           |
 |-------------+------------------------------------------------------------|
 | `dataspice` | creates metadata files in json-ld format                   |
-| `here`      | facilitates finding your files in R                        |
 | `emld`      | aids conversion of metadata files between EML and json-ld  |
 | `EML`       | creates EML metadata files                                 |
 | `jsonlite`  | reads json and json-ld file formats in R                   |
@@ -114,7 +122,6 @@ We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package to 
 
 ~~~r
 library(dataspice) 
-library(here)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
@@ -134,10 +141,10 @@ create_spice(dir = "storm_project")
 Look at your storm_project folder, and see the CSV template files. 
  
 === 
+
+### Describe the package-level metadata. 
  
 The templates are empty, so now we need to populate them. 
-We'll start with package-level metadata. 
-
 Add extent, coverage, license, publication, funder, keywords, etc. 
 
 ===
@@ -158,14 +165,20 @@ We can get the temporal and geographic extent information using the `range()` fu
 ===  
   
 This extent information can now be added to the `biblio.csv` metadata file.  
-  
+
+This function opens a Shiny app interface where you can enter and save information in the CSV templates.  You could also edit these CSV files in another software program.
+{:.notes}
+
 
 
 ~~~r
-edit_biblio(metadata_dir = here("storm_project", "metadata"))
+edit_biblio(metadata_dir = "storm_project/metadata")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
+
+You may need to click the stop sign in your console to stop the edit Shiny app interface.
+{:.notes}
 
 ===
 
@@ -174,51 +187,50 @@ Describe the creators of the data.
 
 
 ~~~r
-edit_creators(metadata_dir = here("storm_project", "metadata"))
+edit_creators(metadata_dir = "storm_project/metadata")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
-===
+You may need to click the stop sign in your console to stop the edit Shiny app interface.
+{:.notes}
 
-Add information about where the data can be accessed.
+===
 
 The `prep_access()` function tries to discover the metadata for itself.  
 
 
 
 ~~~r
-prep_access(data_path = here("storm_project"),
-            access_path = here("storm_project", "metadata", "access.csv"))
+prep_access(data_path = "storm_project",
+            access_path = "storm_project/metadata/access.csv")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
   
-===  
-  
-The `edit_access()` function can be used to edit the generated metadata, or used by itself to manually enter access metadata.    
-  
+=== 
+
+The `edit_access()` function can be used to edit the generated metadata, or used by itself to manually enter access metadata.  Supply the file name and other access information about the data.
+
 
 
 ~~~r
-edit_access(metadata_dir = here("storm_project", "metadata"))
+edit_access(metadata_dir = "storm_project/metadata")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
 
-We'll describe the file-level metadata now.
-
-Add attributes of the data.
+### Describe the file-level metadata.
 
 The `prep_attributes()` function tries also to discover the metadata for itself.  
 
 
 
 ~~~r
-prep_attributes(data_path = here("storm_project"),
-                attributes_path = here("storm_project", "metadata", "attributes.csv"))  
+prep_attributes(data_path = "storm_project",
+                attributes_path = "storm_project/metadata/attributes.csv")  
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
@@ -230,26 +242,60 @@ The `edit_attributes()` function can be used to further edit the file attribute 
 
 
 ~~~r
-edit_attributes(metadata_dir = here("storm_project", "metadata"))
+edit_attributes(metadata_dir = "storm_project/metadata")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
 
+### Write metadata file
+
 Now we can write our metadata to a json-ld file.
 
 
 
 ~~~r
-write_spice(path = here("storm_project", "metadata"))
+write_spice(path = "storm_project/metadata")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
 ===
 
-Now convert the json-ld file into EML (Ecological Metadata Language) format.
+You can also create a static website for your dataset.
+
+
+
+~~~r
+build_site(path = "storm_project/metadata/dataspice.json")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+~~~
+Warning in vapply(tokens[[1]], as.numeric, 0, USE.NAMES = FALSE): NAs introduced
+by coercion
+
+Warning in vapply(tokens[[1]], as.numeric, 0, USE.NAMES = FALSE): NAs introduced
+by coercion
+
+Warning in vapply(tokens[[1]], as.numeric, 0, USE.NAMES = FALSE): NAs introduced
+by coercion
+
+Warning in vapply(tokens[[1]], as.numeric, 0, USE.NAMES = FALSE): NAs introduced
+by coercion
+~~~
+{:.output}
+
+
+Your site will build to the location "docs/index.html".
+{:.notes}
+
+===
+
+Many repositories use EML (Ecological Metadata Language) formatting for metadata.  
+Now convert the json-ld file into EML format.
 
 
 
@@ -263,6 +309,12 @@ eml <- as_emld(json)
 write_eml(eml, "storm_project/metadata/dataspice.xml")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+~~~
+NULL
+~~~
+{:.output}
 
 
 ===

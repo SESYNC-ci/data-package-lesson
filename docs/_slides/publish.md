@@ -211,11 +211,15 @@ If you have a small number of files, using a repository GUI will usually be simp
 
 ===
 
-If you choose, you can upload the data package to a repository in the DataONE federation using the [`rdataone`](){:.rlib} package.  
+#### Example using DataONE:
 
-1) Get authentication token for DataONE (follow steps [here](https://github.com/DataONEorg/rdataone/blob/master/vignettes/dataone-federation.Rmd))
+If you choose to upload your data package to a repository in the DataONE federation, the following example might be useful. 
 
-2) Upload your data package using R (from vignette for [rdataone](){:.rlib})
+You'll need to do two basic steps:   
+
+1) Get authentication token for DataONE (follow steps [here](https://github.com/DataONEorg/rdataone/blob/master/vignettes/v02-dataone-federation.Rmd))
+
+2) Upload your data package using R (from vignette for [dataone](){:.rlib})
 
 ===
 
@@ -225,14 +229,27 @@ If you choose, you can upload the data package to a repository in the DataONE fe
 
 ===
 
-#### Load my API token
+**Tokens:**
 
+Different environments in DataONE take different authentication tokens.  See below for description of environments.
+To get a token for the staging envrionment go here [https://dev.nceas.ucsb.edu](https://dev.nceas.ucsb.edu).  
+To get a token for production environment go here [https://search.dataone.org](https://search.dataone.org).  
+Then do the following: 
 
+  - Click *Sign in*, or *Sign up* if necessary
+  - Once signed in, move the cursor over the user name and select 'My profile' in the drop down menu.
+  - Click on the "Settings" tab.
+  - Click on "Authentication Token" in the menu below "Welcome"
+  - Click on the "Token for DataONE R" tab.
+  - Click "Renew authentication token" if the token you have been using has expired.
+  - Click on the "Copy" button below the text window to copy the authentication string to the paste buffer.
+  - Note the identity string and expiration date of the token.
+  - In the R console, paste the string which is similar to this example:
 
-~~~r
-source("D1_token.R")
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+===
+
+#### Set your token now
+
 
 
 #### Set access rules 
@@ -240,12 +257,14 @@ source("D1_token.R")
 
 
 ~~~r
-library(dataone)
-
-dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100", 
-                            permission="changePermission") 
+> library(dataone)
+> library(curl) 
+> library(redland) 
+> 
+> dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100", 
++                             permission="changePermission") 
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+{:title="Console" .no-eval .input}
 
 This gives this particular orcid (person) permission to read, write, and change permissions for others for this package
 
@@ -254,12 +273,12 @@ This gives this particular orcid (person) permission to read, write, and change 
 
 
 ~~~r
-dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0003-0847-9100",
-                                         "http://orcid.org/0000-0000-0000-0001"),
-                             permission = c("changePermission", "read")
-                             )
+> dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0003-0847-9100",
++                                          "http://orcid.org/0000-0000-0000-0001"),
++                              permission = c("changePermission", "read")
++                              )
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+{:title="Console" .no-eval .input}
 
 NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
 
@@ -268,7 +287,8 @@ NOTE: When you upload the package, you also need to set `public = FALSE` if you 
 #### Upload data package
 
 The first argument here is the environment - "PROD" is production where you publish your data.
-"STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package.    
+"STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package. NOTE: "PROD" and "STAGING" require different tokens.  See above steps to get the correct token.
+
 
 ===
 
@@ -289,9 +309,9 @@ First set the environment and repository you'll upload to:
 
 
 ~~~r
-d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") 
+> d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") 
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+{:title="Console" .no-eval .input}
 
   
 ===  
@@ -301,10 +321,10 @@ Now do the actual uploading of your data package:
 
 
 ~~~r
-packageId <- uploadDataPackage(d1c, dp, public = TRUE, accessRules = dpAccessRules,
-                               quiet = FALSE)
+> packageId <- uploadDataPackage(d1c, dp, public = TRUE, accessRules = dpAccessRules,
++                                quiet = FALSE)
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+{:title="Console" .no-eval .input}
 
 
 ===
@@ -321,12 +341,12 @@ First specify the environment and repository.
 
 
 ~~~r
-cn <- CNode("PROD")
-mn <- getMNode(cn, "urn:node:DRYAD")  
-
-doi <- generateIdentifier(mn, "DOI")
+> cn <- CNode("PROD")
+> mn <- getMNode(cn, "urn:node:DRYAD")  
+> 
+> doi <- generateIdentifier(mn, "DOI")
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+{:title="Console" .no-eval .input}
 
 
 ===
@@ -336,10 +356,10 @@ Now overwrite the previous metadata file with the new DOI identified metadata fi
 
 
 ~~~r
-mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", 
-             file = emlFile)
+> mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", 
++              file = emlFile)
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+{:title="Console" .no-eval .input}
 
 
 
