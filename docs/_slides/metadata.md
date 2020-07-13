@@ -289,7 +289,7 @@ library(EML)
 library(jsonlite)
 
 json <- read_json("storm_project/metadata/dataspice.json")
-eml <- as_emld(json)
+eml <- as_emld(json)  
 write_eml(eml, "storm_project/metadata/dataspice.xml")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
