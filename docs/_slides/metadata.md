@@ -273,22 +273,6 @@ build_site(path = "storm_project/metadata/dataspice.json")
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
-~~~
-Warning in vapply(tokens[[1]], as.numeric, 0, USE.NAMES = FALSE): NAs introduced
-by coercion
-
-Warning in vapply(tokens[[1]], as.numeric, 0, USE.NAMES = FALSE): NAs introduced
-by coercion
-
-Warning in vapply(tokens[[1]], as.numeric, 0, USE.NAMES = FALSE): NAs introduced
-by coercion
-
-Warning in vapply(tokens[[1]], as.numeric, 0, USE.NAMES = FALSE): NAs introduced
-by coercion
-~~~
-{:.output}
-
-
 Your site will build to the location "docs/index.html".
 {:.notes}
 

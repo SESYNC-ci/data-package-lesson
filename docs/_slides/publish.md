@@ -75,7 +75,7 @@ Currently there are a few ways to make a data package:
 
 ===
 
-- [DataONE](https://www.dataone.org/) frequently uses EML format for metadata, and has related R packages [`datapack`](){:.rlib} and [`rdataone`](){:.rlib} that create data packages and upload data packages to a repository.  
+- [DataONE](https://www.dataone.org/) frequently uses EML format for metadata, and has related R packages [`datapack`](){:.rlib} and [`dataone`](){:.rlib} that create data packages and upload data packages to a repository.  
 
 We'll follow the DataONE way of creating a data package in this lesson.  
 
@@ -244,11 +244,13 @@ Then do the following:
   - Click "Renew authentication token" if the token you have been using has expired.
   - Click on the "Copy" button below the text window to copy the authentication string to the paste buffer.
   - Note the identity string and expiration date of the token.
-  - In the R console, paste the string which is similar to this example:
+  - In the R console, paste the token string.
 
 ===
 
 #### Set your token now
+
+Paste your token in R console, as in the above instructions.  
 
 
 

@@ -225,7 +225,7 @@ write_spice(path = "storm_project/metadata")
 
 You can also create a static website for your dataset.
 
-```{r, handout = 0}
+```{r, warning = FALSE, handout = 0}
 build_site(path = "storm_project/metadata/dataspice.json")
 ```
 
