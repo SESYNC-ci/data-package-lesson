@@ -187,7 +187,7 @@ If you have a small number of files, using a repository GUI will usually be simp
 
 ===
 
-#### Example using DataONE:
+#### Data Upload Example using DataONE:
 
 If you choose to upload your data package to a repository in the DataONE federation, the following example might be useful. 
 
