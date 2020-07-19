@@ -98,7 +98,7 @@ library(uuid)
 
 dp <- new("DataPackage") # create empty data package
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -115,7 +115,7 @@ mdObj <- new("DataObject", id = emlId, format = "eml://ecoinformatics.org/eml-2.
 
 dp <- addMember(dp, mdObj)  # add metadata file to data package
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -132,7 +132,7 @@ dataObj <- new("DataObject", id = dataId, format = "text/csv", filename = datafi
 
 dp <- addMember(dp, dataObj) # add data file to data package
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -144,7 +144,7 @@ Define the relationship between the data and metadata.
 ~~~r
 dp <- insertRelationship(dp, subjectID = emlId, objectIDs = dataId)
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 You can also add scripts and derived data files to the data package.  
@@ -160,7 +160,7 @@ serializationId <- paste("resourceMap", UUIDgenerate(), sep = "")
 filePath <- file.path(sprintf("%s/%s.rdf", tempdir(), serializationId))
 status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===

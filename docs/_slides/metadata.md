@@ -123,7 +123,7 @@ We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package to 
 ~~~r
 library(dataspice) 
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -135,7 +135,7 @@ Create data package templates.
 ~~~r
 create_spice(dir = "storm_project")
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
  
 Look at your storm_project folder, and see the CSV template files. 
@@ -258,7 +258,7 @@ Now we can write our metadata to a json-ld file.
 ~~~r
 write_spice(path = "storm_project/metadata")
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -270,7 +270,7 @@ You can also create a static website for your dataset.
 ~~~r
 build_site(path = "storm_project/metadata/dataspice.json")
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 Your site will build to the location "docs/index.html".
@@ -292,13 +292,7 @@ json <- read_json("storm_project/metadata/dataspice.json")
 eml <- as_emld(json)  
 write_eml(eml, "storm_project/metadata/dataspice.xml")
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
-
-
-~~~
-NULL
-~~~
-{:.output}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===

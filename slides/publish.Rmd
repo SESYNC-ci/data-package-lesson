@@ -90,7 +90,7 @@ We'll follow the DataONE way of creating a data package in this lesson.
 
 We'll create a local data package using [`datapack`](){:.rlib}:
 
-```{r, message = FALSE, handout = 0}
+```{r, eval = FALSE, message = FALSE, handout = 0}
 library(datapack) 
 library(uuid)
 
@@ -101,7 +101,7 @@ dp <- new("DataPackage") # create empty data package
 
 Add the metadata file we created earlier to the blank data package.
 
-```{r, handout = 0}
+```{r, eval = FALSE, handout = 0}
 emlFile <- "storm_project/metadata/dataspice.xml"
 emlId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
@@ -114,7 +114,7 @@ dp <- addMember(dp, mdObj)  # add metadata file to data package
 
 Add the data file we saved earlier to the data package.
 
-```{r, handout = 0}
+```{r, eval = FALSE, handout = 0}
 datafile <- "storm_project/StormEvents_d2006.csv"
 dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
@@ -127,7 +127,7 @@ dp <- addMember(dp, dataObj) # add data file to data package
 
 Define the relationship between the data and metadata. 
 
-```{r, handout = 0}
+```{r, eval = FALSE, handout = 0}
 dp <- insertRelationship(dp, subjectID = emlId, objectIDs = dataId)
 ```
 
@@ -137,7 +137,7 @@ You can also add scripts and derived data files to the data package.
 
 Create a Resource Description Framework (RDF) of the relationships between data and metadata.
 
-```{r, handout = 0}
+```{r, eval = FALSE, handout = 0}
 serializationId <- paste("resourceMap", UUIDgenerate(), sep = "")
 filePath <- file.path(sprintf("%s/%s.rdf", tempdir(), serializationId))
 status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")

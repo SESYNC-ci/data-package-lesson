@@ -1,7 +1,7 @@
 ---
 
 ---
-
+  
 ## Versioning Data
 
 How do you know you're using the same version of a data file as your collaborator?

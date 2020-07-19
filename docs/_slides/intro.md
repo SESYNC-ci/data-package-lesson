@@ -30,7 +30,7 @@ Data packages also frequently include 1) code scripts that clean, process, or pe
 
 ===
 
-## Why package and publish your data?  
+## Why package and publish your data?   
 
 1. *Data is a valuable asset - easily publish your data now or in the future*
 

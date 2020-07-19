@@ -118,7 +118,7 @@ Many methods for documenting and packaging data are also available in R packages
 
 We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package to create metadata in the EML metadata standard. 
 
-```{r, message = FALSE, handout = 0}
+```{r, eval = FALSE, message = FALSE, handout = 0}
 library(dataspice) 
 ```
 
@@ -126,7 +126,7 @@ library(dataspice)
 
 Create data package templates.
 
-```{r, handout = 0}
+```{r, eval = FALSE, handout = 0}
 create_spice(dir = "storm_project")
 ```
  
@@ -217,7 +217,7 @@ edit_attributes(metadata_dir = "storm_project/metadata")
 
 Now we can write our metadata to a json-ld file.
 
-```{r, handout = 0}
+```{r, eval = FALSE, handout = 0}
 write_spice(path = "storm_project/metadata")
 ```
 
@@ -225,7 +225,7 @@ write_spice(path = "storm_project/metadata")
 
 You can also create a static website for your dataset.
 
-```{r, warning = FALSE, handout = 0}
+```{r, eval = FALSE, warning = FALSE, handout = 0}
 build_site(path = "storm_project/metadata/dataspice.json")
 ```
 
@@ -237,7 +237,7 @@ Your site will build to the location "docs/index.html".
 Many repositories use EML (Ecological Metadata Language) formatting for metadata.  
 Now convert the json-ld file into EML format.
 
-```{r, message = FALSE, handout = 0}
+```{r, eval = FALSE, message = FALSE, handout = 0}
 library(emld) 
 library(EML) 
 library(jsonlite)
