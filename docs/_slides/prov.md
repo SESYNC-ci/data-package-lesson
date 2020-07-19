@@ -22,7 +22,7 @@ Potential ways forward:
 
 To take advantage of the versioning of data built into many repositories, you can update the data package (replace files with new versions).  
 
-Please see the vignettes for [`rdataone`](){:.rlib} , section on ["Replace an object with a newer version"](https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd).
+Please see the vignettes for [`dataone`](){:.rlib} , section on ["Replace an object with a newer version"](https://github.com/DataONEorg/rdataone/blob/master/vignettes/v06-update-package.Rmd).
 
 ===
 
