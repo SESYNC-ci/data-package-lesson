@@ -15,7 +15,7 @@ If you don't have an ORCiD, register and obtain your number at  [https://orcid.o
 ### Exercise 2
 
 The DataONE federation of repositories requires a unique authentication token for you to upload a data package.  
-Follow the steps [here](https://github.com/DataONEorg/rdataone/blob/master/vignettes/dataone-federation.Rmd) to obtain your token.  
+Follow the steps [here](https://github.com/DataONEorg/rdataone/blob/master/vignettes/v02-dataone-federation.Rmd) to obtain your token.  
 
 ===
 
