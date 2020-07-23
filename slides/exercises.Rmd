@@ -24,6 +24,8 @@ Follow the steps [here](https://github.com/DataONEorg/rdataone/blob/master/vigne
 There are many repositories you could upload your data package to within the DataONE federation.  
 Pick a repository from the list (located at data/Nodes.csv) and upload a test data package to the "STAGING" environment.   
 
+Note: Staging environments require a different authentication token than production environments.  See the section on token in the publishing part of the lesson for more details.  
+
 [Use the example code from the lesson.](#upload-data-package)
 
 ===
