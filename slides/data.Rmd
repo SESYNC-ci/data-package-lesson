@@ -36,10 +36,10 @@ stm_dat <- read_csv("data/StormEvents.csv")
 
 ### Formatting data
 
-1. One table/file for each type of observation.
-2. Each variable has its own column.
-3. Each observation has its own row.
-4. Each value has its own cell.
+1. One table/file for each type of observation, e.g., a CSV file for storm events in the USA 
+2. Each variable has its own column, e.g., month and location of a storm event are different columns in the file
+3. Each observation has its own row, e.g., each storm event is represented by a row
+4. Each value has its own cell
 
 Downstream operations/analysis require tidy data.  
 

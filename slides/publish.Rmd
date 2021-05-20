@@ -228,14 +228,14 @@ Then do the following:
 
 Paste your token in R console, as in the above instructions.  
 
-```{r, eval = FALSE, echo = FALSE}
+```{r, eval = FALSE, handout = 0}
 #### Load my API token
 source("D1_token.R")
 ```
 
 #### Set access rules 
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, handout = 0}
 library(dataone)
 library(curl) 
 library(redland) 
@@ -247,7 +247,7 @@ This gives this particular orcid (person) permission to read, write, and change 
 
 ===
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, handout = 0}
 dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0003-0847-9100",
                                          "http://orcid.org/0000-0000-0000-0001"),
                              permission = c("changePermission", "read")
@@ -267,7 +267,7 @@ The first argument here is the environment - "PROD" is production where you publ
 
 The second argument is the repository specification.  If you don't know your repository specs, look it up in this table of member node IDs: (data/Nodes.csv) 
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, handout = 0}
 read.csv("data/Nodes.csv")
 ```
 
@@ -275,7 +275,7 @@ read.csv("data/Nodes.csv")
 
 First set the environment and repository you'll upload to:
   
-```{r, eval = FALSE}
+```{r, eval = FALSE, handout = 0}
 d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") 
 ```
   
@@ -283,7 +283,7 @@ d1c <- D1Client("STAGING2", "urn:node:mnTestKNB")
   
 Now do the actual uploading of your data package:
   
-```{r, eval = FALSE}
+```{r, eval = FALSE, handout = 0}
 packageId <- uploadDataPackage(d1c, dp, public = TRUE, accessRules = dpAccessRules,
                                quiet = FALSE)
 ```
@@ -299,7 +299,7 @@ Getting a Digital Object Identifier (DOI) for your data package can make it easi
 You can assign a DOI to the metadata file for your data package using: 
 
 First specify the environment and repository.  
-```{r, eval = FALSE}
+```{r, eval = FALSE, handout = 0}
 cn <- CNode("PROD")
 mn <- getMNode(cn, "urn:node:DRYAD")  
 
@@ -310,7 +310,7 @@ doi <- generateIdentifier(mn, "DOI")
 
 Now overwrite the previous metadata file with the new DOI identified metadata file
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, handout = 0}
 mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", 
              file = emlFile)
 ```

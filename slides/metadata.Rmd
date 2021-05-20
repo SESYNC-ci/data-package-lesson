@@ -47,7 +47,7 @@ These standards ensure consistent structure that facilitates data sharing and se
 
 Metadata standards are often developed by user communities.  
 
-For example, [EML](https://knb.ecoinformatics.org/external//emlparser/docs/index.html) was developed by ecologists to describe environmental and ecological data.  
+For example, [EML](https://www.dcc.ac.uk/resources/metadata-standards/eml-ecological-metadata-language), Ecological Metadata Language, was developed by ecologists to describe environmental and ecological data.  
 {:.notes}
 
 Therefore, the standards can vary between disciplines and types of data.  
@@ -61,9 +61,9 @@ Therefore, the standards can vary between disciplines and types of data.
 Some examples include:
 
    - General: [Dublin Core](http://dublincore.org/)
-   - Ecological/Environmental/Biological: [EML](https://knb.ecoinformatics.org/external//emlparser/docs/index.html), [Darwin Core](https://dwc.tdwg.org/)
+   - Ecological/Environmental/Biological: [EML](https://www.dcc.ac.uk/resources/metadata-standards/eml-ecological-metadata-language), [Darwin Core](https://dwc.tdwg.org/)
    - Social science: [DDI](http://www.ddialliance.org/), [EAD](https://www.loc.gov/ead/) 
-   - Geospatial/Meterological/Oceanographic: [ISO 19115](https://www.iso.org/standard/53798.html), FGDC/CSDGM (no longer current)
+   - Geospatial/Meterological/Oceanographic: [ISO 19115](https://www.iso.org/standard/53798.html), [COARDS Conventions](https://ferret.pmel.noaa.gov/Ferret/documentation/coards-netcdf-conventions)
 
 ===
 

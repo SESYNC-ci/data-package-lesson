@@ -254,19 +254,26 @@ Paste your token in R console, as in the above instructions.
 
 
 
+~~~r
+#### Load my API token
+source("D1_token.R")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+
+
 #### Set access rules 
 
 
 
 ~~~r
-> library(dataone)
-> library(curl) 
-> library(redland) 
-> 
-> dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100", 
-+                             permission="changePermission") 
+library(dataone)
+library(curl) 
+library(redland) 
+
+dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100", 
+                            permission="changePermission") 
 ~~~
-{:title="Console" .no-eval .input}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 This gives this particular orcid (person) permission to read, write, and change permissions for others for this package
 
@@ -275,12 +282,12 @@ This gives this particular orcid (person) permission to read, write, and change 
 
 
 ~~~r
-> dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0003-0847-9100",
-+                                          "http://orcid.org/0000-0000-0000-0001"),
-+                              permission = c("changePermission", "read")
-+                              )
+dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0003-0847-9100",
+                                         "http://orcid.org/0000-0000-0000-0001"),
+                             permission = c("changePermission", "read")
+                             )
 ~~~
-{:title="Console" .no-eval .input}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
 
@@ -299,9 +306,9 @@ The second argument is the repository specification.  If you don't know your rep
 
 
 ~~~r
-> read.csv("data/Nodes.csv")
+read.csv("data/Nodes.csv")
 ~~~
-{:title="Console" .no-eval .input}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -311,9 +318,9 @@ First set the environment and repository you'll upload to:
 
 
 ~~~r
-> d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") 
+d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") 
 ~~~
-{:title="Console" .no-eval .input}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
   
 ===  
@@ -323,10 +330,10 @@ Now do the actual uploading of your data package:
 
 
 ~~~r
-> packageId <- uploadDataPackage(d1c, dp, public = TRUE, accessRules = dpAccessRules,
-+                                quiet = FALSE)
+packageId <- uploadDataPackage(d1c, dp, public = TRUE, accessRules = dpAccessRules,
+                               quiet = FALSE)
 ~~~
-{:title="Console" .no-eval .input}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -343,12 +350,12 @@ First specify the environment and repository.
 
 
 ~~~r
-> cn <- CNode("PROD")
-> mn <- getMNode(cn, "urn:node:DRYAD")  
-> 
-> doi <- generateIdentifier(mn, "DOI")
+cn <- CNode("PROD")
+mn <- getMNode(cn, "urn:node:DRYAD")  
+
+doi <- generateIdentifier(mn, "DOI")
 ~~~
-{:title="Console" .no-eval .input}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 ===
@@ -358,10 +365,10 @@ Now overwrite the previous metadata file with the new DOI identified metadata fi
 
 
 ~~~r
-> mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", 
-+              file = emlFile)
+mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", 
+             file = emlFile)
 ~~~
-{:title="Console" .no-eval .input}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
 
