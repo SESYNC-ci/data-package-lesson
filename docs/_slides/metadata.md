@@ -47,8 +47,7 @@ These standards ensure consistent structure that facilitates data sharing and se
 
 Metadata standards are often developed by user communities.  
 
-For example, the Ecological Metadata Language, EML, is a standard developed by ecologists to document environmental and ecological data. EML is a set of XML schema documents that allow for the structural expression of metadata.  
-To learn more about EML check out their [site](https://eml.ecoinformatics.org).
+For example, the Ecological Metadata Language, EML, is a standard developed by ecologists to document environmental and ecological data. EML is a set of XML schema documents that allow for the structural expression of metadata. To learn more about EML check out their [site](https://eml.ecoinformatics.org).
 {:.notes}
 
 Therefore, the standards can vary between disciplines and types of data.  

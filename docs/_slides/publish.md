@@ -234,6 +234,7 @@ You'll need to do two basic steps:
 Different environments in DataONE take different authentication tokens.  See below for description of environments.  
 To get a token for the staging environment go here [https://dev.nceas.ucsb.edu](https://dev.nceas.ucsb.edu).  
 To get a token for the production environment go here [https://search.dataone.org](https://search.dataone.org).  
+
 Then do the following (similar to #1 above): 
 
   - Click *Sign in*, or *Sign up* if necessary
