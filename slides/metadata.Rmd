@@ -39,15 +39,16 @@ This can mean using a controlled set of descriptors for your data specified by t
 ===
 
 Without metadata standards, your digital data may be irretrievable, unidentifiable or unusable. 
-Metadata standards contain definitions of the data elements and standardised ways of representing them in digital formats such as databases and XML (eXtensible Markup Language).
+Metadata standards contain definitions of the data elements and standardized ways of representing them in digital formats such as databases and XML (eXtensible Markup Language).
 {:.notes}
 
-These standards ensure consistent structure that facilitates data sharing and searching, record provenance and technical processes, and manage access permissions.  Recording metadata in digital formats such as XML ensures effective machine searches through consistent sturctured data entry, and thesauri using controlled vocabularies.  
+These standards ensure consistent structure that facilitates data sharing and searching, record provenance and technical processes, and manage access permissions.  Recording metadata in digital formats such as XML ensures effective machine searches through consistent structured data entry, and thesauri using controlled vocabularies.  
 {:.notes}
 
 Metadata standards are often developed by user communities.  
 
-For example, [EML](https://www.dcc.ac.uk/resources/metadata-standards/eml-ecological-metadata-language), Ecological Metadata Language, was developed by ecologists to describe environmental and ecological data.  
+For example, the Ecological Metadata Language, EML, is a standard developed by ecologists to document environmental and ecological data. EML is a set of XML schema documents that allow for the structural expression of metadata.  
+To learn more about EML check out their [site](https://eml.ecoinformatics.org).
 {:.notes}
 
 Therefore, the standards can vary between disciplines and types of data.  

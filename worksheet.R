@@ -76,6 +76,9 @@ file.copy(dp_bagit, "storm_project/Storm_dp.zip")
 
 # Upload to a repository
 
+# Load my API token
+source("D1_token.R")
+
 # Set access rules
 library(dataone)
 library(curl) 

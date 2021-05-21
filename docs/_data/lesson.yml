@@ -1,6 +1,7 @@
 title: Documenting and Publishing your Data
 handouts: 
   - worksheet.R
+  - D1_token.R
   - data/StormEvents.csv
 tag: v0.3
 lesson: 10

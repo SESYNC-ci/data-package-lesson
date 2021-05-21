@@ -4,7 +4,7 @@
 
 ## Preparing Data for Publication
 
-Both raw data and derived data (data you've assembled or processed in some way) from a project need to be neat and tidy before publication.  Following principles of tidy data from the beginning will make your workflows more efficient during a project, and will make it easier for others to undertand and use your data once published.  However, if your data isn't yet tidy, you can make it tidier before you publish it.  
+Both raw data and derived data (data you've assembled or processed in some way) from a project need to be neat and tidy before publication.  Following principles of tidy data from the beginning will make your workflows more efficient during a project, and will make it easier for others to understand and use your data once published.  However, if your data isn't yet tidy, you can make it tidier before you publish it.  
 {:.notes} 
 
 Consistency is key when managing your data!

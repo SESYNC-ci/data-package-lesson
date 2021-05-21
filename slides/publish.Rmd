@@ -208,9 +208,9 @@ You'll need to do two basic steps:
 **Tokens:**
 
 Different environments in DataONE take different authentication tokens.  See below for description of environments.  
-To get a token for the staging envrionment go here [https://dev.nceas.ucsb.edu](https://dev.nceas.ucsb.edu).  
-To get a token for production environment go here [https://search.dataone.org](https://search.dataone.org).  
-Then do the following: 
+To get a token for the staging environment go here [https://dev.nceas.ucsb.edu](https://dev.nceas.ucsb.edu).  
+To get a token for the production environment go here [https://search.dataone.org](https://search.dataone.org).  
+Then do the following (similar to #1 above): 
 
   - Click *Sign in*, or *Sign up* if necessary
   - Once signed in, move the cursor over the user name and select 'My profile' in the drop down menu.
@@ -227,7 +227,7 @@ Then do the following:
 #### Set your token now
 
 Paste your token in R console, as in the above instructions.  
-
+You can also past your token in the provided `D1_token` R script and then load it.  
 ```{r, eval = FALSE, handout = 0}
 #### Load my API token
 source("D1_token.R")
@@ -260,7 +260,9 @@ NOTE: When you upload the package, you also need to set `public = FALSE` if you 
 #### Upload data package
 
 The first argument here is the environment - "PROD" is production where you publish your data.
-"STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package. NOTE: "PROD" and "STAGING" require different tokens.  See above steps to get the correct token.
+"STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package.  
+NOTE: "PROD" and "STAGING" require different tokens.  
+See above steps to get the correct token.
 
 
 ===
