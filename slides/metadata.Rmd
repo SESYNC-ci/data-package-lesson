@@ -45,6 +45,8 @@ Metadata standards contain definitions of the data elements and standardized way
 These standards ensure consistent structure that facilitates data sharing and searching, record provenance and technical processes, and manage access permissions.  Recording metadata in digital formats such as XML ensures effective machine searches through consistent structured data entry, and thesauri using controlled vocabularies.  
 {:.notes}
 
+===
+
 Metadata standards are often developed by user communities.  
 
 For example, the Ecological Metadata Language, EML, is a standard developed by ecologists to document environmental and ecological data. EML is a set of XML schema documents that allow for the structural expression of metadata. To learn more about EML check out their [site](https://eml.ecoinformatics.org).
@@ -69,7 +71,9 @@ Some examples include:
 
 ### Creating metadata
 
-Employer-specific mandated methods (ex: USGS)
+Employer-specific mandated methods
+
+For example, some government agencies specify the metadata standards to which their employees must adhere.  
 
 ===
 
@@ -80,9 +84,7 @@ Repository websites frequently guide you through metadata creation during the pr
 
    - website for metadata entry on the [Knowledge Network for Biocomplexity](https://knb.ecoinformatics.org) repository 
      ![]({% include asset.html path="images/knb_snap.PNG" %}){: width="100%"} 
-     
 
-     
 ===     
    
 Stand-alone software
@@ -107,94 +109,107 @@ Many methods for documenting and packaging data are also available in R packages
 
 ### Example of coding up some metadata  
 
-| R Package   | What does it do?                                           |
-|-------------+------------------------------------------------------------|
-| `dataspice` | creates metadata files in json-ld format                   |
-| `emld`      | aids conversion of metadata files between EML and json-ld  |
-| `EML`       | creates EML metadata files                                 |
-| `jsonlite`  | reads json and json-ld file formats in R                   |
+| R Package         | What does it do?                                           |
+|-------------------+------------------------------------------------------------|
+| `EMLassemblyline` |                                                            |
+| `EML`             | creates EML metadata files                                 |
 
 ===
 
 We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package to create metadata in the EML metadata standard. 
 
 ```{r, eval = FALSE, message = FALSE, handout = 0}
-library(dataspice) 
+library(EMLassemblyline) 
 ```
 
 ===
 
-Create data package templates.
+Create the organization for the data package.
+
+- **data_objects** A directory of data and other digital objects to be packaged (e.g. data files, scripts, .zip files, etc.).
+- **metadata_templates** A directory of EMLassemblyline template files.
+- **eml** A directory of EML files created by EMLassemblyline.
+- **run_EMLassemblyline.R** An R file for scripting an EMLassemblyline workflow.
+
 
 ```{r, eval = FALSE, handout = 0}
-create_spice(dir = "storm_project")
+template_directories(path = ".", dir.name = "storm_project") # create template files
+
+# move derived data file to new storm_project directory
+file.copy("StormEvents_d2006.csv", "./storm_project/data_objects/", overwrite = TRUE)
+file.remove("StormEvents_d2006.csv")
 ```
  
-Look at your storm_project folder, and see the CSV template files. 
+Look at your storm_project folder, and see the template files and folders, and the derived data file we created earlier. 
  
 === 
 
 ### Describe the package-level metadata. 
- 
-The templates are empty, so now we need to populate them. 
-Add extent, coverage, license, publication, funder, keywords, etc. 
 
-===
+We'll start by creating the package-level metadata. 
 
-We can get the temporal and geographic extent information using the `range()` function. 
+Essential metadata: Create templates for package-level metadata, including abstract, intellectual rights, keywords, methods personnel, and additional info.  These are required for all data packages.
+
+```{r}
+template_core_metadata(path = "./storm_project/metadata_templates",
+                       license = "CCBY",
+                       file.type = ".md")
+```
+
+Geographic coverage: Create the metadata for the geographic extent.
 
 ```{r, eval = FALSE}
-range(stm_dat$YEAR)
-
-range(stm_dat$BEGIN_LAT, na.rm=TRUE)
-range(stm_dat$BEGIN_LON, na.rm=TRUE)
+template_geographic_coverage(path = "./storm_project/metadata_templates", 
+                             data.path = "./storm_project/data_objects", 
+                             data.table = "StormEvents_d2006.csv", 
+                             lat.col = "BEGIN_LAT",
+                             lon.col = "BEGIN_LON",
+                             site.col = "STATE"
+                             )
 ```
-  
-===  
-  
-This extent information can now be added to the `biblio.csv` metadata file.  
-
-This function opens a Shiny app interface where you can enter and save information in the CSV templates.  You could also edit these CSV files in another software program.
-{:.notes}
-
-```{r, eval = FALSE, handout = 0}
-edit_biblio(metadata_dir = "storm_project/metadata")
-```
-
-You may need to click the stop sign in your console to stop the edit Shiny app interface.
-{:.notes}
 
 ===
 
-Describe the creators of the data. 
+Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder `./storm_project/metadata_templates/`.  
 
-```{r, eval = FALSE, handout = 0}
-edit_creators(metadata_dir = "storm_project/metadata")
+===
+  
+### Describe the file-level metadata.
+
+Now that we can create the file-level metadata.  
+  
+Data attributes: Create table attributes template (required when data tables are present)
+
+```{r}
+template_table_attributes(path = "./storm_project/metadata_templates",
+                          data.path = "./storm_project/data_objects",
+                          data.table = c("StormEvents_d2006.csv"))
 ```
 
-You may need to click the stop sign in your console to stop the edit Shiny app interface.
-{:.notes}
+
+# Create categorical variables template (required when attributes templates
+# contains variables with a "categorical" class)
+
+template_categorical_variables(
+  path = path_templates, 
+  data.path = path_data)
+
+
+
+
+===
+  
 
 ===
 
-The `prep_access()` function tries to discover the metadata for itself.  
 
-```{r, eval = FALSE, handout = 0}
-prep_access(data_path = "storm_project",
-            access_path = "storm_project/metadata/access.csv")
-```
-  
+===
+
 === 
 
-The `edit_access()` function can be used to edit the generated metadata, or used by itself to manually enter access metadata.  Supply the file name and other access information about the data.
-
-```{r, eval = FALSE, handout = 0}
-edit_access(metadata_dir = "storm_project/metadata")
-```
-
 ===
 
-### Describe the file-level metadata.
+
 
 The `prep_attributes()` function tries also to discover the metadata for itself.  
 
@@ -234,17 +249,33 @@ Your site will build to the location "docs/index.html".
 
 ===
 
-Many repositories use EML (Ecological Metadata Language) formatting for metadata.  
-Now convert the json-ld file into EML format.
+Many repositories for environmental data use EML (Ecological Metadata Language) formatting for metadata.  
+Now you can convert the json-ld metadata created by dataspice into EML format.  Not 
+everything will convert perfectly, so it is important to validate the EML.  
 
 ```{r, eval = FALSE, message = FALSE, handout = 0}
-library(emld) 
-library(EML) 
-library(jsonlite)
 
-json <- read_json("storm_project/metadata/dataspice.json")
-eml <- as_emld(json)  
-write_eml(eml, "storm_project/metadata/dataspice.xml")
+library(EML)
+
+eml_doc <- spice_to_eml("storm_project/metadata/dataspice.json")
+
+EML::eml_validate(eml_doc) # check the converted metadata for missing EML 
+```
+
+===
+
+
+
+```{r, eval = FALSE, message = FALSE, handout = 0}
+
+
+
+
+write_eml(eml_doc, "storm_project/metadata/dataspice.xml")
+
+
+
+
 ```
 
 ===
