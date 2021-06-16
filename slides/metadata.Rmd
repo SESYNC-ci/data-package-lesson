@@ -111,12 +111,12 @@ Many methods for documenting and packaging data are also available in R packages
 
 | R Package         | What does it do?                                           |
 |-------------------+------------------------------------------------------------|
-| `EMLassemblyline` |                                                            |
+| `EMLassemblyline` | creates high quality EML metadata for packaging data       |
 | `EML`             | creates EML metadata files                                 |
 
 ===
 
-We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package to create metadata in the EML metadata standard. 
+We'll use the [EMLassemblyline](https://ediorg.github.io/EMLassemblyline/) package to create metadata in the EML metadata standard. 
 
 ```{r, eval = FALSE, message = FALSE, handout = 0}
 library(EMLassemblyline) 
@@ -133,9 +133,9 @@ Create the organization for the data package.
 
 
 ```{r, eval = FALSE, handout = 0}
-template_directories(path = ".", dir.name = "storm_project") # create template files
+template_directories(path = ".", dir.name = "storm_project") # create template files in a new directory
 
-# move derived data file to new storm_project directory
+# move the derived data file to the new storm_project directory
 file.copy("StormEvents_d2006.csv", "./storm_project/data_objects/", overwrite = TRUE)
 file.remove("StormEvents_d2006.csv")
 ```
@@ -156,6 +156,16 @@ template_core_metadata(path = "./storm_project/metadata_templates",
                        file.type = ".md")
 ```
 
+We've chosen the "CCBY" license and the markdown file type (`.md`).  Markdown files are plain text files that are easily edited in RStudio.  Try opening the `abstract.md` file (in the `./storm_project/metadata_templates/` folder) and adding a brief abstract.  
+{:.notes}
+
+You can choose the license you wish to apply to your data (["CC0"](https://creativecommons.org/publicdomain/zero/1.0/) or ["CCBY"](https://creativecommons.org/licenses/by/4.0/)), as well as the file type of the metadata (`.txt`, `.docx`, or `.md`).
+See the [help page for the function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more information. 
+NOTE: The `.txt` template files are Tab delimited. 
+{:.notes}
+
+===
+
 Geographic coverage: Create the metadata for the geographic extent.
 
 ```{r, eval = FALSE}
@@ -172,6 +182,8 @@ template_geographic_coverage(path = "./storm_project/metadata_templates",
 
 Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder `./storm_project/metadata_templates/`.  
 
+NOTE: The `.txt` template files are Tab delimited. 
+
 ===
   
 ### Describe the file-level metadata.
@@ -186,80 +198,56 @@ template_table_attributes(path = "./storm_project/metadata_templates",
                           data.table = c("StormEvents_d2006.csv"))
 ```
 
-
-# Create categorical variables template (required when attributes templates
-# contains variables with a "categorical" class)
-
-template_categorical_variables(
-  path = path_templates, 
-  data.path = path_data)
-
-
-
-
-===
-  
+The template function can't discover everything, so some columns are still empty.  Open the file in the metadata templates folder `./storm_project/metadata_templates/` to enter the missing info.
 
 ===
 
+Because we have categorical variables in our data file, we need to define those variables further using the following templating function. 
 
-===
+Categorical variables: Create metadata specific to categorical variables (required when the attribute metadata contains variables with a "categorical" class)
 
-=== 
-
-===
-
-
-
-The `prep_attributes()` function tries also to discover the metadata for itself.  
-
-```{r, eval = FALSE, handout = 0}
-prep_attributes(data_path = "storm_project",
-                attributes_path = "storm_project/metadata/attributes.csv")  
+```{r}
+template_categorical_variables(path = "./storm_project/metadata_templates", 
+                               data.path = "./storm_project/data_objects")
 ```
-  
-===  
-  
-The `edit_attributes()` function can be used to further edit the file attribute metadata.    
-  
-```{r, eval = FALSE, handout = 0}
-edit_attributes(metadata_dir = "storm_project/metadata")
+
+===
+
+NOTE: If you have not filled in the table attributes template completely, the `template_categorical_variables()` function will produce errors.  It also produces a useful warning message:  
+
+```{r, eval = FALSE}
+Warning message:
+Input issues found. Use issues() to see them. 
+```
+
+===
+
+If you type `issues()` in your R console, you'll get helpful info on which issues you need to fix, such as: 
+
+```{r, eval = FALSE}
+issues()
 ```
 
 ===
 
 ### Write metadata file
 
-Now we can write our metadata to a json-ld file.
+Now we can write our metadata to a file.
 
 ```{r, eval = FALSE, handout = 0}
-write_spice(path = "storm_project/metadata")
+
 ```
 
 ===
 
-You can also create a static website for your dataset.
-
-```{r, eval = FALSE, warning = FALSE, handout = 0}
-build_site(path = "storm_project/metadata/dataspice.json")
-```
-
-Your site will build to the location "docs/index.html".
-{:.notes}
 
 ===
 
 Many repositories for environmental data use EML (Ecological Metadata Language) formatting for metadata.  
-Now you can convert the json-ld metadata created by dataspice into EML format.  Not 
-everything will convert perfectly, so it is important to validate the EML.  
 
 ```{r, eval = FALSE, message = FALSE, handout = 0}
 
-library(EML)
 
-eml_doc <- spice_to_eml("storm_project/metadata/dataspice.json")
-
-EML::eml_validate(eml_doc) # check the converted metadata for missing EML 
 ```
 
 ===
