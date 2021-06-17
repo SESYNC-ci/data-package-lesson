@@ -89,11 +89,16 @@ Repository websites frequently guide you through metadata creation during the pr
    
 Stand-alone software
 
-Software designed for data curation often has more features and options.  This software from the [Queensland Cyber Infratstructure Foundation](https://www.qcif.edu.au/) supports metadata creation, provenance, and data packaging.    
+Software designed for data curation may have more features and options.     
 {:.notes}
    
-   - [Data Curator](https://github.com/qcif/data-curator)
+   - [Data Curator](https://github.com/qcif/data-curator) 
+     This software from the [Queensland Cyber Infratstructure Foundation](https://www.qcif.edu.au/) supports metadata creation, provenance, and data packaging.
      ![]({% include asset.html path="images/Data_Curator_snap.PNG" %}){: width="100%"} 
+     
+   - [ezEML](https://ezeml.edirepository.org/eml/user_guide)
+     This software from the [Environmental Data Initiative](https://environmentaldatainitiative.org/) supports metadata creation, metadata editing, and multiple metadata co-authors.
+     ![]({% include asset.html path="images/ezEML_capture.PNG" %}){: width="100%"} 
      
 ===
 
@@ -102,7 +107,7 @@ Coding
 Many methods for documenting and packaging data are also available in R packages developed by repository managers.  For example, `EMLassemblyline` was developed by the [Environmental Data Initiative](https://environmentaldatainitiative.org/) to facilitate documenting data in EML, and preparing data for publication.          
 {:.notes}
 
-   - R packages ([EML](){:.rlib}, [dataspice](https://github.com/ropenscilabs/dataspice), [emld](){:.rlib}),
+   - R packages for metadata ([EML](){:.rlib}, [dataspice](https://github.com/ropenscilabs/dataspice), [emld](){:.rlib}),
    [EMLassemblyline](https://ediorg.github.io/EMLassemblyline/)
  
 ===
@@ -124,7 +129,7 @@ library(EMLassemblyline)
 
 ===
 
-Create the organization for the data package.
+Create the organization for the data package with the `EMLassemblyline::template_directories()` function.
 
 - **data_objects** A directory of data and other digital objects to be packaged (e.g. data files, scripts, .zip files, etc.).
 - **metadata_templates** A directory of EMLassemblyline template files.
@@ -168,7 +173,7 @@ NOTE: The `.txt` template files are Tab delimited.
 
 Geographic coverage: Create the metadata for the geographic extent.
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, handout = 0}
 template_geographic_coverage(path = "./storm_project/metadata_templates", 
                              data.path = "./storm_project/data_objects", 
                              data.table = "StormEvents_d2006.csv", 
@@ -188,17 +193,58 @@ NOTE: The `.txt` template files are Tab delimited.
   
 ### Describe the file-level metadata.
 
-Now that we can create the file-level metadata.  
+Now that we've created package-level metadata, we can create the file-level metadata.  
   
 Data attributes: Create table attributes template (required when data tables are present)
 
-```{r}
+```{r, eval = FALSE, handout = 0}
 template_table_attributes(path = "./storm_project/metadata_templates",
                           data.path = "./storm_project/data_objects",
                           data.table = c("StormEvents_d2006.csv"))
 ```
 
-The template function can't discover everything, so some columns are still empty.  Open the file in the metadata templates folder `./storm_project/metadata_templates/` to enter the missing info.
+===
+
+The template function can't discover everything, so some columns are still empty. Open the file in the metadata templates folder `./storm_project/metadata_templates/` to enter the missing info.  
+
+You could open the text file in RStudio and edit manually, export it to Excel or Word and edit it, but let's read it into R and edit it here.  
+{:.notes}
+
+```{r, eval = FALSE, handout = 0}
+attrib <- read.table("./storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
+                     sep = "\t", header = TRUE)  # read in the attributes template text file
+```
+
+===
+
+We need to add attribute definitions for each column, and units or date/time specifications for numeric or date/time columns classes.
+
+```{r, eval = FALSE, handout = 0}
+attributeDef <- c("event id number", "State", "FIPS code for state", "year",
+                  "month", "type of event", "date event started", "timezone", 
+                  "date event ended", "injuries as direct result of storm",
+                  "injuries as indirect result of storm", 
+                  "deaths - direct result", "deaths - indirect result", 
+                  "property damage", "crop damage", "source of storm info",
+                  "manitude of damage", "type of magnitude",
+                  "beginning latitude", "beginning longitude", "ending latitude",
+                  "ending longitude", "narrative of the episode", 
+                  "narrative of the event", "source of the data")
+
+units <- c("integer","","FIPS","","","","","","","injury","injury","death",
+           "death","","","","score","","decimal degrees",
+           "decimal degrees","decimal degrees","decimal degrees","","","")
+
+datetime <- c("","","","YYYY","","","MM/DD/YYYY HH:MM",
+              "three letter time zone","MM/DD/YYYY HH:MM",
+              "","","","","","","","","","","","","","","","")
+
+attrib <- attrib %>% mutate(attributeDefinition = attributeDef,
+                            unit = units,
+                            dateTimeFormatString = datetime)
+
+write.table(attrib, "./storm_project/metadata_templates/attributes_StormEvents_d2006.txt", row.names = FALSE, sep = "\t")
+```
 
 ===
 
