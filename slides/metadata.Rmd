@@ -259,7 +259,7 @@ template_categorical_variables(path = "./storm_project/metadata_templates",
 
 ===
 
-NOTE: If you have not filled in the table attributes template completely, the `template_categorical_variables()` function will produce errors.  It also produces a useful warning message:  
+NOTE: If you have not filled in the table attributes template completely, the  `template_categorical_variables()` function will produce errors.  It also produces a useful warning message that you can use to look at the issues.  
 
 ```{r, eval = FALSE}
 Warning message:
