@@ -276,40 +276,12 @@ issues()
 
 ===
 
-### Write metadata file
+### Write EML metadata file
 
-Now we can write our metadata to a file.
-
-```{r, eval = FALSE, handout = 0}
-
-```
-
-===
-
-
-===
-
-Many repositories for environmental data use EML (Ecological Metadata Language) formatting for metadata.  
+Many repositories for environmental data use EML (Ecological Metadata Language) formatting for metadata.  The function `make_eml()` converts the text files we've been editing into EML documents.
 
 ```{r, eval = FALSE, message = FALSE, handout = 0}
-
-
-```
-
-===
-
-
-
-```{r, eval = FALSE, message = FALSE, handout = 0}
-
-
-
-
-write_eml(eml_doc, "storm_project/metadata/dataspice.xml")
-
-
-
-
+make_eml(eml_doc, "storm_project/metadata/?????????????")
 ```
 
 ===
