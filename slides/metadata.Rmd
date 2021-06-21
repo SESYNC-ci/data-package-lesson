@@ -153,7 +153,7 @@ Look at your storm_project folder, and see the template files and folders, and t
 
 We'll start by creating the package-level metadata. 
 
-Essential metadata: Create templates for package-level metadata, including abstract, intellectual rights, keywords, methods personnel, and additional info.  These are required for all data packages.
+Essential metadata: Create templates for package-level metadata, including abstract, intellectual rights, keywords, methods, personnel, and additional info.  These are required for all data packages.
 
 ```{r}
 template_core_metadata(path = "./storm_project/metadata_templates",
@@ -161,7 +161,7 @@ template_core_metadata(path = "./storm_project/metadata_templates",
                        file.type = ".md")
 ```
 
-We've chosen the "CCBY" license and the markdown file type (`.md`).  Markdown files are plain text files that are easily edited in RStudio.  Try opening the `abstract.md` file (in the `./storm_project/metadata_templates/` folder) and adding a brief abstract.  
+We've chosen the "CCBY" license and the markdown file type (`.md`).  Markdown files are text files that are easily edited in RStudio.  Try opening the `abstract.md` file (in the `./storm_project/metadata_templates/` folder) and adding a brief abstract.  
 {:.notes}
 
 You can choose the license you wish to apply to your data (["CC0"](https://creativecommons.org/publicdomain/zero/1.0/) or ["CCBY"](https://creativecommons.org/licenses/by/4.0/)), as well as the file type of the metadata (`.txt`, `.docx`, or `.md`).
@@ -268,7 +268,7 @@ Input issues found. Use issues() to see them.
 
 ===
 
-If you type `issues()` in your R console, you'll get helpful info on which issues you need to fix, such as: 
+If you type `issues()` in your R console, you'll get helpful info on which issues you need to fix: 
 
 ```{r, eval = FALSE}
 issues()
@@ -278,10 +278,15 @@ issues()
 
 ### Write EML metadata file
 
-Many repositories for environmental data use EML (Ecological Metadata Language) formatting for metadata.  The function `make_eml()` converts the text files we've been editing into EML documents.
+Many repositories for environmental data use EML (Ecological Metadata Language) formatting for metadata.  The function `make_eml()` converts the text files we've been editing into EML document(s).
 
 ```{r, eval = FALSE, message = FALSE, handout = 0}
-make_eml(eml_doc, "storm_project/metadata/?????????????")
+make_eml(path = "./storm_project/metadata_templates",
+         data.path = "./storm_project/data_objects",
+         eml.path = "./storm_project/eml",
+         dataset.title = "Storm Events 2006",
+         temporal.coverage = c("2006-01-01", "2006-04-07"),
+         maintenance.description = "In Progress: Some updates to these data are expected")
 ```
 
 ===
