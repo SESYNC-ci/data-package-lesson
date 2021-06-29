@@ -239,9 +239,15 @@ datetime <- c("","","","YYYY","","","MM/DD/YYYY HH:MM",
               "three letter time zone","MM/DD/YYYY HH:MM",
               "","","","","","","","","","","","","","","","")
 
+missingValueCode <- rep("NA", nrow(attrib))
+
+missingValueCodeDef <- rep("Missing value", nrow(attrib))
+
 attrib <- attrib %>% mutate(attributeDefinition = attributeDef,
                             unit = units,
-                            dateTimeFormatString = datetime)
+                            dateTimeFormatString = datetime,
+                            missingValueCode = missingValueCode,
+                            missingValueCodeExplanation = missingValueCodeDef)
 
 write.table(attrib, "./storm_project/metadata_templates/attributes_StormEvents_d2006.txt", row.names = FALSE, sep = "\t")
 ```
