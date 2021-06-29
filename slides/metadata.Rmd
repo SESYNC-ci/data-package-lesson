@@ -252,17 +252,17 @@ classes <- attrib %>% select(attributeName, class) %>%
            select(class) %>% unlist(use.names = FALSE)
 ```
 
-Units need to be defined from a controlled vocabulary of standard units.  Use the function `view_unit_dictionary()` to view these standard units.  If you can't find your units here, they must be defined in the file `custom_units.txt` in the metadata templates folder.  
+Units need to be defined from a controlled vocabulary of standard units.  Use the function `view_unit_dictionary()` to view these standard units.  If you can't find your units here, they must be defined in the file `custom_units.txt` in the metadata templates folder.  There are some non-intuitive definitions, such as using the broad unit "degree" for latitude and longitude such as in our example dataset here.
 
 ```{r, eval = FALSE, handout = 0}
 view_unit_dictionary()
 
 units <- c("number","","number","","","","","","","number","number","number",
-           "number","","","","number","","decimal degrees",
-           "decimal degrees","decimal degrees","decimal degrees","","","")
+           "number","","","","number","","degree",
+           "degree","degree","degree","","","")
 ```
 
-
+Now that we've edited all the metadata attributes, we can put them all together and write out the attribute file.
 
 ```{r, eval = FALSE, handout = 0}
 attrib <- attrib %>% 
@@ -318,5 +318,10 @@ make_eml(path = "./storm_project/metadata_templates",
          temporal.coverage = c("2006-01-01", "2006-04-07"),
          maintenance.description = "In Progress: Some updates to these data are expected")
 ```
+
+===
+
+After you create your EML file, it might be useful to double check it.  EML isn't very human-readable, so try using [this tool](https://portal.edirepository.org/nis/metadataPreviewer.jsp) from the Environmental Data Initiative for viewing your EML.  
+{:.notes}
 
 ===
