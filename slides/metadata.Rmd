@@ -174,8 +174,6 @@ NOTE: The `.txt` template files are Tab delimited.
 
 Let's edit the personnel template file programmatically.  
 
-IMPORTANT: In the `personnel.txt` file, if a person has more than one role (PI and contact), make multiple rows for this person just changing the role on each line.  See the help page for the [template function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more details.  
-
 ```{r, eval = FALSE, handout = 0}
 # read in the personnel template text file
 persons <- read.table("./storm_project/metadata_templates/personnel.txt", 
@@ -191,7 +189,11 @@ role <- c("PI", "contact", "creator", "Field Technician")
 title <- rep("Storm Events", 4)
 fundingA <- rep("NSF", 4)
 fundingN <- rep("000-000-0001", 4)  
+```
 
+IMPORTANT: In the `personnel.txt` file, if a person has more than one role (PI and contact), make multiple rows for this person just changing the role on each line.  See the help page for the [template function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more details.  
+
+```{r, eval = FALSE, handout = 0}
 # edit personnel info
 persons <- persons %>% 
            add_row(givenName = firstname) %>% 
