@@ -207,7 +207,7 @@ template_table_attributes(path = "./storm_project/metadata_templates",
 
 The template function can't discover everything, so some columns are still empty. Open the file in the metadata templates folder `./storm_project/metadata_templates/` to enter the missing info.  
 
-You could open the text file in RStudio and edit manually, export it to Excel or Word and edit it, but let's read it into R and edit it here.  
+You could open the text file in RStudio and edit manually, or export it to Excel and edit it there, but let's read it into R and edit it programmatically.    
 {:.notes}
 
 ```{r, eval = FALSE, handout = 0}
@@ -217,7 +217,7 @@ attrib <- read.table("./storm_project/metadata_templates/attributes_StormEvents_
 
 ===
 
-We need to add attribute definitions for each column, and units or date/time specifications for numeric or date/time columns classes.
+We need to add attribute definitions for each column, and units or date/time specifications for numeric or date/time columns classes.  
 
 ```{r, eval = FALSE, handout = 0}
 attributeDef <- c("event id number", "State", "FIPS code for state", "year",
@@ -231,23 +231,47 @@ attributeDef <- c("event id number", "State", "FIPS code for state", "year",
                   "ending longitude", "narrative of the episode", 
                   "narrative of the event", "source of the data")
 
-units <- c("integer","","FIPS","","","","","","","injury","injury","death",
-           "death","","","","score","","decimal degrees",
-           "decimal degrees","decimal degrees","decimal degrees","","","")
-
 datetime <- c("","","","YYYY","","","MM/DD/YYYY HH:MM",
               "three letter time zone","MM/DD/YYYY HH:MM",
               "","","","","","","","","","","","","","","","")
+```
 
-missingValueCode <- rep("NA", nrow(attrib))
+It is also important to define missing value codes. This is frequently `NA`, but should still be defined explicitly.  
+
+```{r, eval = FALSE, handout = 0}
+missingValueCode <- rep(NA_character_, nrow(attrib))
 
 missingValueCodeDef <- rep("Missing value", nrow(attrib))
+```
 
-attrib <- attrib %>% mutate(attributeDefinition = attributeDef,
-                            unit = units,
-                            dateTimeFormatString = datetime,
-                            missingValueCode = missingValueCode,
-                            missingValueCodeExplanation = missingValueCodeDef)
+In addition, it's good to double check the class of variables inferred by the templating function.  In this case, we've decided two variables would be better described as *character* rather than *categorical*.  
+
+```{r, eval = FALSE, handout = 0}
+classes <- attrib %>% select(attributeName, class) %>% 
+           mutate(class = ifelse(attributeName %in% c("DAMAGE_PROPERTY", "DAMAGE_CROPS"), "character", class)) %>% 
+           select(class) %>% unlist(use.names = FALSE)
+```
+
+Units need to be defined from a controlled vocabulary of standard units.  Use the function `view_unit_dictionary()` to view these standard units.  If you can't find your units here, they must be defined in the file `custom_units.txt` in the metadata templates folder.  
+
+```{r, eval = FALSE, handout = 0}
+view_unit_dictionary()
+
+units <- c("number","","number","","","","","","","number","number","number",
+           "number","","","","number","","decimal degrees",
+           "decimal degrees","decimal degrees","decimal degrees","","","")
+```
+
+
+
+```{r, eval = FALSE, handout = 0}
+attrib <- attrib %>% 
+          mutate(attributeDefinition = attributeDef,
+                 class = classes,
+                 unit = units,
+                 dateTimeFormatString = datetime,
+                 missingValueCode = missingValueCode,
+                 missingValueCodeExplanation = missingValueCodeDef)
 
 write.table(attrib, "./storm_project/metadata_templates/attributes_StormEvents_d2006.txt", row.names = FALSE, sep = "\t")
 ```
@@ -274,7 +298,7 @@ Input issues found. Use issues() to see them.
 
 ===
 
-If you type `issues()` in your R console, you'll get helpful info on which issues you need to fix: 
+If you type `issues()` in your R console, you'll get helpful info on which issues you need to fix. 
 
 ```{r, eval = FALSE}
 issues()
