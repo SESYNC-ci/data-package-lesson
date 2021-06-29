@@ -187,6 +187,8 @@ template_geographic_coverage(path = "./storm_project/metadata_templates",
 
 Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder `./storm_project/metadata_templates/`.  
 
+IMPORTANT: In the `personnel.txt` file, if a person has more than oen role (PI and contact), make multiple rows for this person just changing the role on each line.   
+
 NOTE: The `.txt` template files are Tab delimited. 
 
 ===
@@ -248,7 +250,8 @@ In addition, it's good to double check the class of variables inferred by the te
 
 ```{r, eval = FALSE, handout = 0}
 classes <- attrib %>% select(attributeName, class) %>% 
-           mutate(class = ifelse(attributeName %in% c("DAMAGE_PROPERTY", "DAMAGE_CROPS"), "character", class)) %>% 
+           mutate(class = ifelse(attributeName %in% c("DAMAGE_PROPERTY", "DAMAGE_CROPS", "EVENT_TYPE", "SOURCE"), 
+                                 "character", class)) %>% 
            select(class) %>% unlist(use.names = FALSE)
 ```
 
@@ -282,7 +285,7 @@ Because we have categorical variables in our data file, we need to define those 
 
 Categorical variables: Create metadata specific to categorical variables (required when the attribute metadata contains variables with a "categorical" class)
 
-```{r}
+```{r, eval = FALSE, handout = 0}
 template_categorical_variables(path = "./storm_project/metadata_templates", 
                                data.path = "./storm_project/data_objects")
 ```
