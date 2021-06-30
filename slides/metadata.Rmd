@@ -187,9 +187,9 @@ write_file(abs, "./storm_project/metadata_templates/abstract.txt", append = FALS
 Now we'll add methods. 
 
 ```{r}
-method <- "These example data were generated for the purpose of this lesson.  Their only use is for instructional purposes."
+methd <- "These example data were generated for the purpose of this lesson.  Their only use is for instructional purposes."
 
-write_file(method, "./storm_project/metadata_templates/method.txt", append = FALSE)
+write_file(methd, "./storm_project/metadata_templates/methods.txt", append = FALSE)
 ```
 
 ===
@@ -232,9 +232,9 @@ IMPORTANT: In the `personnel.txt` file, if a person has more than one role (PI a
 ```{r, eval = FALSE, handout = 0}
 # edit personnel info
 persons <- persons %>% 
-           add_row(givenName = firstname) %>% 
-           mutate(middleInitial = middle,
-                  surName = lastname,
+           add_row(givenName = firstname,
+                   middleInitial = middle) %>% 
+           mutate(surName = lastname,
                   organizationName = org,
                   electronicMailAddress = email,
                   role = rol,
@@ -379,6 +379,7 @@ catvars <- read.table("./storm_project/metadata_templates/catvars_StormEvents_d2
 
 catvars$definition <- c("csv file", "pds file", rep("magnitude", 2), rep("month", 4), rep("USA state", 19))
 
+write.table(catvars, "./storm_project/metadata_templates/catvars_StormEvents_d2006.txt", row.names = FALSE, sep = "\t")
 ```
 
 ===
