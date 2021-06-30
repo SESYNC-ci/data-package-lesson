@@ -159,6 +159,10 @@ Essential metadata: Create templates for package-level metadata, including abstr
 template_core_metadata(path = "./storm_project/metadata_templates",
                        license = "CCBY",
                        file.type = ".md")
+
+# TODO: Add abstract
+# TODO: Add keywords
+# TODO: Add methods
 ```
 
 We've chosen the "CCBY" license and the markdown file type (`.md`).  Markdown files are text files that are easily edited in RStudio.  Try opening the `abstract.md` file (in the `./storm_project/metadata_templates/` folder) and adding a brief abstract.  
@@ -185,7 +189,7 @@ middle <- c("A", "A", "A", "O")
 lastname <- c("Doe", "Doe", "Doe", "Williams")
 org <- rep("University of Maryland", 4)
 email <- c("jadoe@umd.edu", "jadoe@umd.edu", "jadoe@umd.edu", "how@umd.edu")
-role <- c("PI", "contact", "creator", "Field Technician")
+rol <- c("PI", "contact", "creator", "Field Technician")
 title <- rep("Storm Events", 4)
 fundingA <- rep("NSF", 4)
 fundingN <- rep("000-000-0001", 4)  
@@ -201,7 +205,7 @@ persons <- persons %>%
                   surName = lastname,
                   organizationName = org,
                   electronicMailAddress = email,
-                  role = role,
+                  role = rol,
                   projectTitle = title,
                   fundingAgency = fundingA,
                   fundingNumber = fundingN)
@@ -330,6 +334,19 @@ template_categorical_variables(path = "./storm_project/metadata_templates",
                                data.path = "./storm_project/data_objects")
 ```
 
+Define categorical variable codes
+
+```{r, eval = FALSE, handout = 0}
+# read in the attributes template text file
+catvars <- read.table("./storm_project/metadata_templates/catvars_StormEvents_d2006.txt", 
+                      sep = "\t", header = TRUE)
+
+catvars$definition <- "PLACEHOLDER" # FIXME: Add definitions
+
+```
+
+
+
 ===
 
 NOTE: If you have not filled in the table attributes template completely, the  `template_categorical_variables()` function will produce errors.  It also produces a useful warning message that you can use to look at the issues.  
@@ -359,7 +376,12 @@ make_eml(path = "./storm_project/metadata_templates",
          eml.path = "./storm_project/eml",
          dataset.title = "Storm Events 2006",
          temporal.coverage = c("2006-01-01", "2006-04-07"),
-         maintenance.description = "In Progress: Some updates to these data are expected")
+         maintenance.description = "In Progress: Some updates to these data are expected",
+         data.table = "StormEvents_d2006.csv",
+         data.table.description = "Storm Events of 2006", 
+         user.id = "my_user_id",
+         user.domain = "my_user_domain", 
+         package.id = "my_data_package_id")
 ```
 
 ===
