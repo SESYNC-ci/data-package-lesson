@@ -15,6 +15,7 @@ sorter:
   - intro
   - data
   - metadata
+  - package
   - publish
   - prov
   - exercises
