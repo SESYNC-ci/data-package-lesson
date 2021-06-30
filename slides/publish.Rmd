@@ -63,101 +63,6 @@ To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
 
 ===
 
-### Creating a data package
-
-Data packages can include metadata, data, and script files, as well as descriptions of the relationships between those files.   
-
-===
-
-Currently there are a few ways to make a data package:   
-
-- [Frictionless Data](https://frictionlessdata.io/docs/data-package/) uses json-ld format, and has the R package [`datapackage.r`](https://github.com/frictionlessdata/datapackage-r) which creates metadata files using schema.org specifications and creates a data package.  
-
-===
-
-- [DataONE](https://www.dataone.org/) frequently uses EML format for metadata, and has related R packages [`datapack`](){:.rlib} and [`dataone`](){:.rlib} that create data packages and upload data packages to a repository.  
-
-We'll follow the DataONE way of creating a data package in this lesson.  
-
-===
-
-| R Package   | What does it do?                                      |
-|-------------+-------------------------------------------------------|
-| `datapack`  | creates data package including file relationships     |
-| `uuid`      | creates a unique identifier for your metadata         |
-
-===
-
-We'll create a local data package using [`datapack`](){:.rlib}:
-
-```{r, eval = FALSE, message = FALSE, handout = 0}
-library(datapack) 
-library(uuid)
-
-dp <- new("DataPackage") # create empty data package
-```
-
-===
-
-Add the metadata file we created earlier to the blank data package.
-
-```{r, eval = FALSE, handout = 0}
-emlFile <- "storm_project/metadata/dataspice.xml"
-emlId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
-
-mdObj <- new("DataObject", id = emlId, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
-
-dp <- addMember(dp, mdObj)  # add metadata file to data package
-```
-
-===
-
-Add the data file we saved earlier to the data package.
-
-```{r, eval = FALSE, handout = 0}
-datafile <- "storm_project/StormEvents_d2006.csv"
-dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
-
-dataObj <- new("DataObject", id = dataId, format = "text/csv", filename = datafile) 
-
-dp <- addMember(dp, dataObj) # add data file to data package
-```
-
-===
-
-Define the relationship between the data and metadata. 
-
-```{r, eval = FALSE, handout = 0}
-dp <- insertRelationship(dp, subjectID = emlId, objectIDs = dataId)
-```
-
-You can also add scripts and derived data files to the data package.  
-
-===
-
-Create a Resource Description Framework (RDF) of the relationships between data and metadata.
-
-```{r, eval = FALSE, handout = 0}
-serializationId <- paste("resourceMap", UUIDgenerate(), sep = "")
-filePath <- file.path(sprintf("%s/%s.rdf", tempdir(), serializationId))
-status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
-```
-
-===
-
-Save the data package to a file, using the [BagIt](https://tools.ietf.org/id/draft-kunze-bagit-16.html) packaging format.  
-
-Right now this creates a zipped file in the tmp directory.  We'll have to move the file 
-out of the temp directory after it is created.  Hopefully this will be [changed soon](https://github.com/ropensci/datapack/issues/108)!  
-{:.notes}
-
-```{r, eval = FALSE, handout = 0}
-dp_bagit <- serializeToBagIt(dp) 
-file.copy(dp_bagit, "storm_project/Storm_dp.zip") 
-```
-
-===
-
 ### Picking a repository 
 
 There are many repositories out there, and it can seem overwhelming picking a suitable one for your data. 
@@ -301,10 +206,11 @@ Getting a Digital Object Identifier (DOI) for your data package can make it easi
 
 You can assign a DOI to the metadata file for your data package using: 
 
-First specify the environment and repository.  
+First specify the environment and repository (also called a member node).
+
 ```{r, eval = FALSE, handout = 0}
 cn <- CNode("PROD")
-mn <- getMNode(cn, "urn:node:DRYAD")  
+mn <- getMNode(cn, "urn:node:EDI")  
 
 doi <- generateIdentifier(mn, "DOI")
 ```

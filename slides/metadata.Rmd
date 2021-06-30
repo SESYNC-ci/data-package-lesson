@@ -420,7 +420,7 @@ make_eml(path = "./storm_project/metadata_templates",
          data.table.description = "Storm Events of 2006", 
          user.id = "my_user_id",
          user.domain = "my_user_domain", 
-         package.id = "my_data_package_id")
+         package.id = "storm_events_package_id")
 ```
 
 ===
