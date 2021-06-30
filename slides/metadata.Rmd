@@ -158,25 +158,54 @@ Essential metadata: Create templates for package-level metadata, including abstr
 ```{r}
 template_core_metadata(path = "./storm_project/metadata_templates",
                        license = "CCBY",
-                       file.type = ".md")
-
-# TODO: Add abstract
-# TODO: Add keywords
-# TODO: Add methods
+                       file.type = ".txt")
 ```
 
-We've chosen the "CCBY" license and the markdown file type (`.md`).  Markdown files are text files that are easily edited in RStudio.  Try opening the `abstract.md` file (in the `./storm_project/metadata_templates/` folder) and adding a brief abstract.  
-{:.notes}
+We've chosen the "CCBY" license and the text file type (`.txt`).  Text files are easily read into R and programmatically edited.  
 
-You can choose the license you wish to apply to your data (["CC0"](https://creativecommons.org/publicdomain/zero/1.0/) or ["CCBY"](https://creativecommons.org/licenses/by/4.0/)), as well as the file type of the metadata (`.txt`, `.docx`, or `.md`).
-See the [help page for the function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more information. 
-
-NOTE: The `.txt` template files are Tab delimited. 
+You can choose the license you wish to apply to your data (["CC0"](https://creativecommons.org/publicdomain/zero/1.0/) or ["CCBY"](https://creativecommons.org/licenses/by/4.0/)), as well as the file type of the metadata (`.txt`, `.docx`, or `.md`). See the [help page for the function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more information. NOTE: The `.txt` template files are Tab delimited. 
 {:.notes}
 
 ===
 
-Let's edit the personnel template file programmatically.  
+Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder `./storm_project/metadata_templates/`.    
+{:.notes}
+
+You could open the template files in RStudio and edit manually, or export to Excel and edit there, but let's read them into R and edit them programmatically.    
+
+We'll begin by adding a brief abstract.
+
+```{r, eval = FALSE, handout = 0}
+abs <- "Abstract: Storms can have impacts on people's lives.  These data document some storms in 2006, and the injuries and damage that might have occurred from them."
+
+# this function from the readr package writes a simple text file without columns or rows
+write_file(abs, "./storm_project/metadata_templates/abstract.txt", append = FALSE)
+```
+
+===
+
+Now we'll add methods. 
+
+```{r}
+method <- "These example data were generated for the purpose of this lesson.  Their only use is for instructional purposes."
+
+write_file(method, "./storm_project/metadata_templates/method.txt", append = FALSE)
+```
+
+===
+
+Finally, we'll add keywords.  
+
+```{r}
+keyw <- "storm, injury, damage"
+
+write_file(keyw, "./storm_project/metadata_templates/keywords.txt", append = FALSE)
+```
+
+
+===
+
+Let's edit the personnel template file programmatically.  NOTE: The `.txt` template files are Tab delimited.
 
 ```{r, eval = FALSE, handout = 0}
 # read in the personnel template text file
@@ -195,7 +224,10 @@ fundingA <- rep("NSF", 4)
 fundingN <- rep("000-000-0001", 4)  
 ```
 
-IMPORTANT: In the `personnel.txt` file, if a person has more than one role (PI and contact), make multiple rows for this person just changing the role on each line.  See the help page for the [template function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more details.  
+IMPORTANT: In the `personnel.txt` file, if a person has more than one role (PI and contact), make multiple rows for this person but change the role on each row.  See the help page for the [template function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more details.  
+{:.notes}
+
+===
 
 ```{r, eval = FALSE, handout = 0}
 # edit personnel info
@@ -229,12 +261,6 @@ template_geographic_coverage(path = "./storm_project/metadata_templates",
 ```
 
 ===
-
-Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder `./storm_project/metadata_templates/`.  
-
-NOTE: The `.txt` template files are Tab delimited. 
-
-===
   
 ### Describe the file-level metadata.
 
@@ -251,9 +277,6 @@ template_table_attributes(path = "./storm_project/metadata_templates",
 ===
 
 The template function can't discover everything, so some columns are still empty. Open the file in the metadata templates folder `./storm_project/metadata_templates/` to enter the missing info.  
-
-You could open the text file in RStudio and edit manually, or export it to Excel and edit it there, but let's read it into R and edit it programmatically.    
-{:.notes}
 
 ```{r, eval = FALSE, handout = 0}
 # read in the attributes template text file
@@ -282,6 +305,8 @@ datetime <- c("","","","YYYY","","","MM/DD/YYYY HH:MM",
               "","","","","","","","","","","","","","","","")
 ```
 
+===
+
 It is also important to define missing value codes. This is frequently `NA`, but should still be defined explicitly.  
 
 ```{r, eval = FALSE, handout = 0}
@@ -290,7 +315,9 @@ missingValueCode <- rep(NA_character_, nrow(attrib))
 missingValueCodeDef <- rep("Missing value", nrow(attrib))
 ```
 
-In addition, it's good to double check the class of variables inferred by the templating function.  In this case, we've decided two variables would be better described as *character* rather than *categorical*.  
+===
+
+In addition, it's good to double check the class of variables inferred by the templating function.  In this case, we've decided four variables would be better described as *character* rather than *categorical*.  
 
 ```{r, eval = FALSE, handout = 0}
 classes <- attrib %>% select(attributeName, class) %>% 
@@ -299,7 +326,12 @@ classes <- attrib %>% select(attributeName, class) %>%
            select(class) %>% unlist(use.names = FALSE)
 ```
 
-Units need to be defined from a controlled vocabulary of standard units.  Use the function `view_unit_dictionary()` to view these standard units.  If you can't find your units here, they must be defined in the file `custom_units.txt` in the metadata templates folder.   Generally, if you are not comfortable with a definition then it is best to provide a custom unit definition.  There are some non-intuitive definitions, such as using the broad unit "degree" for latitude and longitude such as in our example dataset here.
+===
+
+Units need to be defined from a controlled vocabulary of standard units.  Use the function `view_unit_dictionary()` to view these standard units.  
+
+If you can't find your units here, they must be defined in the file `custom_units.txt` in the metadata templates folder.   Generally, if you are not comfortable with a definition then it is best to provide a custom unit definition.  There are some non-intuitive definitions, such as using the broad unit "degree" for latitude and longitude such as in our example data here.
+{:.notes}
 
 ```{r, eval = FALSE, handout = 0}
 view_unit_dictionary()
@@ -308,6 +340,8 @@ units <- c("number","","number","","","","","","","number","number","number",
            "number","","","","number","","degree",
            "degree","degree","degree","","","")
 ```
+
+===
 
 Now that we've edited all the metadata attributes, we can put them all together and write out the attribute file.
 
@@ -334,18 +368,18 @@ template_categorical_variables(path = "./storm_project/metadata_templates",
                                data.path = "./storm_project/data_objects")
 ```
 
-Define categorical variable codes
+Define categorical variable codes.  
+
+NOTE: You must add definitions, even for obvious things like month.  If you don't add definitions, your EML metadata will be invalid.
 
 ```{r, eval = FALSE, handout = 0}
 # read in the attributes template text file
 catvars <- read.table("./storm_project/metadata_templates/catvars_StormEvents_d2006.txt", 
                       sep = "\t", header = TRUE)
 
-catvars$definition <- "PLACEHOLDER" # FIXME: Add definitions
+catvars$definition <- c("csv file", "pds file", rep("magnitude", 2), rep("month", 4), rep("USA state", 19))
 
 ```
-
-
 
 ===
 
@@ -355,8 +389,6 @@ NOTE: If you have not filled in the table attributes template completely, the  `
 Warning message:
 Input issues found. Use issues() to see them. 
 ```
-
-===
 
 If you type `issues()` in your R console, you'll get helpful info on which issues you need to fix. 
 
@@ -386,7 +418,7 @@ make_eml(path = "./storm_project/metadata_templates",
 
 ===
 
-After you create your EML file, it might be useful to double check it.  EML isn't very human-readable, so try using [this tool](https://portal.edirepository.org/nis/metadataPreviewer.jsp) from the Environmental Data Initiative for viewing your EML.  
+After you create your EML file, it might be useful to double check it.  EML isn't very human-readable, so try using [this online tool](https://portal.edirepository.org/nis/metadataPreviewer.jsp) from the Environmental Data Initiative for viewing your EML.  
 {:.notes}
 
 ===
