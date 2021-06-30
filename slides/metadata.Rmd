@@ -196,10 +196,16 @@ write_file(methd, "./storm_project/metadata_templates/methods.txt", append = FAL
 
 Finally, we'll add keywords.  
 
-```{r}
-keyw <- "storm, injury, damage"
+NOTE: This must be a 2 column table. You may leave the Thesaurus column empty if you're not using a controlled vocabulary for your keywords.  
 
-write_file(keyw, "./storm_project/metadata_templates/keywords.txt", append = FALSE)
+```{r}
+keyw <- read.table("./storm_project/metadata_templates/keywords.txt", sep = "\t", header = TRUE, colClasses = rep("character", 2))
+  
+my_keyw <- c("storm", "injury", "damage")
+
+keyw <- keyw %>% add_row(keyword = my_keyw)
+
+write.table(keyw, "./storm_project/metadata_templates/keywords.txt", row.names = FALSE, sep = "\t")
 ```
 
 
