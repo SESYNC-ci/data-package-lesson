@@ -112,9 +112,10 @@ You'll need to do two basic steps:
 
 **Tokens:**
 
-Different environments in DataONE take different authentication tokens.  See below for description of environments.  
-To get a token for the staging environment go here [https://dev.nceas.ucsb.edu](https://dev.nceas.ucsb.edu).  
-To get a token for the production environment go here [https://search.dataone.org](https://search.dataone.org).  
+Different environments in DataONE take different authentication tokens.  Essentially, the staging environment is for testing, and the production environment is for publishing.    
+
+To get a token for the staging environment start here [https://dev.nceas.ucsb.edu](https://dev.nceas.ucsb.edu).  
+To get a token for the production environment start here [https://search.dataone.org](https://search.dataone.org).  
 
 Then do the following (similar to #1 above): 
 
@@ -134,7 +135,8 @@ Then do the following (similar to #1 above):
 
 Paste your token in R console, as in the above instructions.  
 You can also past your token in the provided `D1_token` R script and then load it.  
-```{r, eval = FALSE, handout = 0}
+
+```{r, eval = FALSE}
 #### Load my API token
 source("D1_token.R")
 ```
@@ -149,7 +151,8 @@ library(redland)
 dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100", 
                             permission="changePermission") 
 ```
-This gives this particular orcid (person) permission to read, write, and change permissions for others for this package
+
+This gives this particular orcid (person) permission to read, write, and change permissions for others for this package.
 
 ===
 
@@ -159,6 +162,9 @@ dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0003-0847-9100",
                              permission = c("changePermission", "read")
                              )
 ```
+
+The second person (orcid) only has access to read the files in this package.  
+
 NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
 
 ===
@@ -184,7 +190,7 @@ read.csv("data/Nodes.csv")
 First set the environment and repository you'll upload to:
   
 ```{r, eval = FALSE, handout = 0}
-d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") 
+d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") # FIXME: figure out what the test node for EDI is
 ```
   
 ===  

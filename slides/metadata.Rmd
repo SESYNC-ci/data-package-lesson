@@ -409,23 +409,35 @@ issues()
 
 Many repositories for environmental data use EML (Ecological Metadata Language) formatting for metadata.  The function `make_eml()` converts the text files we've been editing into EML document(s).
 
+Check the function help documentation to see which arguments of `make_eml()` are required and which are optional.
+{:.notes}
+
 ```{r, eval = FALSE, message = FALSE, handout = 0}
 make_eml(path = "./storm_project/metadata_templates",
          data.path = "./storm_project/data_objects",
          eml.path = "./storm_project/eml",
-         dataset.title = "Storm Events 2006",
+         dataset.title = "Storm Events that occurred in 2006",
          temporal.coverage = c("2006-01-01", "2006-04-07"),
+         geographic.description = "Continental United State of America", 
+         geographic.coordinates = c(30, -79, 42.5, -95.5), 
          maintenance.description = "In Progress: Some updates to these data are expected",
          data.table = "StormEvents_d2006.csv",
-         data.table.description = "Storm Events of 2006", 
+         data.table.name = "Storm_Events_2006",
+         data.table.description = "Storm Events in 2006", 
+         # other.entity = c(""),
+         # other.entity.name = c(""),
+         # other.entity.description = c(""),
          user.id = "my_user_id",
          user.domain = "my_user_domain", 
          package.id = "storm_events_package_id")
 ```
 
+This function tries to validate your metadata against the EML standard.  If there are problems making your metadata invalid, type `issues()` into your console (as above), and you'll receive useful information on how to make your metadata valid.  
+{:.notes}
+
 ===
 
-After you create your EML file, it might be useful to double check it.  EML isn't very human-readable, so try using [this online tool](https://portal.edirepository.org/nis/metadataPreviewer.jsp) from the Environmental Data Initiative for viewing your EML.  
+After you create your EML file, it might be useful to double check it.  EML isn't very human-readable, so try using [the online Metadata Previewer tool](https://portal.edirepository.org/nis/metadataPreviewer.jsp) from the Environmental Data Initiative for viewing your EML.  
 {:.notes}
 
 ===
