@@ -4,6 +4,8 @@
 
 ## Publishing your data 
 
+Now that you've packaged up your data, it's easier to publish! 
+
 Choosing to publish your data in a long-term repository can:
 
    - enable versioning of your data
@@ -57,7 +59,7 @@ ORCiDs identify you and link you to your publications and research products.  Th
 
 ===
 
-To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
+If you don't have one yet, get an ORCiD.  Register at [https://orcid.org](https://orcid.org).
 
 ![]({% include asset.html path="images/orcid_snap2.png" %}){: width="100%"} 
 
@@ -79,7 +81,7 @@ For qualitative data, there are a few dedicated repositories: [QDR](https://qdr.
 
 Though a bit different, [Zenodo](https://zenodo.org/) facilitates publishing (with a DOI) and archiving all research outputs from all research fields.  
 
-This can be used to publish releases of your code that lives in a GitHub repository.  However, since GitHub is not designed for data storage and is not a persistent repository, this is not a recommended way to store or publish data.  
+One example is using Zenodo to publish releases of your code that lives in a GitHub repository.  However, since GitHub is not designed for data storage and is not a persistent repository, this is not a recommended way to store or publish data.  
 {:.notes}
 
 ===

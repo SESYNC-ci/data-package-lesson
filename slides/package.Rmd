@@ -30,6 +30,8 @@ We'll follow the DataONE way of creating a data package in this lesson.
 
 ===
 
+### Data, Metadata, and other objects
+
 We'll create an empty local data package using the `new()` function from the [`datapack`](){:.rlib}: R package.
 
 ```{r, eval = FALSE, message = FALSE, handout = 0}
@@ -76,25 +78,119 @@ dp <- insertRelationship(dp, subjectID = emlId, objectIDs = dataId)
 
 ===
 
-You can also add scripts and derived data files to the data package.  Let's add a short script to our data package. 
+You can also add scripts and other files to the data package.  Let's add a short script to our data package, as well as the two figures it creates. 
 
 ```{r}
-#TODO: add the example R script that produces a couple figures.   
+scriptfile <- "./data/storm_script.R"
+scriptId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
+
+scriptObj <- new("DataObject", id = scriptId, format = "application/R", filename = scriptfile)
+
+dp <- addMember(dp, scriptObj)
+```
+
+```{r}
+fig1file <- "./storm_project/Storms_Fig1.png"
+fig1Id <- paste("urn:uuid:", UUIDgenerate(), sep = "")
+
+fig1Obj <- new("DataObject", id = fig1Id, format = "image/png", filename = fig1file)
+
+dp <- addMember(dp, fig1Obj)
+```
+
+```{r}
+fig2file <- "./storm_project/Storms_Fig2.png"
+fig2Id <- paste("urn:uuid:", UUIDgenerate(), sep = "")
+
+fig2Obj <- new("DataObject", id = fig2Id, format = "image/png", filename = fig2file)
+
+dp <- addMember(dp, fig2Obj)
 ```
 
 ===
 
-Create a Resource Description Framework (RDF) to define the relationships between the data and metadata.  
+### Provenance
 
-RDF describes links between objects, and is designed to be read and understood by computers.  RDF is not designed to be read by humans, and is written in XML.  Describing your data package relationships with RDF will help with displaying your data in an online repository.  If you're interested in the details, you can read more online such as from [w3](https://www.w3schools.com/XML/xml_rdf.asp).
+Provenance defines the relationships between data, metadata, and other research objects (inputs and outputs) generated throughout the research process, from raw data to publication(s). It can be recorded in several different formats, but we'll explore a couple here.  
+
+Resource Description Framework (RDF) describes links between objects, and is designed to be read and understood by computers.  RDF is not designed to be read by humans, and is written in XML.  Describing your data package relationships with RDF will help with displaying your data in an online repository.  If you're interested in the details, you can read more online such as from [w3](https://www.w3schools.com/XML/xml_rdf.asp).
 {:.notes}
 
+===
+
+We'll create a Resource Description Framework (RDF) to define the relationships between our data and metadata in XML.  
 
 ```{r, eval = FALSE, handout = 0}
 serializationId <- paste("resourceMap", UUIDgenerate(), sep = "")
 filePath <- file.path(sprintf("%s/%s.rdf", tempdir(), serializationId))
-status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
+status <- serializePackage(dp, filePath, id = serializationId, resolveURI = "")
 ```
+
+===
+
+When thinking about the relationships between your data, metadata, and other objects, it is often very helpful to create a diagram.  Here an couple example:
+
+ - simple path diagram  
+ 
+   ![]({% include asset.html path="images/simple_grv.png" %}){: width="40%"}
+   {:.captioned}
+
+===
+
+Let's create a conceptual diagram of the relationships between our data, script, and figures.  
+
+```{r}
+library(DiagrammeR)
+
+storm_diag <- grViz("digraph{
+         
+                     graph[rankdir = LR]
+                     
+                     node[shape = rectangle, style = filled]  
+                     A[label = 'Storm data']
+                     B[label = 'storm_script.R']
+                     C[label = 'Fig. 1']
+                     D[label = 'Fig. 2']
+
+                     edge[color = black]
+                     A -> B
+                     B -> C
+                     B -> D
+                     
+                     }")
+
+storm_diag
+
+```
+
+===
+
+### Adding the provenance to your data package
+
+Human-readable provenance can be added to a data package using [`datapack`](){:.rlib} and the function `describeWorkflow`, as in the example code below.  
+See the [overview](https://docs.ropensci.org/datapack/articles/datapack-overview.html) or the [function documentation](https://docs.ropensci.org/datapack/reference/describeWorkflow.html) for more details.  
+{:.notes}
+
+===
+
+We'll define the relationship between our data, our script that creates 2 figures, and our figures.  
+
+```{r, eval = FALSE}
+# NOTE: we defined the objects here in the code above
+dp <- describeWorkflow(dp, sources = dataObj, program = scriptObj, derivations = c(fig1Obj, fig2Obj))
+```
+
+===
+
+Now let's take a look at those relationships we just defined. 
+
+```{r}
+library(igraph)
+plotRelationships(dp)
+```
+
+Why does the diagram we created above differ from the provenance diagram created by the function `datapack::describeWorkflow`?  The datapack function adds additional descriptive nodes to the diagram that fulfill certain semantic requirements.  However, the basic relationships are still there if you look carefully.  
+{:.notes}
 
 ===
 
@@ -109,3 +205,5 @@ dp_bagit <- serializeToBagIt(dp)
 
 file.copy(dp_bagit, "./storm_project/Storm_data_package.zip") 
 ```
+
+The BagIt zipped file is an excellent way to share all of the files and metadata of a data package with a collaborator, or easily publish in a repository.

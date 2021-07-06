@@ -17,5 +17,5 @@ sorter:
   - metadata
   - package
   - publish
-  - prov
+  - version
   - exercises
