@@ -45,6 +45,8 @@ Metadata standards contain definitions of the data elements and standardized way
 These standards ensure consistent structure that facilitates data sharing and searching, record provenance and technical processes, and manage access permissions.  Recording metadata in digital formats such as XML ensures effective machine searches through consistent structured data entry, and thesauri using controlled vocabularies.  
 {:.notes}
 
+===
+
 Metadata standards are often developed by user communities.  
 
 For example, the Ecological Metadata Language, EML, is a standard developed by ecologists to document environmental and ecological data. EML is a set of XML schema documents that allow for the structural expression of metadata. To learn more about EML check out their [site](https://eml.ecoinformatics.org).
@@ -69,7 +71,9 @@ Some examples include:
 
 ### Creating metadata
 
-Employer-specific mandated methods (ex: USGS)
+Employer-specific mandated methods
+
+For example, some government agencies specify the metadata standards to which their employees must adhere.  
 
 ===
 
@@ -80,18 +84,21 @@ Repository websites frequently guide you through metadata creation during the pr
 
    - website for metadata entry on the [Knowledge Network for Biocomplexity](https://knb.ecoinformatics.org) repository 
      ![]({% include asset.html path="images/knb_snap.PNG" %}){: width="100%"} 
-     
 
-     
 ===     
    
 Stand-alone software
 
-Software designed for data curation often has more features and options.  This software from the [Queensland Cyber Infratstructure Foundation](https://www.qcif.edu.au/) supports metadata creation, provenance, and data packaging.    
+Software designed for data curation may have more features and options.     
 {:.notes}
    
-   - [Data Curator](https://github.com/qcif/data-curator)
+   - [Data Curator](https://github.com/qcif/data-curator) 
+     This software from the [Queensland Cyber Infratstructure Foundation](https://www.qcif.edu.au/) supports metadata creation, provenance, and data packaging.
      ![]({% include asset.html path="images/Data_Curator_snap.PNG" %}){: width="100%"} 
+     
+   - [ezEML](https://ezeml.edirepository.org/eml/user_guide)
+     This software from the [Environmental Data Initiative](https://environmentaldatainitiative.org/) supports metadata creation, metadata editing, and multiple metadata co-authors.
+     ![]({% include asset.html path="images/ezEML_capture.PNG" %}){: width="100%"} 
      
 ===
 
@@ -100,199 +107,755 @@ Coding
 Many methods for documenting and packaging data are also available in R packages developed by repository managers.  For example, `EMLassemblyline` was developed by the [Environmental Data Initiative](https://environmentaldatainitiative.org/) to facilitate documenting data in EML, and preparing data for publication.          
 {:.notes}
 
-   - R packages ([EML](){:.rlib}, [dataspice](https://github.com/ropenscilabs/dataspice), [emld](){:.rlib}),
+   - R packages for metadata ([EML](){:.rlib}, [dataspice](https://github.com/ropenscilabs/dataspice), [emld](){:.rlib}),
    [EMLassemblyline](https://ediorg.github.io/EMLassemblyline/)
  
 ===
 
 ### Example of coding up some metadata  
 
-| R Package   | What does it do?                                           |
-|-------------+------------------------------------------------------------|
-| `dataspice` | creates metadata files in json-ld format                   |
-| `emld`      | aids conversion of metadata files between EML and json-ld  |
-| `EML`       | creates EML metadata files                                 |
-| `jsonlite`  | reads json and json-ld file formats in R                   |
+| R Package         | What does it do?                                           |
+|-------------------+------------------------------------------------------------|
+| `EMLassemblyline` | creates high quality EML metadata for packaging data       |
+| `EML`             | creates EML metadata files                                 |
 
 ===
 
-We'll use the [dataspice](https://github.com/ropenscilabs/dataspice) package to create metadata in the EML metadata standard. 
+We'll use the [EMLassemblyline](https://ediorg.github.io/EMLassemblyline/) package to create metadata in the EML metadata standard. 
 
 
 
 ~~~r
-library(dataspice) 
+library(EMLassemblyline) 
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
 ===
 
-Create data package templates.
+Create the organization for the data package with the `EMLassemblyline::template_directories()` function.
+
+- **data_objects** A directory of data and other digital objects to be packaged (e.g. data files, scripts, .zip files, etc.).
+- **metadata_templates** A directory of EMLassemblyline template files.
+- **eml** A directory of EML files created by EMLassemblyline.
+- **run_EMLassemblyline.R** An R file for scripting an EMLassemblyline workflow.
+
 
 
 
 ~~~r
-create_spice(dir = "storm_project")
+template_directories(path = ".", dir.name = "storm_project") # create template files in a new directory
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+~~~
+Templating ./storm_project
+~~~
+{:.output}
+
+
+~~~
+Done.
+~~~
+{:.output}
+
+
+~~~r
+# move the derived data file to the new storm_project directory
+file.copy("StormEvents_d2006.csv", "./storm_project/data_objects/", overwrite = TRUE)
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+~~~
+[1] TRUE
+~~~
+{:.output}
+
+
+~~~r
+file.remove("StormEvents_d2006.csv")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+~~~
+[1] TRUE
+~~~
+{:.output}
 
  
-Look at your storm_project folder, and see the CSV template files. 
+Look at your storm_project folder, and see the template files and folders, and the derived data file we created earlier. 
  
 === 
 
 ### Describe the package-level metadata. 
- 
-The templates are empty, so now we need to populate them. 
-Add extent, coverage, license, publication, funder, keywords, etc. 
 
-===
+We'll start by creating the package-level metadata. 
 
-We can get the temporal and geographic extent information using the `range()` function. 
+Essential metadata: Create templates for package-level metadata, including abstract, intellectual rights, keywords, methods, personnel, and additional info.  These are required for all data packages.
 
 
 
 ~~~r
-> range(stm_dat$YEAR)
-> 
-> range(stm_dat$BEGIN_LAT, na.rm=TRUE)
-> range(stm_dat$BEGIN_LON, na.rm=TRUE)
+template_core_metadata(path = "./storm_project/metadata_templates",
+                       license = "CCBY",
+                       file.type = ".txt")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+~~~
+Templating core metadata ...
+~~~
+{:.output}
+
+
+~~~
+abstract.txt
+~~~
+{:.output}
+
+
+~~~
+additional_info.txt
+~~~
+{:.output}
+
+
+~~~
+intellectual_rights.txt
+~~~
+{:.output}
+
+
+~~~
+keywords.txt.
+~~~
+{:.output}
+
+
+~~~
+methods.txt
+~~~
+{:.output}
+
+
+~~~
+personnel.txt
+~~~
+{:.output}
+
+
+~~~
+Done.
+~~~
+{:.output}
+
+
+We've chosen the "CCBY" license and the text file type (`.txt`).  Text files are easily read into R and programmatically edited.  
+
+You can choose the license you wish to apply to your data (["CC0"](https://creativecommons.org/publicdomain/zero/1.0/) or ["CCBY"](https://creativecommons.org/licenses/by/4.0/)), as well as the file type of the metadata (`.txt`, `.docx`, or `.md`). See the [help page for the function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more information. NOTE: The `.txt` template files are Tab delimited. 
+{:.notes}
+
+===
+
+Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder `./storm_project/metadata_templates/`.    
+{:.notes}
+
+You could open the template files in RStudio and edit manually, or export to Excel and edit there, but let's read them into R and edit them programmatically.    
+
+We'll begin by adding a brief abstract.
+
+
+
+~~~r
+abs <- "Abstract: Storms can have impacts on people's lives.  These data document some storms in 2006, and the injuries and damage that might have occurred from them."
+
+# this function from the readr package writes a simple text file without columns or rows
+write_file(abs, "./storm_project/metadata_templates/abstract.txt", append = FALSE)
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+===
+
+Now we'll add methods. 
+
+
+
+~~~r
+methd <- "These example data were generated for the purpose of this lesson.  Their only use is for instructional purposes."
+
+write_file(methd, "./storm_project/metadata_templates/methods.txt", append = FALSE)
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+===
+
+Finally, we'll add keywords.  
+
+NOTE: This must be a 2 column table. You may leave the Thesaurus column empty if you're not using a controlled vocabulary for your keywords.  
+
+
+
+~~~r
+keyw <- read.table("./storm_project/metadata_templates/keywords.txt", sep = "\t", header = TRUE, colClasses = rep("character", 2))
+  
+my_keyw <- c("storm", "injury", "damage")
+
+keyw <- keyw %>% add_row(keyword = my_keyw)
+
+write.table(keyw, "./storm_project/metadata_templates/keywords.txt", row.names = FALSE, sep = "\t")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+
+===
+
+Let's edit the personnel template file programmatically.  NOTE: The `.txt` template files are Tab delimited.
+
+
+
+~~~r
+# read in the personnel template text file
+persons <- read.table("./storm_project/metadata_templates/personnel.txt", 
+                     sep = "\t", header = TRUE, colClasses = rep("character", 10))  
+
+# define the personnel information
+firstname <- c("Jane", "Jane", "Jane", "Hank")
+middle <- c("A", "A", "A", "O")
+lastname <- c("Doe", "Doe", "Doe", "Williams")
+org <- rep("University of Maryland", 4)
+email <- c("jadoe@umd.edu", "jadoe@umd.edu", "jadoe@umd.edu", "how@umd.edu")
+rol <- c("PI", "contact", "creator", "Field Technician")
+title <- rep("Storm Events", 4)
+fundingA <- rep("NSF", 4)
+fundingN <- rep("000-000-0001", 4)  
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+IMPORTANT: In the `personnel.txt` file, if a person has more than one role (PI and contact), make multiple rows for this person but change the role on each row.  See the help page for the [template function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more details.  
+{:.notes}
+
+===
+
+
+
+~~~r
+# edit personnel info
+persons <- persons %>% 
+           add_row(givenName = firstname,
+                   middleInitial = middle) %>% 
+           mutate(surName = lastname,
+                  organizationName = org,
+                  electronicMailAddress = email,
+                  role = rol,
+                  projectTitle = title,
+                  fundingAgency = fundingA,
+                  fundingNumber = fundingN)
+
+# write new personnel file
+write.table(persons, "./storm_project/metadata_templates/personnel.txt", row.names = FALSE, sep = "\t")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+===
+
+Geographic coverage: Create the metadata for the geographic extent.
+
+
+
+~~~r
+template_geographic_coverage(path = "./storm_project/metadata_templates", 
+                             data.path = "./storm_project/data_objects", 
+                             data.table = "StormEvents_d2006.csv", 
+                             lat.col = "BEGIN_LAT",
+                             lon.col = "BEGIN_LON",
+                             site.col = "STATE"
+                             )
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+~~~
+Templating geographic coverage ...
+~~~
+{:.output}
+
+
+~~~
+geographic_coverage.txt
+~~~
+{:.output}
+
+
+~~~
+Done.
+~~~
+{:.output}
+
+
+===
+  
+### Describe the file-level metadata.
+
+Now that we've created package-level metadata, we can create the file-level metadata.  
+  
+Data attributes: Create table attributes template (required when data tables are present)
+
+
+
+~~~r
+template_table_attributes(path = "./storm_project/metadata_templates",
+                          data.path = "./storm_project/data_objects",
+                          data.table = c("StormEvents_d2006.csv"))
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+~~~
+Templating table attributes ...
+~~~
+{:.output}
+
+
+~~~
+attributes_StormEvents_d2006.txt.
+~~~
+{:.output}
+
+
+~~~
+custom_units.txt
+~~~
+{:.output}
+
+
+~~~
+Done.
+~~~
+{:.output}
+
+
+===
+
+The template function can't discover everything, so some columns are still empty. Open the file in the metadata templates folder `./storm_project/metadata_templates/` to enter the missing info.  
+
+
+
+~~~r
+# read in the attributes template text file
+attrib <- read.table("./storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
+                     sep = "\t", header = TRUE)  
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+===
+
+We need to add attribute definitions for each column, and units or date/time specifications for numeric or date/time columns classes.  
+
+
+
+~~~r
+attributeDef <- c("event id number", "State", "FIPS code for state", "year",
+                  "month", "type of event", "date event started", "timezone", 
+                  "date event ended", "injuries as direct result of storm",
+                  "injuries as indirect result of storm", 
+                  "deaths - direct result", "deaths - indirect result", 
+                  "property damage", "crop damage", "source of storm info",
+                  "manitude of damage", "type of magnitude",
+                  "beginning latitude", "beginning longitude", "ending latitude",
+                  "ending longitude", "narrative of the episode", 
+                  "narrative of the event", "source of the data")
+
+datetime <- c("","","","YYYY","","","MM/DD/YYYY HH:MM",
+              "three letter time zone","MM/DD/YYYY HH:MM",
+              "","","","","","","","","","","","","","","","")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+===
+
+It is also important to define missing value codes. This is frequently `NA`, but should still be defined explicitly.  
+
+
+
+~~~r
+missingValueCode <- rep(NA_character_, nrow(attrib))
+
+missingValueCodeDef <- rep("Missing value", nrow(attrib))
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+===
+
+In addition, it's good to double check the class of variables inferred by the templating function.  In this case, we've decided four variables would be better described as *character* rather than *categorical*.  
+
+
+
+~~~r
+classes <- attrib %>% select(attributeName, class) %>% 
+           mutate(class = ifelse(attributeName %in% c("DAMAGE_PROPERTY", "DAMAGE_CROPS", "EVENT_TYPE", "SOURCE"), 
+                                 "character", class)) %>% 
+           select(class) %>% unlist(use.names = FALSE)
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+===
+
+Units need to be defined from a controlled vocabulary of standard units.  Use the function `view_unit_dictionary()` to view these standard units.  
+
+If you can't find your units here, they must be defined in the file `custom_units.txt` in the metadata templates folder.   Generally, if you are not comfortable with a definition then it is best to provide a custom unit definition.  There are some non-intuitive definitions, such as using the broad unit "degree" for latitude and longitude such as in our example data here.
+{:.notes}
+
+
+
+~~~r
+> view_unit_dictionary()
 ~~~
 {:title="Console" .no-eval .input}
 
-  
-===  
-  
-This extent information can now be added to the `biblio.csv` metadata file.  
 
-This function opens a Shiny app interface where you can enter and save information in the CSV templates.  You could also edit these CSV files in another software program.
+
+
+~~~r
+units <- c("number","","number","","","","","","","number","number","number",
+           "number","","","","number","","degree",
+           "degree","degree","degree","","","")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+===
+
+Now that we've edited all the metadata attributes, we can put them all together and write out the attribute file.
+
+
+
+~~~r
+attrib <- attrib %>% 
+          mutate(attributeDefinition = attributeDef,
+                 class = classes,
+                 unit = units,
+                 dateTimeFormatString = datetime,
+                 missingValueCode = missingValueCode,
+                 missingValueCodeExplanation = missingValueCodeDef)
+
+write.table(attrib, "./storm_project/metadata_templates/attributes_StormEvents_d2006.txt", row.names = FALSE, sep = "\t")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+===
+
+Because we have categorical variables in our data file, we need to define those variables further using the following templating function. 
+
+Categorical variables: Create metadata specific to categorical variables (required when the attribute metadata contains variables with a "categorical" class)
+
+
+
+~~~r
+template_categorical_variables(path = "./storm_project/metadata_templates", 
+                               data.path = "./storm_project/data_objects")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+~~~
+Templating categorical variables ...
+~~~
+{:.output}
+
+
+~~~
+catvars_StormEvents_d2006.txt
+~~~
+{:.output}
+
+
+~~~
+Done.
+~~~
+{:.output}
+
+
+~~~
+$catvars_StormEvents_d2006.txt
+$catvars_StormEvents_d2006.txt$content
+    attributeName           code definition
+1     DATA_SOURCE            CSV           
+2     DATA_SOURCE            PDS           
+3  MAGNITUDE_TYPE             EG           
+4  MAGNITUDE_TYPE             MG           
+5      MONTH_NAME          April           
+6      MONTH_NAME       February           
+7      MONTH_NAME        January           
+8      MONTH_NAME        October           
+9           STATE         ALASKA           
+10          STATE       ARKANSAS           
+11          STATE       COLORADO           
+12          STATE        GEORGIA           
+13          STATE       ILLINOIS           
+14          STATE        INDIANA           
+15          STATE         KANSAS           
+16          STATE       KENTUCKY           
+17          STATE      LOUISIANA           
+18          STATE       MARYLAND           
+19          STATE       MICHIGAN           
+20          STATE     NEW JERSEY           
+21          STATE NORTH CAROLINA           
+22          STATE           OHIO           
+23          STATE       OKLAHOMA           
+24          STATE          TEXAS           
+25          STATE           UTAH           
+26          STATE     WASHINGTON           
+27          STATE  WEST VIRGINIA           
+~~~
+{:.output}
+
+
+Define categorical variable codes.  
+
+NOTE: You must add definitions, even for obvious things like month.  If you don't add definitions, your EML metadata will be invalid.
+
+
+
+~~~r
+# read in the attributes template text file
+catvars <- read.table("./storm_project/metadata_templates/catvars_StormEvents_d2006.txt", 
+                      sep = "\t", header = TRUE)
+
+catvars$definition <- c("csv file", "pds file", rep("magnitude", 2), rep("month", 4), rep("USA state", 19))
+
+write.table(catvars, "./storm_project/metadata_templates/catvars_StormEvents_d2006.txt", row.names = FALSE, sep = "\t")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+===
+
+NOTE: If you have not filled in the table attributes template completely, the  `template_categorical_variables()` function may produce errors.  It also produces a useful warning message that you can use to look at the issues.  
+{:.notes}
+
+If you type `issues()` in your R console, you'll get helpful info on which issues you need to fix. 
+
+
+
+~~~r
+> issues()
+~~~
+{:title="Console" .no-eval .input}
+
+
+===
+
+### Write EML metadata file
+
+Many repositories for environmental data use EML (Ecological Metadata Language) formatting for metadata.  The function `make_eml()` converts the text files we've been editing into EML document(s).
+
+Check the function help documentation to see which arguments of `make_eml()` are required and which are optional.
 {:.notes}
 
 
 
 ~~~r
-edit_biblio(metadata_dir = "storm_project/metadata")
+make_eml(path = "./storm_project/metadata_templates",
+         data.path = "./storm_project/data_objects",
+         eml.path = "./storm_project/eml",
+         dataset.title = "Storm Events that occurred in 2006",
+         temporal.coverage = c("2006-01-01", "2006-04-07"),
+         geographic.description = "Continental United State of America", 
+         geographic.coordinates = c(30, -79, 42.5, -95.5), 
+         maintenance.description = "In Progress: Some updates to these data are expected",
+         data.table = "StormEvents_d2006.csv",
+         data.table.name = "Storm_Events_2006",
+         data.table.description = "Storm Events in 2006", 
+         # other.entity = c(""),
+         # other.entity.name = c(""),
+         # other.entity.description = c(""),
+         user.id = "my_user_id",
+         user.domain = "my_user_domain", 
+         package.id = "storm_events_package_id")
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
-You may need to click the stop sign in your console to stop the edit Shiny app interface.
+~~~
+Checking inputs
+~~~
+{:.output}
+
+
+~~~
+Making EML ...
+~~~
+{:.output}
+
+
+~~~
+<eml>
+~~~
+{:.output}
+
+
+~~~
+  <access>
+~~~
+{:.output}
+
+
+~~~
+  <dataset>
+~~~
+{:.output}
+
+
+~~~
+    <title>
+~~~
+{:.output}
+
+
+~~~
+    <creator>
+~~~
+{:.output}
+
+
+~~~
+    <associatedParty>
+~~~
+{:.output}
+
+
+~~~
+    <pubDate>
+~~~
+{:.output}
+
+
+~~~
+    <abstract>
+~~~
+{:.output}
+
+
+~~~
+    <keywordSet>
+~~~
+{:.output}
+
+
+~~~
+    <intellectualRights>
+~~~
+{:.output}
+
+
+~~~
+    <coverage>
+~~~
+{:.output}
+
+
+~~~
+        <geographicCoverage>
+        <geographicCoverage>
+        <geographicCoverage>
+        <geographicCoverage>
+        <geographicCoverage>
+        <geographicCoverage>
+        <geographicCoverage>
+        <geographicCoverage>
+        <geographicCoverage>
+        <geographicCoverage>
+        <geographicCoverage>
+~~~
+{:.output}
+
+
+~~~
+        <temporalCoverage>
+~~~
+{:.output}
+
+
+~~~
+    <maintenance>
+~~~
+{:.output}
+
+
+~~~
+    <contact>
+~~~
+{:.output}
+
+
+~~~
+    <methods>
+~~~
+{:.output}
+
+
+~~~
+    <project>
+~~~
+{:.output}
+
+
+~~~
+    <dataTable> (StormEvents_d2006.csv)
+~~~
+{:.output}
+
+
+~~~
+</eml>
+~~~
+{:.output}
+
+
+~~~
+Writing EML (storm_events_package_id.xml)
+~~~
+{:.output}
+
+
+~~~
+Validating EML
+~~~
+{:.output}
+
+
+~~~
+  Validation passed :)
+~~~
+{:.output}
+
+
+~~~
+Done.
+~~~
+{:.output}
+
+
+This function tries to validate your metadata against the EML standard.  If there are problems making your metadata invalid, type `issues()` into your console (as above), and you'll receive useful information on how to make your metadata valid.  
 {:.notes}
 
 ===
 
-Describe the creators of the data. 
-
-
-
-~~~r
-edit_creators(metadata_dir = "storm_project/metadata")
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-
-You may need to click the stop sign in your console to stop the edit Shiny app interface.
+After you create your EML file, it might be useful to double check it.  EML isn't very human-readable, so try using [the online Metadata Previewer tool](https://portal.edirepository.org/nis/metadataPreviewer.jsp) from the Environmental Data Initiative for viewing your EML.  
 {:.notes}
-
-===
-
-The `prep_access()` function tries to discover the metadata for itself.  
-
-
-
-~~~r
-prep_access(data_path = "storm_project",
-            access_path = "storm_project/metadata/access.csv")
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-  
-=== 
-
-The `edit_access()` function can be used to edit the generated metadata, or used by itself to manually enter access metadata.  Supply the file name and other access information about the data.
-
-
-
-~~~r
-edit_access(metadata_dir = "storm_project/metadata")
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-
-===
-
-### Describe the file-level metadata.
-
-The `prep_attributes()` function tries also to discover the metadata for itself.  
-
-
-
-~~~r
-prep_attributes(data_path = "storm_project",
-                attributes_path = "storm_project/metadata/attributes.csv")  
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-  
-===  
-  
-The `edit_attributes()` function can be used to further edit the file attribute metadata.    
-  
-
-
-~~~r
-edit_attributes(metadata_dir = "storm_project/metadata")
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-
-===
-
-### Write metadata file
-
-Now we can write our metadata to a json-ld file.
-
-
-
-~~~r
-write_spice(path = "storm_project/metadata")
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-
-===
-
-You can also create a static website for your dataset.
-
-
-
-~~~r
-build_site(path = "storm_project/metadata/dataspice.json")
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-
-Your site will build to the location "docs/index.html".
-{:.notes}
-
-===
-
-Many repositories use EML (Ecological Metadata Language) formatting for metadata.  
-Now convert the json-ld file into EML format.
-
-
-
-~~~r
-library(emld) 
-library(EML) 
-library(jsonlite)
-
-json <- read_json("storm_project/metadata/dataspice.json")
-eml <- as_emld(json)  
-write_eml(eml, "storm_project/metadata/dataspice.xml")
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
 
 ===

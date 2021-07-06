@@ -47,6 +47,8 @@ stm_dat <- read_csv("data/StormEvents.csv")
 
 Downstream operations/analysis require tidy data.  
 
+===
+
 These principles closely map to best practices for “normalization” in database design.  R developer Hadley Wickham further describes the priciples of tidy data in this paper [(Wickham 2014)](http://www.jstatsoft.org/v59/i10/paper). 
 {:.notes}
 
@@ -99,8 +101,7 @@ we have one table to be written out to a file now.
 
 
 ~~~r
-dir.create('storm_project', showWarnings = FALSE)
-write_csv(stm_dat, "storm_project/StormEvents_d2006.csv")
+write_csv(stm_dat, "StormEvents_d2006.csv")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 

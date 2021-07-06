@@ -102,13 +102,21 @@ You'll need to do two basic steps:
 
 1) Get authentication token for DataONE (follow steps [here](https://github.com/DataONEorg/rdataone/blob/master/vignettes/v02-dataone-federation.Rmd))
 
-2) Upload your data package using R (from vignette for [dataone](){:.rlib})
+2) Get a DOI (if desired)
+
+3) Upload your data package using R (from vignette for [dataone](){:.rlib})
 
 ===
 
 | R Package   | What does it do?                      |
 |-------------+---------------------------------------|
 | `dataone`   | uploads data package to repository    |
+
+```{r, handout = 0}
+library(dataone)
+library(curl) 
+library(redland) 
+```
 
 ===
 
@@ -143,13 +151,42 @@ You can also past your token in the provided `D1_token` R script and then load i
 source("D1_token.R")
 ```
 
+===
+
+### Citation
+
+Getting a Digital Object Identifier (DOI) for your data package can make it easier for others to find and cite your data.  
+
+===
+
+You can assign a DOI to your data package by editing the metadata file.  
+
+First specify the environment and repository (also called a member node).
+
+```{r, handout = 0, eval = FALSE}
+cn <- CNode("PROD")
+mn <- getMNode(cn, "urn:node:KNB")  
+
+doi <- generateIdentifier(mn, "DOI")
+```
+
+===
+
+Now overwrite the previous metadata file with the new DOI identified metadata file
+
+```{r, handout = 0, eval = FALSE}
+emlFile <- "./storm_project/eml/storm_events_package_id.xml"
+
+mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+```
+
+Then zip up all your files for your data package with BagIt as shown in the previous section.    
+
+===
+
 #### Set access rules 
 
-```{r, eval = FALSE, handout = 0}
-library(dataone)
-library(curl) 
-library(redland) 
-
+```{r, handout = 0}
 dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100", 
                             permission="changePermission") 
 ```
@@ -158,7 +195,7 @@ This gives this particular orcid (person) permission to read, write, and change 
 
 ===
 
-```{r, eval = FALSE, handout = 0}
+```{r, handout = 0}
 dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0003-0847-9100",
                                          "http://orcid.org/0000-0000-0000-0001"),
                              permission = c("changePermission", "read")
@@ -183,7 +220,7 @@ See above steps to get the correct token.
 
 The second argument is the repository specification.  If you don't know your repository specs, look it up in this table of member node IDs: (data/Nodes.csv) 
 
-```{r, eval = FALSE, handout = 0}
+```{r, handout = 0}
 read.csv("data/Nodes.csv")
 ```
 
@@ -191,47 +228,17 @@ read.csv("data/Nodes.csv")
 
 First set the environment and repository you'll upload to:
   
-```{r, eval = FALSE, handout = 0}
-d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") # FIXME: figure out what the test node for EDI is
+```{r, handout = 0}
+d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") 
 ```
   
 ===  
   
 Now do the actual uploading of your data package:
   
-```{r, eval = FALSE, handout = 0}
+```{r, handout = 0}
 packageId <- uploadDataPackage(d1c, dp, public = TRUE, accessRules = dpAccessRules,
                                quiet = FALSE)
 ```
-
-===
-
-### Citation
-
-Getting a Digital Object Identifier (DOI) for your data package can make it easier for others to find and cite your data.  
-
-===
-
-You can assign a DOI to the metadata file for your data package using: 
-
-First specify the environment and repository (also called a member node).
-
-```{r, eval = FALSE, handout = 0}
-cn <- CNode("PROD")
-mn <- getMNode(cn, "urn:node:EDI")  
-
-doi <- generateIdentifier(mn, "DOI")
-```
-
-===
-
-Now overwrite the previous metadata file with the new DOI identified metadata file
-
-```{r, eval = FALSE, handout = 0}
-mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", 
-             file = emlFile)
-```
-
-
 
 
