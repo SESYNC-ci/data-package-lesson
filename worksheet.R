@@ -1,6 +1,7 @@
 # Documenting and Publishing your Data Worksheet
 
 # Preparing Data for Publication
+
 library(...)
 
 stm_dat <- ...("data/StormEvents.csv")
@@ -10,102 +11,247 @@ stm_dat <- ...("data/StormEvents.csv")
 ...(stm_dat, "storm_project/StormEvents_d2006.csv")
 
 # Creating metadata
+
 library(...) 
 
-...(dir = "storm_project")
+template_...(path = ".", dir.name = "...") # create template files in a new directory
 
-# Describe the package-level metadata.
-...(metadata_dir = "storm_project/metadata")
+# move the derived data file to the new directory
+file.copy("StormEvents_d2006.csv", "./.../data_objects/", overwrite = TRUE)
+file.remove("StormEvents_d2006.csv")
 
-...(metadata_dir = "storm_project/metadata")
+# core metadata
+template_core_metadata(path = "./.../metadata_templates",
+                       license = "CCBY",
+                       file.type = "...")
 
-...(data_path = "storm_project",
-    access_path = "storm_project/metadata/access.csv")
+# abstract
+abs <- ...
+# this function from the readr package writes a simple text file without columns or rows
+write_file(abs, "./storm_project/metadata_templates/abstract.txt", append = FALSE)
 
-...(metadata_dir = "storm_project/metadata")
+# methods
+methd <- ...
+write_file(methd, "./storm_project/metadata_templates/methods.txt", append = FALSE)
 
-# Describe the file-level metadata
-...(data_path = "storm_project",
-    attributes_path = "storm_project/metadata/attributes.csv")  
+# keywords
+keyw <- read.table("./storm_project/metadata_templates/keywords.txt", sep = "\t", header = TRUE, colClasses = rep("character", 2))
+my_keyw <- ...
+keyw <- keyw %>% add_row(...)
+write.table(keyw, "./storm_project/metadata_templates/keywords.txt", row.names = FALSE, sep = "\t")
 
-...(metadata_dir = "storm_project/metadata")
+# personnel
+# read in the personnel template text file
+persons <- read.table("./storm_project/metadata_templates/personnel.txt", 
+                     sep = "\t", header = TRUE, colClasses = rep("character", 10))  
+# define the personnel information
+firstname <- c(...)
+middle <- c(...)
+lastname <- c(...)
+org <- rep(..., 4)
+email <- c(...)
+rol <- c(...)
+title <- rep(..., 4)
+fundingA <- rep(..., 4)
+fundingN <- rep(..., 4)  
+# edit personnel info
+persons <- persons %>% 
+           add_row(givenName = ...,
+                   middleInitial = ...) %>% 
+           mutate(surName = ...,
+                  organizationName = ...elt(),
+                  electronicMailAddress = ...,
+                  role = ...,
+                  projectTitle = ...,
+                  fundingAgency = ...,
+                  fundingNumber = ...)
+# write new personnel file
+write.table(persons, "./storm_project/metadata_templates/personnel.txt", row.names = FALSE, sep = "\t")
 
-# Write metadata file
-...(path = "storm_project/metadata")
-...(path = "storm_project/metadata/dataspice.json")
+# geographic coverage
+...(path = "./storm_project/metadata_templates", 
+                             data.path = "./storm_project/data_objects", 
+                             data.table = "StormEvents_d2006.csv", 
+                             lat.col = "BEGIN_LAT",
+                             lon.col = "BEGIN_LON",
+                             site.col = "STATE"
+                             )
 
-# convert the json-ld file into EML format
-library(emld) 
-library(EML) 
-library(jsonlite)
+# data attributes
+...(path = "./storm_project/metadata_templates",
+                          data.path = "./storm_project/data_objects",
+                          data.table = c(...))
+# read in the attributes template text file
+attrib <- read.table("./storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
+                     sep = "\t", header = TRUE)  
+# define the attributes
+attributeDef <- c(...)
+datetime <- c(...)
+# define missing values
+missingValueCode <- rep(NA_character_, nrow(...))
+missingValueCodeDef <- rep("Missing value", nrow(...))
+# check classes
+classes <- ... %>% select(..., ...) %>% 
+           mutate(class = ifelse(attributeName %in% c("DAMAGE_PROPERTY", "DAMAGE_CROPS", 
+                                                      "EVENT_TYPE", "SOURCE"), 
+                                 "...", class)) %>% 
+           select(class) %>% unlist(use.names = FALSE)
+# define units from controlled vocabulary
+units <- c("...","","...","","","","","","","...","...","...",
+           "number","","","","number","","degree",
+           "degree","degree","degree","","","")
+# put all attribute edits together
+attrib <- attrib %>% 
+          mutate(attributeDefinition = ...,
+                 class = ...,
+                 unit = ...,
+                 dateTimeFormatString = ...,
+                 missingValueCode = ...elt(),
+                 missingValueCodeExplanation = ...)
+# write revised attribute table
+...(attrib, "./storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
+    row.names = FALSE, sep = "\t")
 
-json <- ...("storm_project/metadata/dataspice.json")
-eml <- ...(json)  
-...(eml, "storm_project/metadata/dataspice.xml")
+# define categorical variables
+...(path = "./storm_project/metadata_templates", 
+                               data.path = "./storm_project/data_objects")
+# read in the attributes template text file
+catvars <- read.table("./storm_project/metadata_templates/catvars_StormEvents_d2006.txt", 
+                      sep = "\t", header = TRUE)
+# define
+catvars$definition <- c("csv file", "pds file", rep("magnitude", 2), ..., ...)
+# write table
+write.table(..., "./storm_project/metadata_templates/catvars_StormEvents_d2006.txt", 
+            row.names = FALSE, sep = "\t")
 
+# write EML metadata file
+...(path = "./storm_project/metadata_templates",
+         data.path = "./storm_project/data_objects",
+         eml.path = "./storm_project/eml",
+         dataset.title = ...,
+         temporal.coverage = c("2006-01-01", "2006-04-07"),
+         geographic.description = ..., 
+         geographic.coordinates = c(30, -79, 42.5, -95.5), 
+         maintenance.description = "In Progress: Some updates to these data are expected",
+         data.table = ...,
+         data.table.name = "Storm_Events_2006",
+         data.table.description = ..., 
+         # other.entity = c(""),
+         # other.entity.name = c(""),
+         # other.entity.description = c(""),
+         user.id = "my_user_id",
+         user.domain = "my_user_domain", 
+         package.id = "storm_events_package_id")
 
 # Creating a data package
-library(datapack) 
-library(uuid)
 
-dp <- new("DataPackage") # create empty data package
+library(...) 
+library(...)
+# create empty data package
+dp <- ...("DataPackage")
 
-emlFile <- "storm_project/metadata/dataspice.xml"
-emlId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
+# add metadata file to data package
+emlFile <- "./storm_project/eml/storm_events_package_id.xml"  # define the file
+emlId <- paste("urn:uuid:", UUIDgenerate(), sep = "")  # generate id
+mdObj <- new("DataObject", id = ..., format = "eml://ecoinformatics.org/eml-2.1.1", file = ...)
+dp <- addMember(dp, ...)  # add
 
-mdObj <- ...("DataObject", id = emlId, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+# add data file to data package
+datafile <- "./storm_project/data_objects/StormEvents_d2006.csv" # define the file
+dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")  # generate id
+dataObj <- new("DataObject", id = ..., format = "text/csv", filename = ...) 
+dp <- addMember(dp, ...) # add
 
-dp <- ...(dp, mdObj)  # add metadata file to data package
+# define relationship between data and metadata
+dp <- insertRelationship(dp, subjectID = emlId, objectIDs = dataId)
 
-datafile <- "storm_project/StormEvents_d2006.csv"
-dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
+# add R script to data package
+scriptfile <- "./data/storm_script.R" # define the file
+scriptId <- paste("urn:uuid:", UUIDgenerate(), sep = "") # generate id
+scriptObj <- ...("DataObject", id = scriptId, format = "application/R", filename = ...)
+dp <- addMember(dp, ...) # add
 
-dataObj <- ...("DataObject", id = dataId, format = "text/csv", filename = datafile) 
+# add Figure 1 to data package
+fig1file <- "./data/Storms_Fig1.png" # define the file
+fig1Id <- paste("urn:uuid:", UUIDgenerate(), sep = "") # generate id
+fig1Obj <- ...("DataObject", id = ..., format = "image/png", filename = fig1file)
+dp <- ...(dp, fig1Obj) # add
 
-dp <- ...(dp, dataObj) # add data file to data package
+# add Figure 2 to data package
+fig2file <- "./data/Storms_Fig2.png" # define the file
+fig2Id <- paste("urn:uuid:", UUIDgenerate(), sep = "") # generate id
+fig2Obj <- new("DataObject", id = ..., format = "image/png", filename = ...)
+dp <- ...(dp, ...) # add
 
-dp <- ...(dp, subjectID = emlId, objectIDs = dataId)
+# Adding provenance
 
+# create Resource Description Framework (RDF)
 serializationId <- paste("resourceMap", UUIDgenerate(), sep = "")
 filePath <- file.path(sprintf("%s/%s.rdf", tempdir(), serializationId))
-status <- ...(dp, filePath, id=serializationId, resolveURI = "")
+status <- serializePackage(dp, filePath, id = serializationId, resolveURI = "")
 
-dp_bagit <- serializeToBagIt(dp) 
-file.copy(dp_bagit, "storm_project/Storm_dp.zip") 
+# create conceptual diagram of provenance
+library(...)
+storm_diag <- grViz("digraph{
+         
+                     graph[rankdir = LR]
+                     
+                     node[shape = rectangle, style = filled]  
+                     A[label = 'Storm data']
+                     B[label = 'storm_script.R']
+                     C[label = 'Fig. 1']
+                     D[label = 'Fig. 2']
 
+                     edge[color = black]
+                     A -> B
+                     B -> C
+                     B -> D
+                     
+                     }")
+storm_diag
 
-# Upload to a repository
+# create provenance 
+dp <- ...(dp, sources = ..., program = ..., derivations = c(fig1Obj, fig2Obj))
 
-# Load my API token
-source("D1_token.R")
+# look at provenance
+library(...)
+plotRelationships(dp)
 
-# Set access rules
-library(dataone)
-library(curl) 
-library(redland) 
+# zip up data package!
+dp_bagit <- ...(dp) # zip
+file.copy(..., "./storm_project/Storm_data_package.zip") # copy file from temp to desired location
 
-dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100",
+# Upload data package to a repository
+
+library(...)
+library(...) 
+library(...) 
+
+## get your access token and paste it in the console! 
+
+# assign a doi if desired
+cn <- CNode("PROD")
+mn <- getMNode(cn, "urn:node:KNB")  
+doi <- generateIdentifier(mn, "DOI")
+# edit your metadata file with doi
+emlFile <- "./storm_project/eml/storm_events_package_id.xml"
+mdObj <- ...("DataObject", id = ..., format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+dp <- ...(dp, ...)
+
+# set access rules for your data publication
+dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100", 
                             permission="changePermission") 
 dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0003-0847-9100",
                                          "http://orcid.org/0000-0000-0000-0001"),
-                             permission = c("changePermission", "read"))
+                             permission = c("changePermission", "read")
+                             )
 
-# upload data package
-
-# this is a static copy of the DataONE member nodes as of July, 2019
-read.csv("data/Nodes.csv")
+# set your environment and repository
 d1c <- ...("STAGING2", "urn:node:mnTestKNB") 
 
+# upload your package to the testing location
+packageId <- ...(d1c, dp, public = TRUE, accessRules = ...,
+                               quiet = FALSE)
 
-packageId <- ...(d1c, dp, public = TRUE, 
-                 accessRules = dpAccessRules,
-                 quiet = FALSE)
 
-# Citation
-cn <- ...("PROD")
-mn <- getMNode(cn, "urn:node:DRYAD")  
 
-doi <- ...(mn, "DOI")
-
-mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1",
-             file = emlFile)

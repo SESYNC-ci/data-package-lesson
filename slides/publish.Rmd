@@ -159,9 +159,26 @@ Getting a Digital Object Identifier (DOI) for your data package can make it easi
 
 ===
 
-You can assign a DOI to your data package by editing the metadata file.  
+You will need to specify the environment and repository (also called a member node).
 
-First specify the environment and repository (also called a member node).
+The environment is where you publish your data: "PROD" is production, and "STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package.  
+{:.notes}
+
+NOTE: "PROD" and "STAGING" require different tokens.  
+See above steps to get the correct token.
+{:.notes}
+
+===
+
+If you don't know your repository specs, look it up in this table of member node IDs: (data/Nodes.csv) 
+
+```{r, handout = 0, eval = FALSE}
+read.csv("data/Nodes.csv")
+```
+
+===
+
+Get a DOI from your target repository.  We won't actually do this in the lesson, because we're not going to publish our example data.    
 
 ```{r, handout = 0, eval = FALSE}
 cn <- CNode("PROD")
@@ -178,6 +195,8 @@ Now overwrite the previous metadata file with the new DOI identified metadata fi
 emlFile <- "./storm_project/eml/storm_events_package_id.xml"
 
 mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+
+dp <- addMember(dp, mdObj)
 ```
 
 Then zip up all your files for your data package with BagIt as shown in the previous section.    
@@ -210,23 +229,10 @@ NOTE: When you upload the package, you also need to set `public = FALSE` if you 
 
 #### Upload data package
 
-The first argument here is the environment - "PROD" is production where you publish your data.
-"STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package.  
-NOTE: "PROD" and "STAGING" require different tokens.  
-See above steps to get the correct token.
+First set the environment and repository you'll upload to.  
 
-
-===
-
-The second argument is the repository specification.  If you don't know your repository specs, look it up in this table of member node IDs: (data/Nodes.csv) 
-
-```{r, handout = 0}
-read.csv("data/Nodes.csv")
-```
-
-===
-
-First set the environment and repository you'll upload to:
+NOTE: We are using the "STAGING2" environment and "TestKNB" node here, because we just want to test uploading, but not actually publish our example data package.  
+{:.notes}
   
 ```{r, handout = 0}
 d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") 
@@ -234,7 +240,7 @@ d1c <- D1Client("STAGING2", "urn:node:mnTestKNB")
   
 ===  
   
-Now do the actual uploading of your data package:
+Now do the actual uploading of your data package to the test repository location.  
   
 ```{r, handout = 0}
 packageId <- uploadDataPackage(d1c, dp, public = TRUE, accessRules = dpAccessRules,

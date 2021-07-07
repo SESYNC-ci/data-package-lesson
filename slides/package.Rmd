@@ -160,7 +160,6 @@ storm_diag <- grViz("digraph{
                      }")
 
 storm_diag
-
 ```
 
 ===
