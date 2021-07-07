@@ -8,41 +8,41 @@ stm_dat <- ...("data/StormEvents.csv")
 
 # Outputting derived data
 ...('storm_project', showWarnings = FALSE)
-...(stm_dat, "storm_project/StormEvents_d2006.csv")
+...(stm_dat, "~/storm_project/StormEvents_d2006.csv")
 
 # Creating metadata
 
 library(...) 
 
-template_...(path = ".", dir.name = "...") # create template files in a new directory
+template_...(path = "~", dir.name = "...") # create template files in a new directory
 
 # move the derived data file to the new directory
-file.copy("StormEvents_d2006.csv", "./.../data_objects/", overwrite = TRUE)
-file.remove("StormEvents_d2006.csv")
+file.copy("~/StormEvents_d2006.csv", "./.../data_objects/", overwrite = TRUE)
+file.remove("~/StormEvents_d2006.csv")
 
 # core metadata
-template_core_metadata(path = "./.../metadata_templates",
+template_core_metadata(path = "~/.../metadata_templates",
                        license = "CCBY",
                        file.type = "...")
 
 # abstract
 abs <- ...
 # this function from the readr package writes a simple text file without columns or rows
-write_file(abs, "./storm_project/metadata_templates/abstract.txt", append = FALSE)
+write_file(abs, "~/storm_project/metadata_templates/abstract.txt", append = FALSE)
 
 # methods
 methd <- ...
-write_file(methd, "./storm_project/metadata_templates/methods.txt", append = FALSE)
+write_file(methd, "~/storm_project/metadata_templates/methods.txt", append = FALSE)
 
 # keywords
-keyw <- read.table("./storm_project/metadata_templates/keywords.txt", sep = "\t", header = TRUE, colClasses = rep("character", 2))
+keyw <- read.table("~/storm_project/metadata_templates/keywords.txt", sep = "\t", header = TRUE, colClasses = rep("character", 2))
 my_keyw <- ...
 keyw <- keyw %>% add_row(...)
-write.table(keyw, "./storm_project/metadata_templates/keywords.txt", row.names = FALSE, sep = "\t")
+write.table(keyw, "~/storm_project/metadata_templates/keywords.txt", row.names = FALSE, sep = "\t")
 
 # personnel
 # read in the personnel template text file
-persons <- read.table("./storm_project/metadata_templates/personnel.txt", 
+persons <- read.table("~/storm_project/metadata_templates/personnel.txt", 
                      sep = "\t", header = TRUE, colClasses = rep("character", 10))  
 # define the personnel information
 firstname <- c(...)
@@ -66,11 +66,11 @@ persons <- persons %>%
                   fundingAgency = ...,
                   fundingNumber = ...)
 # write new personnel file
-write.table(persons, "./storm_project/metadata_templates/personnel.txt", row.names = FALSE, sep = "\t")
+write.table(persons, "~/storm_project/metadata_templates/personnel.txt", row.names = FALSE, sep = "\t")
 
 # geographic coverage
-...(path = "./storm_project/metadata_templates", 
-                             data.path = "./storm_project/data_objects", 
+...(path = "~/storm_project/metadata_templates", 
+                             data.path = "~/storm_project/data_objects", 
                              data.table = "StormEvents_d2006.csv", 
                              lat.col = "BEGIN_LAT",
                              lon.col = "BEGIN_LON",
@@ -78,11 +78,11 @@ write.table(persons, "./storm_project/metadata_templates/personnel.txt", row.nam
                              )
 
 # data attributes
-...(path = "./storm_project/metadata_templates",
-                          data.path = "./storm_project/data_objects",
+...(path = "~/storm_project/metadata_templates",
+                          data.path = "~/storm_project/data_objects",
                           data.table = c(...))
 # read in the attributes template text file
-attrib <- read.table("./storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
+attrib <- read.table("~/storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
                      sep = "\t", header = TRUE)  
 # define the attributes
 attributeDef <- c(...)
@@ -109,25 +109,25 @@ attrib <- attrib %>%
                  missingValueCode = ...elt(),
                  missingValueCodeExplanation = ...)
 # write revised attribute table
-...(attrib, "./storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
+...(attrib, "~/storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
     row.names = FALSE, sep = "\t")
 
 # define categorical variables
-...(path = "./storm_project/metadata_templates", 
-                               data.path = "./storm_project/data_objects")
+...(path = "~/storm_project/metadata_templates", 
+                               data.path = "~/storm_project/data_objects")
 # read in the attributes template text file
-catvars <- read.table("./storm_project/metadata_templates/catvars_StormEvents_d2006.txt", 
+catvars <- read.table("~/storm_project/metadata_templates/catvars_StormEvents_d2006.txt", 
                       sep = "\t", header = TRUE)
 # define
 catvars$definition <- c("csv file", "pds file", rep("magnitude", 2), ..., ...)
 # write table
-write.table(..., "./storm_project/metadata_templates/catvars_StormEvents_d2006.txt", 
+write.table(..., "~/storm_project/metadata_templates/catvars_StormEvents_d2006.txt", 
             row.names = FALSE, sep = "\t")
 
 # write EML metadata file
-...(path = "./storm_project/metadata_templates",
-         data.path = "./storm_project/data_objects",
-         eml.path = "./storm_project/eml",
+...(path = "~/storm_project/metadata_templates",
+         data.path = "~/storm_project/data_objects",
+         eml.path = "~/storm_project/eml",
          dataset.title = ...,
          temporal.coverage = c("2006-01-01", "2006-04-07"),
          geographic.description = ..., 
@@ -151,13 +151,13 @@ library(...)
 dp <- ...("DataPackage")
 
 # add metadata file to data package
-emlFile <- "./storm_project/eml/storm_events_package_id.xml"  # define the file
+emlFile <- "~/storm_project/eml/storm_events_package_id.xml"  # define the file
 emlId <- paste("urn:uuid:", UUIDgenerate(), sep = "")  # generate id
 mdObj <- new("DataObject", id = ..., format = "eml://ecoinformatics.org/eml-2.1.1", file = ...)
 dp <- addMember(dp, ...)  # add
 
 # add data file to data package
-datafile <- "./storm_project/data_objects/StormEvents_d2006.csv" # define the file
+datafile <- "~/storm_project/data_objects/StormEvents_d2006.csv" # define the file
 dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")  # generate id
 dataObj <- new("DataObject", id = ..., format = "text/csv", filename = ...) 
 dp <- addMember(dp, ...) # add
@@ -166,19 +166,19 @@ dp <- addMember(dp, ...) # add
 dp <- insertRelationship(dp, subjectID = emlId, objectIDs = dataId)
 
 # add R script to data package
-scriptfile <- "./data/storm_script.R" # define the file
+scriptfile <- "data/storm_script.R" # define the file
 scriptId <- paste("urn:uuid:", UUIDgenerate(), sep = "") # generate id
 scriptObj <- ...("DataObject", id = scriptId, format = "application/R", filename = ...)
 dp <- addMember(dp, ...) # add
 
 # add Figure 1 to data package
-fig1file <- "./data/Storms_Fig1.png" # define the file
+fig1file <- "data/Storms_Fig1.png" # define the file
 fig1Id <- paste("urn:uuid:", UUIDgenerate(), sep = "") # generate id
 fig1Obj <- ...("DataObject", id = ..., format = "image/png", filename = fig1file)
 dp <- ...(dp, fig1Obj) # add
 
 # add Figure 2 to data package
-fig2file <- "./data/Storms_Fig2.png" # define the file
+fig2file <- "data/Storms_Fig2.png" # define the file
 fig2Id <- paste("urn:uuid:", UUIDgenerate(), sep = "") # generate id
 fig2Obj <- new("DataObject", id = ..., format = "image/png", filename = ...)
 dp <- ...(dp, ...) # add
@@ -219,7 +219,7 @@ plotRelationships(dp)
 
 # zip up data package!
 dp_bagit <- ...(dp) # zip
-file.copy(..., "./storm_project/Storm_data_package.zip") # copy file from temp to desired location
+file.copy(..., "~/storm_project/Storm_data_package.zip") # copy file from temp to desired location
 
 # Upload data package to a repository
 
@@ -234,7 +234,7 @@ cn <- CNode("PROD")
 mn <- getMNode(cn, "urn:node:KNB")  
 doi <- generateIdentifier(mn, "DOI")
 # edit your metadata file with doi
-emlFile <- "./storm_project/eml/storm_events_package_id.xml"
+emlFile <- "~/storm_project/eml/storm_events_package_id.xml"
 mdObj <- ...("DataObject", id = ..., format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
 dp <- ...(dp, ...)
 

@@ -193,9 +193,30 @@ Getting a Digital Object Identifier (DOI) for your data package can make it easi
 
 ===
 
-You can assign a DOI to your data package by editing the metadata file.  
+You will need to specify the environment and repository (also called a member node).
 
-First specify the environment and repository (also called a member node).
+The environment is where you publish your data: "PROD" is production, and "STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package.  
+{:.notes}
+
+NOTE: "PROD" and "STAGING" require different tokens.  
+See above steps to get the correct token.
+{:.notes}
+
+===
+
+If you don't know your repository specs, look it up in this table of member node IDs: (data/Nodes.csv) 
+
+
+
+~~~r
+read.csv("data/Nodes.csv")
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+
+
+===
+
+Get a DOI from your target repository.  We won't actually do this in the lesson, because we're not going to publish our example data.    
 
 
 
@@ -218,6 +239,8 @@ Now overwrite the previous metadata file with the new DOI identified metadata fi
 emlFile <- "./storm_project/eml/storm_events_package_id.xml"
 
 mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+
+dp <- addMember(dp, mdObj)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
@@ -260,144 +283,10 @@ NOTE: When you upload the package, you also need to set `public = FALSE` if you 
 
 #### Upload data package
 
-The first argument here is the environment - "PROD" is production where you publish your data.
-"STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package.  
-NOTE: "PROD" and "STAGING" require different tokens.  
-See above steps to get the correct token.
+First set the environment and repository you'll upload to.  
 
-
-===
-
-The second argument is the repository specification.  If you don't know your repository specs, look it up in this table of member node IDs: (data/Nodes.csv) 
-
-
-
-~~~r
-read.csv("data/Nodes.csv")
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
-
-
-~~~
-                                                                           name
-1                                                                      cn-unm-1
-2                                                                     cn-ucsb-1
-3                                                                      cn-orc-1
-4                                                           KNB Data Repository
-5                                                             ESA Data Registry
-6                                                      SANParks Data Repository
-7                                                                     ORNL DAAC
-8                                                             U.S. LTER Network
-9                                                                   UC3 Merritt
-10                                                                     PISCO MN
-11                                                 ONEShare DataONE Member Node
-12                                         DataONE ORC Dedicated Replica Server
-13                                         DataONE UNM Dedicated Replica Server
-14                                        DataONE UCSB Dedicated Replica Server
-15                                                            TFRI Data Catalog
-16                                               USA National Phenology Network
-17                                                         SEAD Virtual Archive
-18                                                   Gulf of Alaska Data Portal
-19                                University of Kansas - Biodiversity Institute
-20                                                      LTER Europe Member Node
-21                                                     Dryad Digital Repository
-22                                           Cornell Lab of Ornithology - eBird
-23                                                       EDAC Gstore Repository
-24                                                  Montana IoE Data Repository
-25                                                  Minnesota Population Center
-26                            Environmental Data for the Oak Ridge Area (EDORA)
-27                       Regional and Global biogeochemical dynamics Data (RGD)
-28                                                        GLEON Data Repository
-29                                                            IARC Data Archive
-30                                                        NM EPSCoR Tier 4 Node
-31                                                               TERN Australia
-32                                                  Northwest Knowledge Network
-33                                                    USGS Science Data Catalog
-34                                                     NRDC DataONE member node
-35                                         NOAA NCEI Environmental Data Archive
-36                                                                        PPBio
-37                                                             NEON Member Node
-38                                            The Digital Archaeological Record
-39                                                           Arctic Data Center
-40        Biological and Chemical Oceanography Data Management Office (BCO-DMO)
-41 Gulf of Mexico Research Initiative Information and Data Cooperative (GRIIDC)
-42                                             Rolling Deck to Repository (R2R)
-43                                                Environmental Data Initiative
-44                         A Member Node for University of Illinois at Chicago.
-45                                                           Research Workspace
-46                          Forest Ecosystem Monitoring Cooperative Member Node
-47                  Organization for Tropical Studies - Neotropical Data Center
-48                                                                      PANGAEA
-49                                ESS-DIVE: Deep Insight for Earth Science Data
-50                                    Chinese Ecosystem Research Network (CERN)
-51                    Cary Institute of Ecosystem Studies (powered by Figshare)
-52                                                               IEDA EARTHCHEM
-53                                                                    IEDA USAP
-54                                                                    IEDA MGDL
-55                          California Ocean Protection Council Data Repository
-                   node_id type
-1          urn:node:CNUNM1   cn
-2         urn:node:CNUCSB1   cn
-3          urn:node:CNORC1   cn
-4             urn:node:KNB   mn
-5             urn:node:ESA   mn
-6        urn:node:SANPARKS   mn
-7        urn:node:ORNLDAAC   mn
-8            urn:node:LTER   mn
-9             urn:node:CDL   mn
-10          urn:node:PISCO   mn
-11       urn:node:ONEShare   mn
-12         urn:node:mnORC1   mn
-13         urn:node:mnUNM1   mn
-14        urn:node:mnUCSB1   mn
-15           urn:node:TFRI   mn
-16         urn:node:USANPN   mn
-17           urn:node:SEAD   mn
-18            urn:node:GOA   mn
-19           urn:node:KUBI   mn
-20    urn:node:LTER_EUROPE   mn
-21          urn:node:DRYAD   mn
-22       urn:node:CLOEBIRD   mn
-23     urn:node:EDACGSTORE   mn
-24            urn:node:IOE   mn
-25         urn:node:US_MPC   mn
-26          urn:node:EDORA   mn
-27            urn:node:RGD   mn
-28          urn:node:GLEON   mn
-29           urn:node:IARC   mn
-30       urn:node:NMEPSCOR   mn
-31           urn:node:TERN   mn
-32            urn:node:NKN   mn
-33       urn:node:USGS_SDC   mn
-34           urn:node:NRDC   mn
-35           urn:node:NCEI   mn
-36          urn:node:PPBIO   mn
-37           urn:node:NEON   mn
-38           urn:node:TDAR   mn
-39         urn:node:ARCTIC   mn
-40         urn:node:BCODMO   mn
-41         urn:node:GRIIDC   mn
-42            urn:node:R2R   mn
-43            urn:node:EDI   mn
-44            urn:node:UIC   mn
-45             urn:node:RW   mn
-46           urn:node:FEMC   mn
-47        urn:node:OTS_NDC   mn
-48        urn:node:PANGAEA   mn
-49       urn:node:ESS_DIVE   mn
-50       urn:node:CAS_CERN   mn
-51  urn:node:FIGSHARE_CARY   mn
-52 urn:node:IEDA_EARTHCHEM   mn
-53      urn:node:IEDA_USAP   mn
-54      urn:node:IEDA_MGDL   mn
-55         urn:node:CA_OPC   mn
-~~~
-{:.output}
-
-
-===
-
-First set the environment and repository you'll upload to:
+NOTE: We are using the "STAGING2" environment and "TestKNB" node here, because we just want to test uploading, but not actually publish our example data package.  
+{:.notes}
   
 
 

@@ -504,7 +504,8 @@ In addition, it's good to double check the class of variables inferred by the te
 
 ~~~r
 classes <- attrib %>% select(attributeName, class) %>% 
-           mutate(class = ifelse(attributeName %in% c("DAMAGE_PROPERTY", "DAMAGE_CROPS", "EVENT_TYPE", "SOURCE"), 
+           mutate(class = ifelse(attributeName %in% c("DAMAGE_PROPERTY", "DAMAGE_CROPS", 
+                                                      "EVENT_TYPE", "SOURCE"), 
                                  "character", class)) %>% 
            select(class) %>% unlist(use.names = FALSE)
 ~~~

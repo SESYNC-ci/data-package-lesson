@@ -192,7 +192,7 @@ doi <- generateIdentifier(mn, "DOI")
 Now overwrite the previous metadata file with the new DOI identified metadata file
 
 ```{r, handout = 0, eval = FALSE}
-emlFile <- "./storm_project/eml/storm_events_package_id.xml"
+emlFile <- "~/storm_project/eml/storm_events_package_id.xml"
 
 mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
 

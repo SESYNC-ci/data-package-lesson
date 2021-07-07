@@ -83,7 +83,7 @@ Because we followed the principle of one table/file for each type of observation
 we have one table to be written out to a file now.  
 
 ```{r, handout = 0}
-write_csv(stm_dat, "StormEvents_d2006.csv")
+write_csv(stm_dat, "~/StormEvents_d2006.csv")
 ```
 
 ===

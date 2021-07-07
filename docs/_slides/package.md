@@ -197,8 +197,8 @@ storm_diag
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 <div class="figure">
-<!--html_preserve--><div id="htmlwidget-8316cc6dddaa5ebf33fa" style="width:504px;height:504px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8316cc6dddaa5ebf33fa">{"x":{"diagram":"digraph{\n         \n                     graph[rankdir = LR]\n                     \n                     node[shape = rectangle, style = filled]  \n                     A[label = \"Storm data\"]\n                     B[label = \"storm_script.R\"]\n                     C[label = \"Fig. 1\"]\n                     D[label = \"Fig. 2\"]\n\n                     edge[color = black]\n                     A -> B\n                     B -> C\n                     B -> D\n                     \n                     }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-ad2f04083375781c000b" style="width:504px;height:504px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ad2f04083375781c000b">{"x":{"diagram":"digraph{\n         \n                     graph[rankdir = LR]\n                     \n                     node[shape = rectangle, style = filled]  \n                     A[label = \"Storm data\"]\n                     B[label = \"storm_script.R\"]\n                     C[label = \"Fig. 1\"]\n                     D[label = \"Fig. 2\"]\n\n                     edge[color = black]\n                     A -> B\n                     B -> C\n                     B -> D\n                     \n                     }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 <p class="caption"> </p>
 </div>
 
