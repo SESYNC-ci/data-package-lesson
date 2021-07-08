@@ -25,7 +25,7 @@ A data package is a collection of files that describe your data.
 
 There are two essential parts to a data package: _data_ and _metadata_. 
 
-Data packages also frequently include 1) code scripts that clean, process, or perform statistical anslyses on your data, and 2) visualizations that are direct products of coded anlyses.  The relationships between these files are described in the provenance information for a data package.  We will get into more details on these components in this lesson.
+Data packages also frequently include code scripts that clean, process, or perform statistical anslyses on your data, and visualizations that are direct products of coded analyses.  The relationships between these files are described in the provenance information for a data package.  We will get into more details on these components in this lesson.
 {:.notes}
 
 ===

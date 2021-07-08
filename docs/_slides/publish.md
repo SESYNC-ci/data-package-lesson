@@ -4,6 +4,8 @@
 
 ## Publishing your data 
 
+Now that you've packaged up your data, it's easier to publish! 
+
 Choosing to publish your data in a long-term repository can:
 
    - enable versioning of your data
@@ -57,128 +59,9 @@ ORCiDs identify you and link you to your publications and research products.  Th
 
 ===
 
-To obtain an ORCiD, register at [https://orcid.org](https://orcid.org).
+If you don't have one yet, get an ORCiD.  Register at [https://orcid.org](https://orcid.org).
 
 ![]({% include asset.html path="images/orcid_snap2.png" %}){: width="100%"} 
-
-===
-
-### Creating a data package
-
-Data packages can include metadata, data, and script files, as well as descriptions of the relationships between those files.   
-
-===
-
-Currently there are a few ways to make a data package:   
-
-- [Frictionless Data](https://frictionlessdata.io/docs/data-package/) uses json-ld format, and has the R package [`datapackage.r`](https://github.com/frictionlessdata/datapackage-r) which creates metadata files using schema.org specifications and creates a data package.  
-
-===
-
-- [DataONE](https://www.dataone.org/) frequently uses EML format for metadata, and has related R packages [`datapack`](){:.rlib} and [`dataone`](){:.rlib} that create data packages and upload data packages to a repository.  
-
-We'll follow the DataONE way of creating a data package in this lesson.  
-
-===
-
-| R Package   | What does it do?                                      |
-|-------------+-------------------------------------------------------|
-| `datapack`  | creates data package including file relationships     |
-| `uuid`      | creates a unique identifier for your metadata         |
-
-===
-
-We'll create a local data package using [`datapack`](){:.rlib}:
-
-
-
-~~~r
-library(datapack) 
-library(uuid)
-
-dp <- new("DataPackage") # create empty data package
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-
-===
-
-Add the metadata file we created earlier to the blank data package.
-
-
-
-~~~r
-emlFile <- "storm_project/metadata/dataspice.xml"
-emlId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
-
-mdObj <- new("DataObject", id = emlId, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
-
-dp <- addMember(dp, mdObj)  # add metadata file to data package
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-
-===
-
-Add the data file we saved earlier to the data package.
-
-
-
-~~~r
-datafile <- "storm_project/StormEvents_d2006.csv"
-dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
-
-dataObj <- new("DataObject", id = dataId, format = "text/csv", filename = datafile) 
-
-dp <- addMember(dp, dataObj) # add data file to data package
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-
-===
-
-Define the relationship between the data and metadata. 
-
-
-
-~~~r
-dp <- insertRelationship(dp, subjectID = emlId, objectIDs = dataId)
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-
-You can also add scripts and derived data files to the data package.  
-
-===
-
-Create a Resource Description Framework (RDF) of the relationships between data and metadata.
-
-
-
-~~~r
-serializationId <- paste("resourceMap", UUIDgenerate(), sep = "")
-filePath <- file.path(sprintf("%s/%s.rdf", tempdir(), serializationId))
-status <- serializePackage(dp, filePath, id=serializationId, resolveURI = "")
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-
-===
-
-Save the data package to a file, using the [BagIt](https://tools.ietf.org/id/draft-kunze-bagit-16.html) packaging format.  
-
-Right now this creates a zipped file in the tmp directory.  We'll have to move the file 
-out of the temp directory after it is created.  Hopefully this will be [changed soon](https://github.com/ropensci/datapack/issues/108)!  
-{:.notes}
-
-
-
-~~~r
-dp_bagit <- serializeToBagIt(dp) 
-file.copy(dp_bagit, "storm_project/Storm_dp.zip") 
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
 
 ===
 
@@ -198,7 +81,7 @@ For qualitative data, there are a few dedicated repositories: [QDR](https://qdr.
 
 Though a bit different, [Zenodo](https://zenodo.org/) facilitates publishing (with a DOI) and archiving all research outputs from all research fields.  
 
-This can be used to publish releases of your code that lives in a GitHub repository.  However, since GitHub is not designed for data storage and is not a persistent repository, this is not a recommended way to store or publish data.  
+One example is using Zenodo to publish releases of your code that lives in a GitHub repository.  However, since GitHub is not designed for data storage and is not a persistent repository, this is not a recommended way to store or publish data.  
 {:.notes}
 
 ===
@@ -219,7 +102,9 @@ You'll need to do two basic steps:
 
 1) Get authentication token for DataONE (follow steps [here](https://github.com/DataONEorg/rdataone/blob/master/vignettes/v02-dataone-federation.Rmd))
 
-2) Upload your data package using R (from vignette for [dataone](){:.rlib})
+2) Get a DOI (if desired)
+
+3) Upload your data package using R (from vignette for [dataone](){:.rlib})
 
 ===
 
@@ -227,13 +112,50 @@ You'll need to do two basic steps:
 |-------------+---------------------------------------|
 | `dataone`   | uploads data package to repository    |
 
+
+
+~~~r
+library(dataone)
+library(curl) 
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+~~~
+Using libcurl 7.47.0 with GnuTLS/3.4.10
+~~~
+{:.output}
+
+
+~~~
+
+Attaching package: 'curl'
+~~~
+{:.output}
+
+
+~~~
+The following object is masked from 'package:readr':
+
+    parse_date
+~~~
+{:.output}
+
+
+~~~r
+library(redland) 
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
 ===
 
 **Tokens:**
 
-Different environments in DataONE take different authentication tokens.  See below for description of environments.  
-To get a token for the staging environment go here [https://dev.nceas.ucsb.edu](https://dev.nceas.ucsb.edu).  
-To get a token for the production environment go here [https://search.dataone.org](https://search.dataone.org).  
+Different environments in DataONE take different authentication tokens.  Essentially, the staging environment is for testing, and the production environment is for publishing.    
+
+To get a token for the staging environment start here [https://dev.nceas.ucsb.edu](https://dev.nceas.ucsb.edu).  
+To get a token for the production environment start here [https://search.dataone.org](https://search.dataone.org).  
 
 Then do the following (similar to #1 above): 
 
@@ -255,56 +177,34 @@ Paste your token in R console, as in the above instructions.
 You can also past your token in the provided `D1_token` R script and then load it.  
 
 
-~~~r
-#### Load my API token
-source("D1_token.R")
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-
-#### Set access rules 
-
-
 
 ~~~r
-library(dataone)
-library(curl) 
-library(redland) 
-
-dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100", 
-                            permission="changePermission") 
+> #### Load my API token
+> source("D1_token.R")
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+{:title="Console" .no-eval .input}
 
-This gives this particular orcid (person) permission to read, write, and change permissions for others for this package
 
 ===
 
+### Citation
 
-
-~~~r
-dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0003-0847-9100",
-                                         "http://orcid.org/0000-0000-0000-0001"),
-                             permission = c("changePermission", "read")
-                             )
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
+Getting a Digital Object Identifier (DOI) for your data package can make it easier for others to find and cite your data.  
 
 ===
 
-#### Upload data package
+You will need to specify the environment and repository (also called a member node).
 
-The first argument here is the environment - "PROD" is production where you publish your data.
-"STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package.  
+The environment is where you publish your data: "PROD" is production, and "STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package.  
+{:.notes}
+
 NOTE: "PROD" and "STAGING" require different tokens.  
 See above steps to get the correct token.
-
+{:.notes}
 
 ===
 
-The second argument is the repository specification.  If you don't know your repository specs, look it up in this table of member node IDs: (data/Nodes.csv) 
+If you don't know your repository specs, look it up in this table of member node IDs: (data/Nodes.csv) 
 
 
 
@@ -316,45 +216,13 @@ read.csv("data/Nodes.csv")
 
 ===
 
-First set the environment and repository you'll upload to:
-  
+Get a DOI from your target repository.  We won't actually do this in the lesson, because we're not going to publish our example data.    
 
-
-~~~r
-d1c <- D1Client("STAGING2", "urn:node:mnTestKNB") 
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-  
-===  
-  
-Now do the actual uploading of your data package:
-  
-
-
-~~~r
-packageId <- uploadDataPackage(d1c, dp, public = TRUE, accessRules = dpAccessRules,
-                               quiet = FALSE)
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
-
-
-===
-
-### Citation
-
-Getting a Digital Object Identifier (DOI) for your data package can make it easier for others to find and cite your data.  
-
-===
-
-You can assign a DOI to the metadata file for your data package using: 
-
-First specify the environment and repository.  
 
 
 ~~~r
 cn <- CNode("PROD")
-mn <- getMNode(cn, "urn:node:DRYAD")  
+mn <- getMNode(cn, "urn:node:KNB")  
 
 doi <- generateIdentifier(mn, "DOI")
 ~~~
@@ -368,11 +236,58 @@ Now overwrite the previous metadata file with the new DOI identified metadata fi
 
 
 ~~~r
-mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", 
-             file = emlFile)
+emlFile <- "./storm_project/eml/storm_events_package_id.xml"
+
+mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+
+dp <- addMember(dp, mdObj)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
+
+Then zip up all your files for your data package with BagIt as shown in the previous section.    
+
+===
+
+#### Set access rules 
+
+
+
+~~~r
+dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100", 
+                            permission="changePermission") 
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+This gives this particular orcid (person) permission to read, write, and change permissions for others for this package.
+
+===
+
+
+
+~~~r
+dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0003-0847-9100",
+                                         "http://orcid.org/0000-0000-0000-0001"),
+                             permission = c("changePermission", "read")
+                             )
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+The second person (orcid) only has access to read the files in this package.  
+
+NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
+
+===
+
+#### Upload data package
+
+First set the environment and repository you'll upload to.  
+
+NOTE: We are using the "STAGING2" environment and "TestKNB" node here, because we just want to test uploading, but not actually publish our example data package.  
+{:.notes}
+  
 
 
 

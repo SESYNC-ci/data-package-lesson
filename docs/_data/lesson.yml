@@ -1,8 +1,11 @@
 title: Documenting and Publishing your Data
 handouts: 
   - worksheet.R
-  - D1_token.R
   - data/StormEvents.csv
+  - data/Nodes.csv
+  - data/storm_script.R
+  - data/Storms_Fig1.png
+  - data/Storms_Fig2.png
 tag: v0.3
 lesson: 10
 instructor: Rachael Blake
@@ -15,6 +18,7 @@ sorter:
   - intro
   - data
   - metadata
+  - package
   - publish
-  - prov
+  - version
   - exercises
