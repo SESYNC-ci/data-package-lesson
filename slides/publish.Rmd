@@ -90,21 +90,19 @@ One example is using Zenodo to publish releases of your code that lives in a Git
 
 Uploading requirements can vary by repository and type of data.  The minimum you usually need is basic metadata, and a data file.  
 
-If you have a small number of files, using a repository GUI will usually be simpler.  For large numbers of files, automating uploads from R will save time.  And it's reproducible!  
+If you have a small number of files, using a repository GUI may be simpler.  For large numbers of files, automating uploads from R will save time.  And it's reproducible, which is always good!  
 
 ===
 
-#### Data Upload Example using DataONE:
+#### Data Upload Example - DataONE:
 
-If you choose to upload your data package to a repository in the DataONE federation, the following example might be useful. 
+If you choose to upload your data package to a repository in the [DataONE federation](https://www.dataone.org/) of repositories, the following example may be helpful.  The basic steps we will walk through in detail below are     
 
-You'll need to do two basic steps:   
+1) Getting an authentication token (follow steps below)
 
-1) Get authentication token for DataONE (follow steps below)
+2) Getting a DOI (if desired) from your chosen repository 
 
-2) Get a DOI from your chosen repository (if desired)
-
-3) Upload your data package using R (from vignette for [dataone](){:.rlib})
+3) Uploading your data package using R
 
 ===
 
@@ -122,28 +120,36 @@ library(redland)
 
 **Tokens:**
 
-Different environments in DataONE take different authentication tokens.  Essentially, the staging environment is for testing, and the production environment is for publishing.    
+Different environments in DataONE take different authentication tokens.  Essentially, the *staging environment is for testing*, and the *production environment is for publishing*.  If you are running the code in this lesson with the example data included here, get a token for the *staging environment*.  If you are modifying this code to publish your own research data, get a token for the *production environment*.  
+===
 
-To get a token for the staging environment start here [https://dev.nceas.ucsb.edu](https://dev.nceas.ucsb.edu).  
-To get a token for the production environment start here [https://search.dataone.org](https://search.dataone.org).  
+To get a token for the staging environment start here [Staging Environment](https://dev.nceas.ucsb.edu).
 
-Then do the following (similar to #1 above): 
+To get a token for the production environment start here [Production Environment](https://search.dataone.org).  
+
+If you happen to notice that the staging environment link above is an address at `nceas.ucsb.edu`, don't worry.  [DataONE](https://www.dataone.org/) is a project administered by [NCEAS](https://www.nceas.ucsb.edu/), which is a research affiliate of [UCSB](https://www.ucsb.edu/).  
+{:.notes}
+
+===
+
+After following either link above, complete the following steps to get your token. 
 
   - Click *Sign in*, or *Sign up* if necessary
-  - Once signed in, move the cursor over the user name and select 'My profile' in the drop down menu.
-  - Click on the "Settings" tab.
-  - Click on "Authentication Token" in the menu below "Welcome"
-  - Click on the "Token for DataONE R" tab.
-  - Click "Renew authentication token" if the token you have been using has expired.
-  - Click on the "Copy" button below the text window to copy the authentication string to the paste buffer.
-  - Note the identity string and expiration date of the token.
+  - Once signed in, move the cursor over the user name and select *My profile* in the drop down menu.
+  - Click on the *Settings* tab.
+  - Click on *Authentication Token* in the menu below *Welcome*
+  - Click on the *Token for DataONE R* tab.
+  - Click *Renew authentication token* if the token you have been using has expired.
+  - Click on the *Copy* button below the text window to copy the authentication string to the paste buffer.
   - Paste the token string in the R console.
+
+*You may want to note the expiration date of the token, which will be displayed on this page.*
 
 ===
 
 #### Set your token now
 
-Paste your token in the R console, as stated in the above instructions.  
+Paste your token for DataONE R in the R console, as stated in the instructions above.  
 
 ===
 
@@ -153,13 +159,13 @@ Getting a Digital Object Identifier (DOI) for your data package can make it easi
 
 ===
 
-You will need to specify the environment and repository (also called a member node).
+DOIs are associated with a particular repository or publisher, so you will need to specify the environment and repository (also called a member node) in which you are publishing your data. 
 
-The environment is where you publish your data: "PROD" is production, and "STAGING" can be used if you're not yet sure you have everything in order and want to test uploading your data package.  
+The environment is where you publish your data: "PROD" is production, and "STAGING" is to test uploading your data, and can be used if you're not yet sure you have everything in order.  
 {:.notes}
 
 NOTE: "PROD" and "STAGING" require different tokens.  
-See above steps to get the correct token.
+See above steps to get the appropriate access token.
 {:.notes}
 
 ===
@@ -172,39 +178,41 @@ read.csv("data/Nodes.csv")
 
 ===
 
-Get a DOI from your target repository.  We won't actually do this in the lesson, because we're not going to publish our example data.    
+You can get a DOI from your target repository if you desire.  We won't actually do this in the lesson here, because we're not going to publish our example data.  However, this code is provided for your future use when you are ready to publish your own data with a DOI.      
 
 ```{r, handout = 0, eval = FALSE}
-cn <- CNode("PROD")
-mn <- getMNode(cn, "urn:node:KNB")  
+# cn <- CNode("PROD")
+# mn <- getMNode(cn, "urn:node:KNB")  
 
-doi <- generateIdentifier(mn, "DOI")
+# doi <- generateIdentifier(mn, "DOI")
 ```
 
 ===
 
-Now overwrite the previous metadata file with the new DOI identified metadata file
+Then you would overwrite the previous metadata file with the new DOI identified metadata file.  Again, we won't do this here, as we're not going to publish our example data.  But the code provided here can be modified when you are ready to publish your own data.  
 
 ```{r, handout = 0, eval = FALSE}
-emlFile <- "~/storm_project/eml/storm_events_package_id.xml"
+# emlFile <- "~/storm_project/eml/storm_events_package_id.xml"
 
-mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
+# mdObj <- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
 
-dp <- addMember(dp, mdObj)
+# dp <- addMember(dp, mdObj)
 ```
 
-Then zip up all your files for your data package with BagIt as shown in the previous section.    
+Then you would zip up all your files for your data package with BagIt as shown in the previous section.    
 
 ===
 
 #### Set access rules 
 
+NOTE: Replace this example ORCID with your own ORCID!
+
 ```{r, handout = 0}
-dpAccessRules <- data.frame(subject="http://orcid.org/0000-0003-0847-9100", 
-                            permission="changePermission") 
+dpAccessRules <- data.frame(subject = "http://orcid.org/0000-0003-0847-9100", 
+                            permission = "changePermission") 
 ```
 
-This gives this particular orcid (person) permission to read, write, and change permissions for others for this package.
+This gives this particular ORCID (person) permission to read, write, and change permissions for others for this package.
 
 ===
 
@@ -215,9 +223,9 @@ dpAccessRules2 <- data.frame(subject = c("http://orcid.org/0000-0003-0847-9100",
                              )
 ```
 
-The second person (orcid) only has access to read the files in this package.  
+The second person (ORCID) only has access to read the files in this package.  
 
-NOTE: When you upload the package, you also need to set `public = FALSE` if you don't want your package public yet.
+NOTE: When you upload the package, you can set `public = FALSE` if you don't want your package public yet.  
 
 ===
 
@@ -225,7 +233,7 @@ NOTE: When you upload the package, you also need to set `public = FALSE` if you 
 
 First set the environment and repository you'll upload to.  
 
-NOTE: We are using the "STAGING2" environment and "TestKNB" node here, because we just want to test uploading, but not actually publish our example data package.  
+NOTE: We are using the "STAGING2" environment and "TestKNB" repository node here, because we just want to test uploading, but not actually publish our example data package.  
 {:.notes}
   
 ```{r, handout = 0}

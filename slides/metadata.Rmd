@@ -134,7 +134,7 @@ Create the organization for the data package with the `EMLassemblyline::template
 - **data_objects** A directory of data and other digital objects to be packaged (e.g. data files, scripts, .zip files, etc.).
 - **metadata_templates** A directory of EMLassemblyline template files.
 - **eml** A directory of EML files created by EMLassemblyline.
-- **run_EMLassemblyline.R** An R file for scripting an EMLassemblyline workflow.
+- **run_EMLassemblyline.R** An example R file for scripting an EMLassemblyline workflow. This could be helpful if you're starting from scratch, but we walk through a metadata workflow in detail below instead.  
 
 
 ```{r, handout = 0}
@@ -161,17 +161,17 @@ template_core_metadata(path = "~/storm_project/metadata_templates",
                        file.type = ".txt")
 ```
 
-We've chosen the "CCBY" license and the text file type (`.txt`).  Text files are easily read into R and programmatically edited.  
+We've chosen the "CCBY" license and the text file type (`.txt`) because text files are easily read into R and programmatically edited.    
 
 You can choose the license you wish to apply to your data (["CC0"](https://creativecommons.org/publicdomain/zero/1.0/) or ["CCBY"](https://creativecommons.org/licenses/by/4.0/)), as well as the file type of the metadata (`.txt`, `.docx`, or `.md`). See the [help page for the function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more information. NOTE: The `.txt` template files are Tab delimited. 
 {:.notes}
 
 ===
 
-Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder `./storm_project/metadata_templates/`.    
+Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder `./storm_project/metadata_templates/`.   
 {:.notes}
 
-You could open the template files in RStudio and edit manually, or export to Excel and edit there, but let's read them into R and edit them programmatically.    
+You could open the template files in RStudio and edit manually, or export to Excel and edit there, but let's read them into R and edit them programmatically.  This example can be used to automate the creation of your metadata  
 
 We'll begin by adding a brief abstract.
 
@@ -194,7 +194,7 @@ write_file(methd, "~/storm_project/metadata_templates/methods.txt", append = FAL
 
 ===
 
-Finally, we'll add keywords.  
+And some add keywords.  
 
 NOTE: This must be a 2 column table. You may leave the Thesaurus column empty if you're not using a controlled vocabulary for your keywords.  
 
@@ -230,7 +230,7 @@ fundingA <- rep("NSF", 4)
 fundingN <- rep("000-000-0001", 4)  
 ```
 
-IMPORTANT: In the `personnel.txt` file, if a person has more than one role (PI and contact), make multiple rows for this person but change the role on each row.  See the help page for the [template function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more details.  
+IMPORTANT: In the `personnel.txt` file, if a person has more than one role (for example PI and contact), make multiple rows for this person but change the role on each row.  See the help page for the [template function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more details.  
 {:.notes}
 
 ===
