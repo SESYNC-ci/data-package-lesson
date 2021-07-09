@@ -101,7 +101,7 @@ we have one table to be written out to a file now.
 
 
 ~~~r
-write_csv(stm_dat, "StormEvents_d2006.csv")
+write_csv(stm_dat, "~/StormEvents_d2006.csv")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 

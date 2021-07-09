@@ -138,19 +138,19 @@ Create the organization for the data package with the `EMLassemblyline::template
 - **data_objects** A directory of data and other digital objects to be packaged (e.g. data files, scripts, .zip files, etc.).
 - **metadata_templates** A directory of EMLassemblyline template files.
 - **eml** A directory of EML files created by EMLassemblyline.
-- **run_EMLassemblyline.R** An R file for scripting an EMLassemblyline workflow.
+- **run_EMLassemblyline.R** An example R file for scripting an EMLassemblyline workflow. This could be helpful if you're starting from scratch, but we walk through a metadata workflow in detail below instead.  
 
 
 
 
 ~~~r
-template_directories(path = ".", dir.name = "storm_project") # create template files in a new directory
+template_directories(path = "~", dir.name = "storm_project") # create template files in a new directory
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
 ~~~
-Templating ./storm_project
+Templating ~/storm_project
 ~~~
 {:.output}
 
@@ -163,7 +163,7 @@ Done.
 
 ~~~r
 # move the derived data file to the new storm_project directory
-file.copy("StormEvents_d2006.csv", "./storm_project/data_objects/", overwrite = TRUE)
+file.copy("~/StormEvents_d2006.csv", "~/storm_project/data_objects/", overwrite = TRUE)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
@@ -175,7 +175,7 @@ file.copy("StormEvents_d2006.csv", "./storm_project/data_objects/", overwrite = 
 
 
 ~~~r
-file.remove("StormEvents_d2006.csv")
+file.remove("~/StormEvents_d2006.csv")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
@@ -199,7 +199,7 @@ Essential metadata: Create templates for package-level metadata, including abstr
 
 
 ~~~r
-template_core_metadata(path = "./storm_project/metadata_templates",
+template_core_metadata(path = "~/storm_project/metadata_templates",
                        license = "CCBY",
                        file.type = ".txt")
 ~~~
@@ -254,17 +254,17 @@ Done.
 {:.output}
 
 
-We've chosen the "CCBY" license and the text file type (`.txt`).  Text files are easily read into R and programmatically edited.  
+We've chosen the "CCBY" license and the text file type (`.txt`) because text files are easily read into R and programmatically edited.    
 
 You can choose the license you wish to apply to your data (["CC0"](https://creativecommons.org/publicdomain/zero/1.0/) or ["CCBY"](https://creativecommons.org/licenses/by/4.0/)), as well as the file type of the metadata (`.txt`, `.docx`, or `.md`). See the [help page for the function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more information. NOTE: The `.txt` template files are Tab delimited. 
 {:.notes}
 
 ===
 
-Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder `./storm_project/metadata_templates/`.    
+Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder `./storm_project/metadata_templates/`.   
 {:.notes}
 
-You could open the template files in RStudio and edit manually, or export to Excel and edit there, but let's read them into R and edit them programmatically.    
+You could open the template files in RStudio and edit manually, or export to Excel and edit there, but let's read them into R and edit them programmatically.  This example can be used to automate the creation of your metadata  
 
 We'll begin by adding a brief abstract.
 
@@ -274,7 +274,7 @@ We'll begin by adding a brief abstract.
 abs <- "Abstract: Storms can have impacts on people's lives.  These data document some storms in 2006, and the injuries and damage that might have occurred from them."
 
 # this function from the readr package writes a simple text file without columns or rows
-write_file(abs, "./storm_project/metadata_templates/abstract.txt", append = FALSE)
+write_file(abs, "~/storm_project/metadata_templates/abstract.txt", append = FALSE)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
@@ -288,27 +288,27 @@ Now we'll add methods.
 ~~~r
 methd <- "These example data were generated for the purpose of this lesson.  Their only use is for instructional purposes."
 
-write_file(methd, "./storm_project/metadata_templates/methods.txt", append = FALSE)
+write_file(methd, "~/storm_project/metadata_templates/methods.txt", append = FALSE)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
 ===
 
-Finally, we'll add keywords.  
+And some add keywords.  
 
 NOTE: This must be a 2 column table. You may leave the Thesaurus column empty if you're not using a controlled vocabulary for your keywords.  
 
 
 
 ~~~r
-keyw <- read.table("./storm_project/metadata_templates/keywords.txt", sep = "\t", header = TRUE, colClasses = rep("character", 2))
+keyw <- read.table("~/storm_project/metadata_templates/keywords.txt", sep = "\t", header = TRUE, colClasses = rep("character", 2))
   
 my_keyw <- c("storm", "injury", "damage")
 
 keyw <- keyw %>% add_row(keyword = my_keyw)
 
-write.table(keyw, "./storm_project/metadata_templates/keywords.txt", row.names = FALSE, sep = "\t")
+write.table(keyw, "~/storm_project/metadata_templates/keywords.txt", row.names = FALSE, sep = "\t")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
@@ -322,7 +322,7 @@ Let's edit the personnel template file programmatically.  NOTE: The `.txt` templ
 
 ~~~r
 # read in the personnel template text file
-persons <- read.table("./storm_project/metadata_templates/personnel.txt", 
+persons <- read.table("~/storm_project/metadata_templates/personnel.txt", 
                      sep = "\t", header = TRUE, colClasses = rep("character", 10))  
 
 # define the personnel information
@@ -339,7 +339,7 @@ fundingN <- rep("000-000-0001", 4)
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
-IMPORTANT: In the `personnel.txt` file, if a person has more than one role (PI and contact), make multiple rows for this person but change the role on each row.  See the help page for the [template function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more details.  
+IMPORTANT: In the `personnel.txt` file, if a person has more than one role (for example PI and contact), make multiple rows for this person but change the role on each row.  See the help page for the [template function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more details.  
 {:.notes}
 
 ===
@@ -360,7 +360,7 @@ persons <- persons %>%
                   fundingNumber = fundingN)
 
 # write new personnel file
-write.table(persons, "./storm_project/metadata_templates/personnel.txt", row.names = FALSE, sep = "\t")
+write.table(persons, "~/storm_project/metadata_templates/personnel.txt", row.names = FALSE, sep = "\t")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
@@ -372,8 +372,8 @@ Geographic coverage: Create the metadata for the geographic extent.
 
 
 ~~~r
-template_geographic_coverage(path = "./storm_project/metadata_templates", 
-                             data.path = "./storm_project/data_objects", 
+template_geographic_coverage(path = "~/storm_project/metadata_templates", 
+                             data.path = "~/storm_project/data_objects", 
                              data.table = "StormEvents_d2006.csv", 
                              lat.col = "BEGIN_LAT",
                              lon.col = "BEGIN_LON",
@@ -412,8 +412,8 @@ Data attributes: Create table attributes template (required when data tables are
 
 
 ~~~r
-template_table_attributes(path = "./storm_project/metadata_templates",
-                          data.path = "./storm_project/data_objects",
+template_table_attributes(path = "~/storm_project/metadata_templates",
+                          data.path = "~/storm_project/data_objects",
                           data.table = c("StormEvents_d2006.csv"))
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
@@ -451,7 +451,7 @@ The template function can't discover everything, so some columns are still empty
 
 ~~~r
 # read in the attributes template text file
-attrib <- read.table("./storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
+attrib <- read.table("~/storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
                      sep = "\t", header = TRUE)  
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
@@ -552,7 +552,7 @@ attrib <- attrib %>%
                  missingValueCode = missingValueCode,
                  missingValueCodeExplanation = missingValueCodeDef)
 
-write.table(attrib, "./storm_project/metadata_templates/attributes_StormEvents_d2006.txt", row.names = FALSE, sep = "\t")
+write.table(attrib, "~/storm_project/metadata_templates/attributes_StormEvents_d2006.txt", row.names = FALSE, sep = "\t")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
@@ -566,8 +566,8 @@ Categorical variables: Create metadata specific to categorical variables (requir
 
 
 ~~~r
-template_categorical_variables(path = "./storm_project/metadata_templates", 
-                               data.path = "./storm_project/data_objects")
+template_categorical_variables(path = "~/storm_project/metadata_templates", 
+                               data.path = "~/storm_project/data_objects")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
@@ -633,12 +633,12 @@ NOTE: You must add definitions, even for obvious things like month.  If you don'
 
 ~~~r
 # read in the attributes template text file
-catvars <- read.table("./storm_project/metadata_templates/catvars_StormEvents_d2006.txt", 
+catvars <- read.table("~/storm_project/metadata_templates/catvars_StormEvents_d2006.txt", 
                       sep = "\t", header = TRUE)
 
 catvars$definition <- c("csv file", "pds file", rep("magnitude", 2), rep("month", 4), rep("USA state", 19))
 
-write.table(catvars, "./storm_project/metadata_templates/catvars_StormEvents_d2006.txt", row.names = FALSE, sep = "\t")
+write.table(catvars, "~/storm_project/metadata_templates/catvars_StormEvents_d2006.txt", row.names = FALSE, sep = "\t")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
@@ -670,9 +670,9 @@ Check the function help documentation to see which arguments of `make_eml()` are
 
 
 ~~~r
-make_eml(path = "./storm_project/metadata_templates",
-         data.path = "./storm_project/data_objects",
-         eml.path = "./storm_project/eml",
+make_eml(path = "~/storm_project/metadata_templates",
+         data.path = "~/storm_project/data_objects",
+         eml.path = "~/storm_project/eml",
          dataset.title = "Storm Events that occurred in 2006",
          temporal.coverage = c("2006-01-01", "2006-04-07"),
          geographic.description = "Continental United State of America", 

@@ -52,7 +52,7 @@ Add the metadata file we created earlier to the blank data package.
 
 
 ~~~r
-emlFile <- "./storm_project/eml/storm_events_package_id.xml"
+emlFile <- "~/storm_project/eml/storm_events_package_id.xml"
 emlId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
 mdObj <- new("DataObject", id = emlId, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)
@@ -69,7 +69,7 @@ Add the data file we saved earlier to the data package.
 
 
 ~~~r
-datafile <- "./storm_project/data_objects/StormEvents_d2006.csv"
+datafile <- "~/storm_project/data_objects/StormEvents_d2006.csv"
 dataId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
 dataObj <- new("DataObject", id = dataId, format = "text/csv", filename = datafile) 
@@ -99,7 +99,7 @@ You can also add scripts and other files to the data package.  Let's add a short
 
 
 ~~~r
-scriptfile <- "./data/storm_script.R"
+scriptfile <- "data/storm_script.R"
 scriptId <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
 scriptObj <- new("DataObject", id = scriptId, format = "application/R", filename = scriptfile)
@@ -112,7 +112,7 @@ dp <- addMember(dp, scriptObj)
 
 
 ~~~r
-fig1file <- "./data/Storms_Fig1.png"
+fig1file <- "data/Storms_Fig1.png"
 fig1Id <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
 fig1Obj <- new("DataObject", id = fig1Id, format = "image/png", filename = fig1file)
@@ -125,7 +125,7 @@ dp <- addMember(dp, fig1Obj)
 
 
 ~~~r
-fig2file <- "./data/Storms_Fig2.png"
+fig2file <- "data/Storms_Fig2.png"
 fig2Id <- paste("urn:uuid:", UUIDgenerate(), sep = "")
 
 fig2Obj <- new("DataObject", id = fig2Id, format = "image/png", filename = fig2file)
@@ -197,8 +197,8 @@ storm_diag
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 <div class="figure">
-<!--html_preserve--><div id="htmlwidget-ad2f04083375781c000b" style="width:504px;height:504px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ad2f04083375781c000b">{"x":{"diagram":"digraph{\n         \n                     graph[rankdir = LR]\n                     \n                     node[shape = rectangle, style = filled]  \n                     A[label = \"Storm data\"]\n                     B[label = \"storm_script.R\"]\n                     C[label = \"Fig. 1\"]\n                     D[label = \"Fig. 2\"]\n\n                     edge[color = black]\n                     A -> B\n                     B -> C\n                     B -> D\n                     \n                     }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-59973ef22c7bb4de180d" style="width:504px;height:504px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-59973ef22c7bb4de180d">{"x":{"diagram":"digraph{\n         \n                     graph[rankdir = LR]\n                     \n                     node[shape = rectangle, style = filled]  \n                     A[label = \"Storm data\"]\n                     B[label = \"storm_script.R\"]\n                     C[label = \"Fig. 1\"]\n                     D[label = \"Fig. 2\"]\n\n                     edge[color = black]\n                     A -> B\n                     B -> C\n                     B -> D\n                     \n                     }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 <p class="caption"> </p>
 </div>
 
@@ -294,7 +294,7 @@ The following object is masked from 'package:base':
 plotRelationships(dp)
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
-![ ]({% include asset.html path="images/package/unnamed-chunk-11-1.png" %})
+![ ]({% include asset.html path="images/packageunnamed-chunk-11-1.png" %})
 {:.captioned}
 
 Why does the diagram we created above differ from the provenance diagram created by the function `datapack::describeWorkflow`?  The datapack function adds additional descriptive nodes to the diagram that fulfill certain semantic requirements.  However, the basic relationships are still there if you look carefully.  
@@ -313,7 +313,7 @@ out of the temp directory after it is created.  Hopefully this will be [changed 
 ~~~r
 dp_bagit <- serializeToBagIt(dp) 
 
-file.copy(dp_bagit, "./storm_project/Storm_data_package.zip") 
+file.copy(dp_bagit, "~/storm_project/Storm_data_package.zip") 
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
