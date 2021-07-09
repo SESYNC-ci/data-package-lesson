@@ -155,7 +155,7 @@ We'll start by creating the package-level metadata.
 
 Essential metadata: Create templates for package-level metadata, including abstract, intellectual rights, keywords, methods, personnel, and additional info.  These are required for all data packages.
 
-```{r, handout = 0}
+```{r, handout = 0, message = FALSE, warning = FALSE}
 template_core_metadata(path = "~/storm_project/metadata_templates",
                        license = "CCBY",
                        file.type = ".txt")
@@ -256,7 +256,7 @@ write.table(persons, "~/storm_project/metadata_templates/personnel.txt", row.nam
 
 Geographic coverage: Create the metadata for the geographic extent.
 
-```{r, handout = 0}
+```{r, handout = 0, message = FALSE, warning = FALSE}
 template_geographic_coverage(path = "~/storm_project/metadata_templates", 
                              data.path = "~/storm_project/data_objects", 
                              data.table = "StormEvents_d2006.csv", 
@@ -274,7 +274,7 @@ Now that we've created package-level metadata, we can create the file-level meta
   
 Data attributes: Create table attributes template (required when data tables are present)
 
-```{r, handout = 0}
+```{r, handout = 0, message = FALSE, warning = FALSE}
 template_table_attributes(path = "~/storm_project/metadata_templates",
                           data.path = "~/storm_project/data_objects",
                           data.table = c("StormEvents_d2006.csv"))
@@ -372,7 +372,7 @@ Because we have categorical variables in our data file, we need to define those 
 
 Categorical variables: Create metadata specific to categorical variables (required when the attribute metadata contains variables with a "categorical" class)
 
-```{r, handout = 0}
+```{r, handout = 0, message = FALSE, warning = FALSE}
 template_categorical_variables(path = "~/storm_project/metadata_templates", 
                                data.path = "~/storm_project/data_objects")
 ```
@@ -411,7 +411,7 @@ Many repositories for environmental data use EML (Ecological Metadata Language) 
 Check the function help documentation to see which arguments of `make_eml()` are required and which are optional.
 {:.notes}
 
-```{r, handout = 0}
+```{r, handout = 0, message = FALSE, warning = FALSE}
 make_eml(path = "~/storm_project/metadata_templates",
          data.path = "~/storm_project/data_objects",
          eml.path = "~/storm_project/eml",
