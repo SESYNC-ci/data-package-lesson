@@ -137,7 +137,7 @@ Create the organization for the data package with the `EMLassemblyline::template
 - **run_EMLassemblyline.R** An example R file for scripting an EMLassemblyline workflow. This could be helpful if you're starting from scratch, but we walk through a metadata workflow in detail below instead.  
 
 
-```{r, handout = 0, message = FALSE, warning = FALSE}
+```{r, handout = 0, message = FALSE, warning = FALSE, results = 'hide'}
 template_directories(path = "~", dir.name = "storm_project") # create template files in a new directory
 
 # move the derived data file to the new storm_project directory

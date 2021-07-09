@@ -148,26 +148,9 @@ template_directories(path = "~", dir.name = "storm_project") # create template f
 
 # move the derived data file to the new storm_project directory
 file.copy("~/StormEvents_d2006.csv", "~/storm_project/data_objects/", overwrite = TRUE)
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
-
-
-~~~
-[1] TRUE
-~~~
-{:.output}
-
-
-~~~r
 file.remove("~/StormEvents_d2006.csv")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
-
-
-~~~
-[1] TRUE
-~~~
-{:.output}
 
  
 Look at your storm_project folder, and see the template files and folders, and the derived data file we created earlier. 
