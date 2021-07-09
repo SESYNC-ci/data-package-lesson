@@ -164,7 +164,7 @@ When thinking about the relationships between your data, metadata, and other obj
 
  - simple path diagram  
  
-   ![]({% include asset.html path="images/simple_grv.png" %}){: width="40%"}
+   ![]({% include asset.html path="images/simple_grv.png" %}){: width="50%"}
    {:.captioned}
 
 ===
@@ -198,7 +198,7 @@ storm_diag
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
-   ![]({% include asset.html path="images/diag_prov.png" %}){: width="40%"}
+   ![]({% include asset.html path="images/diag_prov.png" %}){: width="75%"}
    {:.captioned}
 
 ===
@@ -235,7 +235,7 @@ plotRelationships(dp)
 {:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
 
 
-   ![]({% include asset.html path="images/igraph_prov.png" %}){: width="40%"}
+   ![]({% include asset.html path="images/igraph_prov.png" %}){: width="80%"}
    {:.captioned}
 
 Why does the diagram we created above differ from the provenance diagram created by the function `datapack::describeWorkflow`?  The datapack function adds additional descriptive nodes to the diagram that fulfill certain semantic requirements.  However, the basic relationships are still there if you look carefully.  

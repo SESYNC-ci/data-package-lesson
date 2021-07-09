@@ -98,7 +98,7 @@ Software designed for data curation may have more features and options.
      
    - [ezEML](https://ezeml.edirepository.org/eml/user_guide)
      This software from the [Environmental Data Initiative](https://environmentaldatainitiative.org/) supports metadata creation, metadata editing, and multiple metadata co-authors.
-     ![]({% include asset.html path="images/ezEML_capture.PNG" %}){: width="100%"} 
+     ![]({% include asset.html path="images/ez_eml.png" %}){: width="100%"} 
      
 ===
 
@@ -145,23 +145,7 @@ Create the organization for the data package with the `EMLassemblyline::template
 
 ~~~r
 template_directories(path = "~", dir.name = "storm_project") # create template files in a new directory
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
-
-~~~
-Templating ~/storm_project
-~~~
-{:.output}
-
-
-~~~
-Done.
-~~~
-{:.output}
-
-
-~~~r
 # move the derived data file to the new storm_project directory
 file.copy("~/StormEvents_d2006.csv", "~/storm_project/data_objects/", overwrite = TRUE)
 ~~~
@@ -484,7 +468,35 @@ template_categorical_variables(path = "~/storm_project/metadata_templates",
 
 ~~~
 $catvars_StormEvents_d2006.txt
-NULL
+$catvars_StormEvents_d2006.txt$content
+    attributeName           code definition
+1     DATA_SOURCE            CSV           
+2     DATA_SOURCE            PDS           
+3  MAGNITUDE_TYPE             EG           
+4  MAGNITUDE_TYPE             MG           
+5      MONTH_NAME          April           
+6      MONTH_NAME       February           
+7      MONTH_NAME        January           
+8      MONTH_NAME        October           
+9           STATE         ALASKA           
+10          STATE       ARKANSAS           
+11          STATE       COLORADO           
+12          STATE        GEORGIA           
+13          STATE       ILLINOIS           
+14          STATE        INDIANA           
+15          STATE         KANSAS           
+16          STATE       KENTUCKY           
+17          STATE      LOUISIANA           
+18          STATE       MARYLAND           
+19          STATE       MICHIGAN           
+20          STATE     NEW JERSEY           
+21          STATE NORTH CAROLINA           
+22          STATE           OHIO           
+23          STATE       OKLAHOMA           
+24          STATE          TEXAS           
+25          STATE           UTAH           
+26          STATE     WASHINGTON           
+27          STATE  WEST VIRGINIA           
 ~~~
 {:.output}
 

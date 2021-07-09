@@ -115,32 +115,6 @@ If you choose to upload your data package to a repository in the [DataONE federa
 ~~~r
 library(dataone)
 library(curl) 
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
-
-
-~~~
-Using libcurl 7.64.1 with Schannel
-~~~
-{:.output}
-
-
-~~~
-
-Attaching package: 'curl'
-~~~
-{:.output}
-
-
-~~~
-The following object is masked from 'package:readr':
-
-    parse_date
-~~~
-{:.output}
-
-
-~~~r
 library(redland) 
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
