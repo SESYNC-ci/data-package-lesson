@@ -244,7 +244,7 @@ d1c <- D1Client("STAGING2", "urn:node:mnTestKNB")
   
 Now do the actual uploading of your data package to the test repository location.  
   
-```{r, handout = 0}
+```{r, handout = 0, eval = FALSE}
 packageId <- uploadDataPackage(d1c, dp, public = TRUE, accessRules = dpAccessRules,
                                quiet = FALSE)
 ```
