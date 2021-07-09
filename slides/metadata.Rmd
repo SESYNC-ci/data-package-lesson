@@ -168,7 +168,7 @@ You can choose the license you wish to apply to your data (["CC0"](https://creat
 
 ===
 
-Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder `./storm_project/metadata_templates/`.   
+Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder `~/storm_project/metadata_templates/`.   
 {:.notes}
 
 You could open the template files in RStudio and edit manually, or export to Excel and edit there, but let's read them into R and edit them programmatically.  This example can be used to automate the creation of your metadata  
