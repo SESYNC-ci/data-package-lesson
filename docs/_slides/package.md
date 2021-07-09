@@ -195,12 +195,11 @@ storm_diag <- grViz("digraph{
 
 storm_diag
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
-<div class="figure">
-<!--html_preserve--><div id="htmlwidget-59973ef22c7bb4de180d" style="width:504px;height:504px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-59973ef22c7bb4de180d">{"x":{"diagram":"digraph{\n         \n                     graph[rankdir = LR]\n                     \n                     node[shape = rectangle, style = filled]  \n                     A[label = \"Storm data\"]\n                     B[label = \"storm_script.R\"]\n                     C[label = \"Fig. 1\"]\n                     D[label = \"Fig. 2\"]\n\n                     edge[color = black]\n                     A -> B\n                     B -> C\n                     B -> D\n                     \n                     }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-<p class="caption"> </p>
-</div>
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+
+
+   ![]({% include asset.html path="images/diag_prov.png" %}){: width="40%"}
+   {:.captioned}
 
 ===
 
@@ -231,71 +230,13 @@ Now let's take a look at those relationships we just defined.
 
 ~~~r
 library(igraph)
-~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
-
-
-~~~
-
-Attaching package: 'igraph'
-~~~
-{:.output}
-
-
-~~~
-The following objects are masked from 'package:dplyr':
-
-    as_data_frame, groups, union
-~~~
-{:.output}
-
-
-~~~
-The following objects are masked from 'package:purrr':
-
-    compose, simplify
-~~~
-{:.output}
-
-
-~~~
-The following object is masked from 'package:tidyr':
-
-    crossing
-~~~
-{:.output}
-
-
-~~~
-The following object is masked from 'package:tibble':
-
-    as_data_frame
-~~~
-{:.output}
-
-
-~~~
-The following objects are masked from 'package:stats':
-
-    decompose, spectrum
-~~~
-{:.output}
-
-
-~~~
-The following object is masked from 'package:base':
-
-    union
-~~~
-{:.output}
-
-
-~~~r
 plotRelationships(dp)
 ~~~
-{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
-![ ]({% include asset.html path="images/packageunnamed-chunk-11-1.png" %})
-{:.captioned}
+{:title="{{ site.data.lesson.handouts[0] }}" .no-eval .text-document}
+
+
+   ![]({% include asset.html path="images/igraph_prov.png" %}){: width="40%"}
+   {:.captioned}
 
 Why does the diagram we created above differ from the provenance diagram created by the function `datapack::describeWorkflow`?  The datapack function adds additional descriptive nodes to the diagram that fulfill certain semantic requirements.  However, the basic relationships are still there if you look carefully.  
 {:.notes}

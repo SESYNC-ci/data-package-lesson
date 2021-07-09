@@ -150,7 +150,8 @@ library(redland)
 
 **Tokens:**
 
-Different environments in DataONE take different authentication tokens.  Essentially, the *staging environment is for testing*, and the *production environment is for publishing*.  If you are running the code in this lesson with the example data included here, get a token for the *staging environment*.  If you are modifying this code to publish your own research data, get a token for the *production environment*.  
+> Different environments in DataONE take different authentication tokens.  Essentially, the *staging environment is for testing*, and the *production environment is for publishing*.  If you are running the code in this lesson with the example data included here, get a token for the *staging environment*.  If you are modifying this code to publish your own research data, get a token for the *production environment*.  
+
 ===
 
 To get a token for the staging environment start here [Staging Environment](https://dev.nceas.ucsb.edu).

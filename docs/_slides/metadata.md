@@ -206,54 +206,6 @@ template_core_metadata(path = "~/storm_project/metadata_templates",
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
-~~~
-Templating core metadata ...
-~~~
-{:.output}
-
-
-~~~
-abstract.txt
-~~~
-{:.output}
-
-
-~~~
-additional_info.txt
-~~~
-{:.output}
-
-
-~~~
-intellectual_rights.txt
-~~~
-{:.output}
-
-
-~~~
-keywords.txt.
-~~~
-{:.output}
-
-
-~~~
-methods.txt
-~~~
-{:.output}
-
-
-~~~
-personnel.txt
-~~~
-{:.output}
-
-
-~~~
-Done.
-~~~
-{:.output}
-
-
 We've chosen the "CCBY" license and the text file type (`.txt`) because text files are easily read into R and programmatically edited.    
 
 You can choose the license you wish to apply to your data (["CC0"](https://creativecommons.org/publicdomain/zero/1.0/) or ["CCBY"](https://creativecommons.org/licenses/by/4.0/)), as well as the file type of the metadata (`.txt`, `.docx`, or `.md`). See the [help page for the function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more information. NOTE: The `.txt` template files are Tab delimited. 
@@ -383,24 +335,6 @@ template_geographic_coverage(path = "~/storm_project/metadata_templates",
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
 
 
-~~~
-Templating geographic coverage ...
-~~~
-{:.output}
-
-
-~~~
-geographic_coverage.txt
-~~~
-{:.output}
-
-
-~~~
-Done.
-~~~
-{:.output}
-
-
 ===
   
 ### Describe the file-level metadata.
@@ -417,30 +351,6 @@ template_table_attributes(path = "~/storm_project/metadata_templates",
                           data.table = c("StormEvents_d2006.csv"))
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
-
-
-~~~
-Templating table attributes ...
-~~~
-{:.output}
-
-
-~~~
-attributes_StormEvents_d2006.txt.
-~~~
-{:.output}
-
-
-~~~
-custom_units.txt
-~~~
-{:.output}
-
-
-~~~
-Done.
-~~~
-{:.output}
 
 
 ===
@@ -573,54 +483,8 @@ template_categorical_variables(path = "~/storm_project/metadata_templates",
 
 
 ~~~
-Templating categorical variables ...
-~~~
-{:.output}
-
-
-~~~
-catvars_StormEvents_d2006.txt
-~~~
-{:.output}
-
-
-~~~
-Done.
-~~~
-{:.output}
-
-
-~~~
 $catvars_StormEvents_d2006.txt
-$catvars_StormEvents_d2006.txt$content
-    attributeName           code definition
-1     DATA_SOURCE            CSV           
-2     DATA_SOURCE            PDS           
-3  MAGNITUDE_TYPE             EG           
-4  MAGNITUDE_TYPE             MG           
-5      MONTH_NAME          April           
-6      MONTH_NAME       February           
-7      MONTH_NAME        January           
-8      MONTH_NAME        October           
-9           STATE         ALASKA           
-10          STATE       ARKANSAS           
-11          STATE       COLORADO           
-12          STATE        GEORGIA           
-13          STATE       ILLINOIS           
-14          STATE        INDIANA           
-15          STATE         KANSAS           
-16          STATE       KENTUCKY           
-17          STATE      LOUISIANA           
-18          STATE       MARYLAND           
-19          STATE       MICHIGAN           
-20          STATE     NEW JERSEY           
-21          STATE NORTH CAROLINA           
-22          STATE           OHIO           
-23          STATE       OKLAHOMA           
-24          STATE          TEXAS           
-25          STATE           UTAH           
-26          STATE     WASHINGTON           
-27          STATE  WEST VIRGINIA           
+NULL
 ~~~
 {:.output}
 
@@ -689,166 +553,6 @@ make_eml(path = "~/storm_project/metadata_templates",
          package.id = "storm_events_package_id")
 ~~~
 {:title="{{ site.data.lesson.handouts[0] }}" .text-document}
-
-
-~~~
-Checking inputs
-~~~
-{:.output}
-
-
-~~~
-Making EML ...
-~~~
-{:.output}
-
-
-~~~
-<eml>
-~~~
-{:.output}
-
-
-~~~
-  <access>
-~~~
-{:.output}
-
-
-~~~
-  <dataset>
-~~~
-{:.output}
-
-
-~~~
-    <title>
-~~~
-{:.output}
-
-
-~~~
-    <creator>
-~~~
-{:.output}
-
-
-~~~
-    <associatedParty>
-~~~
-{:.output}
-
-
-~~~
-    <pubDate>
-~~~
-{:.output}
-
-
-~~~
-    <abstract>
-~~~
-{:.output}
-
-
-~~~
-    <keywordSet>
-~~~
-{:.output}
-
-
-~~~
-    <intellectualRights>
-~~~
-{:.output}
-
-
-~~~
-    <coverage>
-~~~
-{:.output}
-
-
-~~~
-        <geographicCoverage>
-        <geographicCoverage>
-        <geographicCoverage>
-        <geographicCoverage>
-        <geographicCoverage>
-        <geographicCoverage>
-        <geographicCoverage>
-        <geographicCoverage>
-        <geographicCoverage>
-        <geographicCoverage>
-        <geographicCoverage>
-~~~
-{:.output}
-
-
-~~~
-        <temporalCoverage>
-~~~
-{:.output}
-
-
-~~~
-    <maintenance>
-~~~
-{:.output}
-
-
-~~~
-    <contact>
-~~~
-{:.output}
-
-
-~~~
-    <methods>
-~~~
-{:.output}
-
-
-~~~
-    <project>
-~~~
-{:.output}
-
-
-~~~
-    <dataTable> (StormEvents_d2006.csv)
-~~~
-{:.output}
-
-
-~~~
-</eml>
-~~~
-{:.output}
-
-
-~~~
-Writing EML (storm_events_package_id.xml)
-~~~
-{:.output}
-
-
-~~~
-Validating EML
-~~~
-{:.output}
-
-
-~~~
-  Validation passed :)
-~~~
-{:.output}
-
-
-~~~
-Done.
-~~~
-{:.output}
 
 
 This function tries to validate your metadata against the EML standard.  If there are problems making your metadata invalid, type `issues()` into your console (as above), and you'll receive useful information on how to make your metadata valid.  
