@@ -110,7 +110,7 @@ If you choose to upload your data package to a repository in the [DataONE federa
 |-------------+---------------------------------------|
 | `dataone`   | uploads data package to repository    |
 
-```{r, handout = 0}
+```{r, handout = 0, message=FALSE, warning=FALSE}
 library(dataone)
 library(curl) 
 library(redland) 

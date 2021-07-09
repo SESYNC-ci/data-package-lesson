@@ -98,7 +98,7 @@ Software designed for data curation may have more features and options.
      
    - [ezEML](https://ezeml.edirepository.org/eml/user_guide)
      This software from the [Environmental Data Initiative](https://environmentaldatainitiative.org/) supports metadata creation, metadata editing, and multiple metadata co-authors.
-     ![]({% include asset.html path="images/ezEML_capture.PNG" %}){: width="100%"} 
+     ![]({% include asset.html path="images/ez_eml.png" %}){: width="100%"} 
      
 ===
 
@@ -137,7 +137,7 @@ Create the organization for the data package with the `EMLassemblyline::template
 - **run_EMLassemblyline.R** An example R file for scripting an EMLassemblyline workflow. This could be helpful if you're starting from scratch, but we walk through a metadata workflow in detail below instead.  
 
 
-```{r, handout = 0}
+```{r, handout = 0, message = FALSE, warning = FALSE}
 template_directories(path = "~", dir.name = "storm_project") # create template files in a new directory
 
 # move the derived data file to the new storm_project directory
