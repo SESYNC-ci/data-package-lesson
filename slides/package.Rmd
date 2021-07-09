@@ -139,7 +139,7 @@ When thinking about the relationships between your data, metadata, and other obj
 
 Let's create a conceptual diagram of the relationships between our data, script, and figures.  
 
-```{r, handout = 0}
+```{r, handout = 0, eval = FALSE}
 library(DiagrammeR)
 
 storm_diag <- grViz("digraph{
@@ -162,6 +162,9 @@ storm_diag <- grViz("digraph{
 storm_diag
 ```
 
+   ![]({% include asset.html path="images/diag_prov.png" %}){: width="40%"}
+   {:.captioned}
+
 ===
 
 ### Adding the provenance to your data package
@@ -183,10 +186,13 @@ dp <- describeWorkflow(dp, sources = dataObj, program = scriptObj, derivations =
 
 Now let's take a look at those relationships we just defined. 
 
-```{r, handout = 0}
+```{r, handout = 0, eval = FALSE}
 library(igraph)
 plotRelationships(dp)
 ```
+
+   ![]({% include asset.html path="images/igraph_prov.png" %}){: width="40%"}
+   {:.captioned}
 
 Why does the diagram we created above differ from the provenance diagram created by the function `datapack::describeWorkflow`?  The datapack function adds additional descriptive nodes to the diagram that fulfill certain semantic requirements.  However, the basic relationships are still there if you look carefully.  
 {:.notes}
