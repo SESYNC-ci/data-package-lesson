@@ -104,6 +104,9 @@ Software designed for data curation may have more features and options.
 
 Coding 
 
+Why would you want to create your metadata programmatically in R?  Scripting your metadata creation in R makes updates in the future easier (just update the relevant part of the script and run it), and automating metadata creation is extremely helpful if you are documenting large numbers of data files.
+{:.notes}
+
 Many methods for documenting and packaging data are also available in R packages developed by repository managers.  For example, `EMLassemblyline` was developed by the [Environmental Data Initiative](https://environmentaldatainitiative.org/) to facilitate documenting data in EML, and preparing data for publication.          
 {:.notes}
 
@@ -200,14 +203,12 @@ NOTE: This must be a 2 column table. You may leave the Thesaurus column empty if
 
 ```{r, handout = 0}
 keyw <- read.table("~/storm_project/metadata_templates/keywords.txt", sep = "\t", header = TRUE, colClasses = rep("character", 2))
-  
-my_keyw <- c("storm", "injury", "damage")
 
-keyw <- keyw %>% add_row(keyword = my_keyw)
+keyw <- keyw[1:3,] # create a few blank rows  
+keyw$keyword <- c("storm", "injury", "damage") # fill in a few keywords
 
 write.table(keyw, "~/storm_project/metadata_templates/keywords.txt", row.names = FALSE, sep = "\t")
 ```
-
 
 ===
 
@@ -218,39 +219,25 @@ Let's edit the personnel template file programmatically.  NOTE: The `.txt` templ
 persons <- read.table("~/storm_project/metadata_templates/personnel.txt", 
                      sep = "\t", header = TRUE, colClasses = rep("character", 10))  
 
-# define the personnel information
-firstname <- c("Jane", "Jane", "Jane", "Hank")
-middle <- c("A", "A", "A", "O")
-lastname <- c("Doe", "Doe", "Doe", "Williams")
-org <- rep("University of Maryland", 4)
-email <- c("jadoe@umd.edu", "jadoe@umd.edu", "jadoe@umd.edu", "how@umd.edu")
-rol <- c("PI", "contact", "creator", "Field Technician")
-title <- rep("Storm Events", 4)
-fundingA <- rep("NSF", 4)
-fundingN <- rep("000-000-0001", 4)  
-```
+persons <- persons[1:4,] # create a few blank rows  
 
-IMPORTANT: In the `personnel.txt` file, if a person has more than one role (for example PI and contact), make multiple rows for this person but change the role on each row.  See the help page for the [template function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more details.  
-{:.notes}
-
-===
-
-```{r, handout = 0}
-# edit personnel info
-persons <- persons %>% 
-           add_row(givenName = firstname,
-                   middleInitial = middle) %>% 
-           mutate(surName = lastname,
-                  organizationName = org,
-                  electronicMailAddress = email,
-                  role = rol,
-                  projectTitle = title,
-                  fundingAgency = fundingA,
-                  fundingNumber = fundingN)
+# edit the personnel information
+persons$givenName <- c("Jane", "Jane", "Jane", "Hank")
+persons$middleInitial <- c("A", "A", "A", "O")
+persons$surName <- c("Doe", "Doe", "Doe", "Williams")
+persons$organizationName <- rep("University of Maryland", 4)
+persons$electronicMailAddress <- c("jadoe@umd.edu", "jadoe@umd.edu", "jadoe@umd.edu", "how@umd.edu")
+persons$role <- c("PI", "contact", "creator", "Field Technician")
+persons$projectTitle <- rep("Storm Events", 4)
+persons$fundingAgency <- rep("NSF", 4)
+persons$fundingNumber <- rep("000-000-0001", 4)  
 
 # write new personnel file
 write.table(persons, "~/storm_project/metadata_templates/personnel.txt", row.names = FALSE, sep = "\t")
 ```
+
+IMPORTANT: In the `personnel.txt` file, if a person has more than one role (for example PI and contact), make multiple rows for this person but change the role on each row.  See the help page for the [template function](https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html) for more details.  
+{:.notes}
 
 ===
 
@@ -282,12 +269,16 @@ template_table_attributes(path = "~/storm_project/metadata_templates",
 
 ===
 
-The template function can't discover everything, so some columns are still empty. Open the file in the metadata templates folder `./storm_project/metadata_templates/` to enter the missing info.  
+The template function can't discover everything, so some columns are still empty. View the file in the metadata templates folder `~/storm_project/metadata_templates/` and enter the missing info.  
 
-```{r, handout = 0}
+```{r, handout = 0, message=FALSE, warning=FALSE}
 # read in the attributes template text file
 attrib <- read.table("~/storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
                      sep = "\t", header = TRUE)  
+```
+
+```{r, message=FALSE, warning=FALSE}
+View(attrib)
 ```
 
 ===
@@ -295,20 +286,20 @@ attrib <- read.table("~/storm_project/metadata_templates/attributes_StormEvents_
 We need to add attribute definitions for each column, and units or date/time specifications for numeric or date/time columns classes.  
 
 ```{r, handout = 0}
-attributeDef <- c("event id number", "State", "FIPS code for state", "year",
-                  "month", "type of event", "date event started", "timezone", 
-                  "date event ended", "injuries as direct result of storm",
-                  "injuries as indirect result of storm", 
-                  "deaths - direct result", "deaths - indirect result", 
-                  "property damage", "crop damage", "source of storm info",
-                  "manitude of damage", "type of magnitude",
-                  "beginning latitude", "beginning longitude", "ending latitude",
-                  "ending longitude", "narrative of the episode", 
-                  "narrative of the event", "source of the data")
+attrib$attributeDefinition <- c("event id number", "State", "FIPS code for state", "year",
+                                "month", "type of event", "date event started", "timezone",
+                                "date event ended", "injuries as direct result of storm",
+                                "injuries as indirect result of storm", 
+                                "deaths - direct result", "deaths - indirect result", 
+                                "property damage", "crop damage", "source of storm info",
+                                "manitude of damage", "type of magnitude",
+                                "beginning latitude", "beginning longitude", "ending latitude",
+                                "ending longitude", "narrative of the episode", 
+                                "narrative of the event", "source of the data")
 
-datetime <- c("","","","YYYY","","","MM/DD/YYYY HH:MM",
-              "three letter time zone","MM/DD/YYYY HH:MM",
-              "","","","","","","","","","","","","","","","")
+attrib$dateTimeFormatString <- c("","","","YYYY","","","MM/DD/YYYY HH:MM",
+                                 "three letter time zone","MM/DD/YYYY HH:MM",
+                                 "","","","","","","","","","","","","","","","")
 ```
 
 ===
@@ -316,9 +307,9 @@ datetime <- c("","","","YYYY","","","MM/DD/YYYY HH:MM",
 It is also important to define missing value codes. This is frequently `NA`, but should still be defined explicitly.  
 
 ```{r,  handout = 0}
-missingValueCode <- rep(NA_character_, nrow(attrib))
+attrib$missingValueCode <- rep(NA_character_, nrow(attrib))
 
-missingValueCodeDef <- rep("Missing value", nrow(attrib))
+attrib$missingValueCodeExplanation <- rep("Missing value", nrow(attrib))
 ```
 
 ===
@@ -326,11 +317,11 @@ missingValueCodeDef <- rep("Missing value", nrow(attrib))
 In addition, it's good to double check the class of variables inferred by the templating function.  In this case, we've decided four variables would be better described as *character* rather than *categorical*.  
 
 ```{r, handout = 0}
-classes <- attrib %>% select(attributeName, class) %>% 
-           mutate(class = ifelse(attributeName %in% c("DAMAGE_PROPERTY", "DAMAGE_CROPS", 
-                                                      "EVENT_TYPE", "SOURCE"), 
-                                 "character", class)) %>% 
-           select(class) %>% unlist(use.names = FALSE)
+attrib$class <- attrib %>% select(attributeName, class) %>% 
+                mutate(class = ifelse(attributeName %in% c("DAMAGE_PROPERTY", "DAMAGE_CROPS", 
+                                                           "EVENT_TYPE", "SOURCE"), 
+                                      "character", class)) %>% 
+                select(class) %>% unlist(use.names = FALSE)
 ```
 
 ===
@@ -345,24 +336,21 @@ view_unit_dictionary()
 ```
 
 ```{r handout = 0}
-units <- c("number","","number","","","","","","","number","number","number",
-           "number","","","","number","","degree",
-           "degree","degree","degree","","","")
+attrib$unit <- c("number","","number","","","","","","","number","number","number",
+                 "number","","","","number","","degree",
+                 "degree","degree","degree","","","")
 ```
 
 ===
 
-Now that we've edited all the metadata attributes, we can put them all together and write out the attribute file.
+Check your edits are all correct.
+```{r, message=FALSE, warning=FALSE}
+View(attrib)
+```
+
+Now we can write out the attribute file we just edited.
 
 ```{r, handout = 0}
-attrib <- attrib %>% 
-          mutate(attributeDefinition = attributeDef,
-                 class = classes,
-                 unit = units,
-                 dateTimeFormatString = datetime,
-                 missingValueCode = missingValueCode,
-                 missingValueCodeExplanation = missingValueCodeDef)
-
 write.table(attrib, "~/storm_project/metadata_templates/attributes_StormEvents_d2006.txt", row.names = FALSE, sep = "\t")
 ```
 

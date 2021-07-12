@@ -36,35 +36,25 @@ write_file(methd, "~/storm_project/metadata_templates/methods.txt", append = FAL
 
 # keywords
 keyw <- read.table("~/storm_project/metadata_templates/keywords.txt", sep = "\t", header = TRUE, colClasses = rep("character", 2))
-my_keyw <- ...
-keyw <- keyw %>% add_row(...)
+keyw <- keyw[1:3,] # create a few blank rows  
+keyw$keyword <- ... # fill in a few keywords
 write.table(keyw, "~/storm_project/metadata_templates/keywords.txt", row.names = FALSE, sep = "\t")
 
 # personnel
 # read in the personnel template text file
 persons <- read.table("~/storm_project/metadata_templates/personnel.txt", 
-                     sep = "\t", header = TRUE, colClasses = rep("character", 10))  
-# define the personnel information
-firstname <- c(...)
-middle <- c(...)
-lastname <- c(...)
-org <- rep(..., 4)
-email <- c(...)
-rol <- c(...)
-title <- rep(..., 4)
-fundingA <- rep(..., 4)
-fundingN <- rep(..., 4)  
-# edit personnel info
-persons <- persons %>% 
-           add_row(givenName = ...,
-                   middleInitial = ...) %>% 
-           mutate(surName = ...,
-                  organizationName = ...elt(),
-                  electronicMailAddress = ...,
-                  role = ...,
-                  projectTitle = ...,
-                  fundingAgency = ...,
-                  fundingNumber = ...)
+                     sep = "\t", header = TRUE, colClasses = rep("character", 10)) 
+persons <- persons[1:4,] # create a few blank rows 
+# edit the personnel information
+persons$... <- c("Jane", "Jane", "Jane", "Hank")
+persons$... <- c("A", "A", "A", "O")
+persons$... <- c("Doe", "Doe", "Doe", "Williams")
+persons$... <- rep("University of Maryland", 4)
+persons$... <- c("jadoe@umd.edu", "jadoe@umd.edu", "jadoe@umd.edu", "how@umd.edu")
+persons$... <- c("PI", "contact", "creator", "Field Technician")
+persons$... <- rep("Storm Events", 4)
+persons$... <- rep("NSF", 4)
+persons$... <- rep("000-000-0001", 4)  
 # write new personnel file
 write.table(persons, "~/storm_project/metadata_templates/personnel.txt", row.names = FALSE, sep = "\t")
 
@@ -85,29 +75,21 @@ write.table(persons, "~/storm_project/metadata_templates/personnel.txt", row.nam
 attrib <- read.table("~/storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
                      sep = "\t", header = TRUE)  
 # define the attributes
-attributeDef <- c(...)
-datetime <- c(...)
+attrib$attributeDefinition <- c(...)
+attrib$dateTimeFormatString <- c(...)
 # define missing values
-missingValueCode <- rep(NA_character_, nrow(...))
-missingValueCodeDef <- rep("Missing value", nrow(...))
+attrib$missingValueCode <- rep(NA_character_, nrow(...))
+attrib$missingValueCodeExplanation <- rep("Missing value", nrow(...))
 # check classes
-classes <- ... %>% select(..., ...) %>% 
-           mutate(class = ifelse(attributeName %in% c("DAMAGE_PROPERTY", "DAMAGE_CROPS", 
-                                                      "EVENT_TYPE", "SOURCE"), 
-                                 "...", class)) %>% 
-           select(class) %>% unlist(use.names = FALSE)
+attrib$class <- ... %>% select(..., ...) %>% 
+                mutate(class = ifelse(attributeName %in% c("DAMAGE_PROPERTY", "DAMAGE_CROPS", 
+                                                           "EVENT_TYPE", "SOURCE"), 
+                                      "...", class)) %>% 
+                select(class) %>% unlist(use.names = FALSE)
 # define units from controlled vocabulary
-units <- c("...","","...","","","","","","","...","...","...",
-           "number","","","","number","","degree",
-           "degree","degree","degree","","","")
-# put all attribute edits together
-attrib <- attrib %>% 
-          mutate(attributeDefinition = ...,
-                 class = ...,
-                 unit = ...,
-                 dateTimeFormatString = ...,
-                 missingValueCode = ...elt(),
-                 missingValueCodeExplanation = ...)
+attrib$unit <- c("...","","...","","","","","","","...","...","...",
+                 "number","","","","number","","degree",
+                 "degree","degree","degree","","","")
 # write revised attribute table
 ...(attrib, "~/storm_project/metadata_templates/attributes_StormEvents_d2006.txt", 
     row.names = FALSE, sep = "\t")
