@@ -6,7 +6,7 @@ handouts:
   - data/storm_script.R
   - data/Storms_Fig1.png
   - data/Storms_Fig2.png
-tag: v0.3
+tag: v0.4
 lesson: 10
 instructor: Rachael Blake
 lifecycle: beta # status for lifecycle badge
