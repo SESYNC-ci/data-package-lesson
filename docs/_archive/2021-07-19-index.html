@@ -1,0 +1,1560 @@
+---
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documenting and Publishing your Data</title>
+<meta name="description" content="Package your data and metadata for publication.">
+<link rel="canonical"
+      href="https://SESYNC-ci.github.io/data-package-lesson/2021/07/19/index.html">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/SESYNC-ci/lesson-style@3.0/docs/assets/css/default.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/SESYNC-ci/lesson-style@3.0/docs/assets/css/syntax.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/SESYNC-ci/lesson-style@3.0/docs/assets/css/static.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      rel="stylesheet"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous">
+
+    
+  </head>
+  <body>
+    <div class="page-content">
+      <div class="wrapper">
+        
+
+<h1 style="text-transform: none;" id="documenting-and-publishing-your-data">Documenting and Publishing your Data</h1>
+
+<p>Lesson 10 with <em>Rachael Blake</em></p>
+
+<nav id="ToC">
+
+  <ul>
+    <li><a href="#/slides/intro">Lesson Objectives</a></li>
+    <li><a href="#/slides/data">Preparing Data for Publication</a></li>
+    <li><a href="#/slides/metadata">What is Metadata?</a></li>
+    <li><a href="#/slides/package">Packaging your data</a></li>
+    <li><a href="#/slides/publish">Publishing your data</a></li>
+    <li><a href="#/slides/version">Versioning Data</a></li>
+    <li><a href="#/slides/exercises">Exercises</a></li>
+  </ul>
+</nav>
+
+<hr />
+<p><a name="/slides/intro"></a></p>
+
+<section><h2 id="lesson-objectives">Lesson Objectives</h2>
+
+<ul>
+  <li>Review key concepts of making your data tidy</li>
+  <li>Discover the importance of metadata</li>
+  <li>Learn what a data package is</li>
+  <li>Prepare to publish your data from R</li>
+</ul>
+
+</section>
+
+<section>
+
+<h2 id="specific-achievements">Specific Achievements</h2>
+
+<ul>
+  <li>Create metadata locally</li>
+  <li>Build data package locally</li>
+  <li>Learn how data versioning can help you collaborate more efficiently</li>
+  <li>Practice uploading data package to repository (exercise outside lesson)</li>
+</ul>
+
+</section>
+
+<section>
+
+<h2 id="what-is-a-data-package">What is a data package?</h2>
+
+<p>A data package is a collection of files that describe your data.</p>
+
+<p>There are two essential parts to a data package: <em>data</em> and <em>metadata</em>.</p>
+
+<p class="notes">Data packages also frequently include code scripts that clean, process, or perform statistical anslyses on your data, and visualizations that are direct products of coded analyses.  The relationships between these files are described in the provenance information for a data package.  We will get into more details on these components in this lesson.</p>
+
+</section>
+
+<section>
+
+<h2 id="why-package-and-publish-your-data">Why package and publish your data?</h2>
+
+<ol>
+  <li>
+    <p><em>Data is a valuable asset - easily publish your data now or in the future</em></p>
+  </li>
+  <li>
+    <p><em>Efficient collaboration - improve sharing data with collaborators now</em></p>
+  </li>
+</ol>
+
+</section>
+
+<section>
+
+<ol start="3">
+  <li>
+    <p>Credit for your work</p>
+  </li>
+  <li>
+    <p>Funder requirement</p>
+  </li>
+  <li>
+    <p>Publisher requirement</p>
+  </li>
+  <li>
+    <p>Open, Reproducible Science</p>
+  </li>
+</ol>
+
+</section>
+
+<section>
+
+<h2 id="integrating-data-documentation">Integrating data documentation</h2>
+
+<p>It is important to incorporate documentation of your data throughout your reproducible research pipeline.</p>
+
+</section>
+
+<section>
+
+<p><img src="https://cdn.jsdelivr.net/gh/SESYNC-ci/data-package-lesson@v0.4/docs/assets/images/wrkflow_diagram.png" alt="" width="75%" /></p>
+
+</section>
+
+<section>
+
+</section>
+
+<p class="ToS"><a href="#/slides/intro">Top of Section</a></p>
+
+<hr />
+<p><a name="/slides/data"></a></p>
+
+<section><h2 id="preparing-data-for-publication">Preparing Data for Publication</h2>
+
+<p class="notes">Both raw data and derived data (data you’ve assembled or processed in some way) from a project need to be neat and tidy before publication.  Following principles of tidy data from the beginning will make your workflows more efficient during a project, and will make it easier for others to understand and use your data once published.  However, if your data isn’t yet tidy, you can make it tidier before you publish it.</p>
+
+<p>Consistency is key when managing your data!</p>
+
+</section>
+
+<section>
+
+<ol>
+  <li>
+    <p>At a minimum, use the same terms to refer to the same things throughout your data.</p>
+
+    <ul>
+      <li>“origin”, not “starting place”, “beginning location”, and “source”</li>
+      <li>“<em>Orcinus orca</em>”, not “killer Whale”, “Killer whale”, “killer.whale”, and “orca”</li>
+    </ul>
+  </li>
+  <li>
+    <p>Consider using a discipline-wide published vocabulary if appropriate (ex: <a href="http://vocabulary.odm2.org/">hydrological controlled vocab.</a>)</p>
+  </li>
+</ol>
+
+</section>
+
+<section>
+
+<h3 id="naming-data-files">Naming data files</h3>
+
+<p><strong>Bad:</strong>  “CeNsus data*2ndTry 2/15/2017.csv”</p>
+
+<p><strong>Good:</strong>  “census_data.csv”</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span><span class="w">
+
+</span><span class="n">stm_dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/StormEvents.csv"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<h3 id="formatting-data">Formatting data</h3>
+
+<ol>
+  <li>One table/file for each type of observation, e.g., a CSV file for storm events in the USA</li>
+  <li>Each variable has its own column, e.g., month and location of a storm event are different columns in the file</li>
+  <li>Each observation has its own row, e.g., each storm event is represented by a row</li>
+  <li>Each value has its own cell</li>
+</ol>
+
+<p>Downstream operations/analysis require tidy data.</p>
+
+</section>
+
+<section>
+
+<p class="notes">These principles closely map to best practices for “normalization” in database design.  R developer Hadley Wickham further describes the priciples of tidy data in this paper <a href="http://www.jstatsoft.org/v59/i10/paper">(Wickham 2014)</a>.</p>
+
+<p class="notes">You can work towards ready-to-analyze data incrementally, documenting the intermediate data and cleaning steps you took in your scripts.  This can be a powerful accelerator for your analysis both now and in the future.</p>
+
+</section>
+
+<section>
+
+<p>Let’s do a few checks to see if our data is tidy.</p>
+
+<ul>
+  <li>make sure data meet criteria above</li>
+  <li>make sure blanks are NA or some other standard</li>
+</ul>
+
+<div class="language-r no-eval input highlighter-rouge" title="Console"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">stm_dat</span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">tail</span><span class="p">(</span><span class="n">stm_dat</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<ul>
+  <li>check date format</li>
+</ul>
+
+<div class="language-r no-eval input highlighter-rouge" title="Console"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">str</span><span class="p">(</span><span class="n">stm_dat</span><span class="p">)</span><span class="w">    
+</span></code></pre></div></div>
+
+<ul>
+  <li>check case, white space, etc.</li>
+</ul>
+
+<div class="language-r no-eval input highlighter-rouge" title="Console"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">stm_dat</span><span class="o">$</span><span class="n">EVENT_NARRATIVE</span><span class="p">)</span><span class="w">    
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<h3 id="outputting-derived-data">Outputting derived data</h3>
+
+<p>Because we followed the principle of one table/file for each type of observation, 
+we have one table to be written out to a file now.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">write_csv</span><span class="p">(</span><span class="n">stm_dat</span><span class="p">,</span><span class="w"> </span><span class="s2">"~/StormEvents_d2006.csv"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<h3 id="versioning-your-derived-data">Versioning your derived data</h3>
+
+<p>Issue: Making sure you and your collaborators are using the same version of a dataset</p>
+
+<p>One solution: version your data in a repository (more on this <a href="#versioning-data">later</a>)</p>
+
+</section>
+
+<p class="ToS"><a href="#/slides/data">Top of Section</a></p>
+
+<hr />
+<p><a name="/slides/metadata"></a></p>
+
+<section><h2 id="what-is-metadata">What is Metadata?</h2>
+
+<p>Metadata is the information needed for someone else to understand and use your data.  It is the Who, What, When, Where, Why, and How about your data.</p>
+
+<p>This includes <em>package-level</em> and <em>file-level</em> metadata.</p>
+
+</section>
+
+<section>
+
+<h3 id="common-components-of-metadata">Common components of metadata</h3>
+
+<p>Package-level:</p>
+<ul>
+  <li>Data creator</li>
+  <li>Geographic and temporal extents of data (generally)</li>
+  <li>Funding source</li>
+  <li>Licensing information (Creative Commons, etc.)</li>
+  <li>Publication date</li>
+</ul>
+
+</section>
+
+<section>
+
+<p>File-level:</p>
+<ul>
+  <li>Define variable names</li>
+  <li>Describe variables (units, etc.)</li>
+  <li>Define allowed values for a variable</li>
+  <li>Describe file formats</li>
+</ul>
+
+</section>
+
+<section>
+
+<h3 id="metadata-standards">Metadata Standards</h3>
+
+<p>The goal is to have a machine and human readable description of your data.</p>
+
+<p>Metadata standards create a structural expression of metadata necessary to document a data set.<br />
+This can mean using a controlled set of descriptors for your data specified by the standard.</p>
+
+</section>
+
+<section>
+
+<p class="notes">Without metadata standards, your digital data may be irretrievable, unidentifiable or unusable. 
+Metadata standards contain definitions of the data elements and standardized ways of representing them in digital formats such as databases and XML (eXtensible Markup Language).</p>
+
+<p class="notes">These standards ensure consistent structure that facilitates data sharing and searching, record provenance and technical processes, and manage access permissions.  Recording metadata in digital formats such as XML ensures effective machine searches through consistent structured data entry, and thesauri using controlled vocabularies.</p>
+
+</section>
+
+<section>
+
+<p>Metadata standards are often developed by user communities.</p>
+
+<p class="notes">For example, the Ecological Metadata Language, EML, is a standard developed by ecologists to document environmental and ecological data. EML is a set of XML schema documents that allow for the structural expression of metadata. To learn more about EML check out their <a href="https://eml.ecoinformatics.org">site</a>.</p>
+
+<p>Therefore, the standards can vary between disciplines and types of data.</p>
+
+</section>
+
+<section>
+
+<p><img src="https://cdn.jsdelivr.net/gh/SESYNC-ci/data-package-lesson@v0.4/docs/assets/images/standards_xkcd.png" alt="" width="75%" /></p>
+
+</section>
+
+<section>
+
+<p>Some examples include:</p>
+
+<ul>
+  <li>General: <a href="http://dublincore.org/">Dublin Core</a></li>
+  <li>Ecological/Environmental/Biological: <a href="https://www.dcc.ac.uk/resources/metadata-standards/eml-ecological-metadata-language">EML</a>, <a href="https://dwc.tdwg.org/">Darwin Core</a></li>
+  <li>Social science: <a href="http://www.ddialliance.org/">DDI</a>, <a href="https://www.loc.gov/ead/">EAD</a></li>
+  <li>Geospatial/Meterological/Oceanographic: <a href="https://www.iso.org/standard/53798.html">ISO 19115</a>, <a href="https://ferret.pmel.noaa.gov/Ferret/documentation/coards-netcdf-conventions">COARDS Conventions</a></li>
+</ul>
+
+</section>
+
+<section>
+
+<h3 id="creating-metadata">Creating metadata</h3>
+
+<p>Employer-specific mandated methods</p>
+
+<p>For example, some government agencies specify the metadata standards to which their employees must adhere.</p>
+
+</section>
+
+<section>
+
+<p>Repository-specific methods</p>
+
+<p class="notes">Repository websites frequently guide you through metadata creation during the process of uploading your data.</p>
+
+<ul>
+  <li>website for metadata entry on the <a href="https://knb.ecoinformatics.org">Knowledge Network for Biocomplexity</a> repository 
+<img src="https://cdn.jsdelivr.net/gh/SESYNC-ci/data-package-lesson@v0.4/docs/assets/images/knb_snap.PNG" alt="" width="100%" /></li>
+</ul>
+
+</section>
+
+<section>
+
+<p>Stand-alone software</p>
+
+<p class="notes">Software designed for data curation may have more features and options.</p>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/qcif/data-curator">Data Curator</a> 
+This software from the <a href="https://www.qcif.edu.au/">Queensland Cyber Infratstructure Foundation</a> supports metadata creation, provenance, and data packaging.
+<img src="https://cdn.jsdelivr.net/gh/SESYNC-ci/data-package-lesson@v0.4/docs/assets/images/Data_Curator_snap.PNG" alt="" width="100%" /></p>
+  </li>
+  <li>
+    <p><a href="https://ezeml.edirepository.org/eml/user_guide">ezEML</a>
+This software from the <a href="https://environmentaldatainitiative.org/">Environmental Data Initiative</a> supports metadata creation, metadata editing, and multiple metadata co-authors.
+<img src="https://cdn.jsdelivr.net/gh/SESYNC-ci/data-package-lesson@v0.4/docs/assets/images/ez_eml.png" alt="" width="100%" /></p>
+  </li>
+</ul>
+
+</section>
+
+<section>
+
+<p>Coding</p>
+
+<p class="notes">Why would you want to create your metadata programmatically in R?  Scripting your metadata creation in R makes updates in the future easier (just update the relevant part of the script and run it), and automating metadata creation is extremely helpful if you are documenting large numbers of data files.</p>
+
+<p class="notes">Many methods for documenting and packaging data are also available in R packages developed by repository managers.  For example, <code class="language-plaintext highlighter-rouge">EMLassemblyline</code> was developed by the <a href="https://environmentaldatainitiative.org/">Environmental Data Initiative</a> to facilitate documenting data in EML, and preparing data for publication.</p>
+
+<ul>
+  <li>R packages for metadata (<a href="" class="rlib">EML</a>, <a href="https://github.com/ropenscilabs/dataspice">dataspice</a>, <a href="" class="rlib">emld</a>),
+   <a href="https://ediorg.github.io/EMLassemblyline/">EMLassemblyline</a></li>
+</ul>
+
+</section>
+
+<section>
+
+<h3 id="example-of-coding-up-some-metadata">Example of coding up some metadata</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>R Package</th>
+      <th>What does it do?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">EMLassemblyline</code></td>
+      <td>creates high quality EML metadata for packaging data</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">EML</code></td>
+      <td>creates EML metadata files</td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
+
+<section>
+
+<p>We’ll use the <a href="https://ediorg.github.io/EMLassemblyline/">EMLassemblyline</a> package to create metadata in the EML metadata standard.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">EMLassemblyline</span><span class="p">)</span><span class="w"> 
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>Create the organization for the data package with the <code class="language-plaintext highlighter-rouge">EMLassemblyline::template_directories()</code> function.</p>
+
+<ul>
+  <li><strong>data_objects</strong> A directory of data and other digital objects to be packaged (e.g. data files, scripts, .zip files, etc.).</li>
+  <li><strong>metadata_templates</strong> A directory of EMLassemblyline template files.</li>
+  <li><strong>eml</strong> A directory of EML files created by EMLassemblyline.</li>
+  <li><strong>run_EMLassemblyline.R</strong> An example R file for scripting an EMLassemblyline workflow. This could be helpful if you’re starting from scratch, but we walk through a metadata workflow in detail below instead.</li>
+</ul>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">template_directories</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~"</span><span class="p">,</span><span class="w"> </span><span class="n">dir.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"storm_project"</span><span class="p">)</span><span class="w"> </span><span class="c1"># create template files in a new directory</span><span class="w">
+
+</span><span class="c1"># move the derived data file to the new storm_project directory</span><span class="w">
+</span><span class="n">file.copy</span><span class="p">(</span><span class="s2">"~/StormEvents_d2006.csv"</span><span class="p">,</span><span class="w"> </span><span class="s2">"~/storm_project/data_objects/"</span><span class="p">,</span><span class="w"> </span><span class="n">overwrite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">file.remove</span><span class="p">(</span><span class="s2">"~/StormEvents_d2006.csv"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Look at your storm_project folder, and see the template files and folders, and the derived data file we created earlier.</p>
+
+</section>
+
+<section>
+
+<h3 id="describe-the-package-level-metadata">Describe the package-level metadata.</h3>
+
+<p>We’ll start by creating the package-level metadata.</p>
+
+<p>Essential metadata: Create templates for package-level metadata, including abstract, intellectual rights, keywords, methods, personnel, and additional info.  These are required for all data packages.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">template_core_metadata</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/storm_project/metadata_templates"</span><span class="p">,</span><span class="w">
+                       </span><span class="n">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"CCBY"</span><span class="p">,</span><span class="w">
+                       </span><span class="n">file.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">".txt"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We’ve chosen the “CCBY” license and the text file type (<code class="language-plaintext highlighter-rouge">.txt</code>) because text files are easily read into R and programmatically edited.</p>
+
+<p class="notes">You can choose the license you wish to apply to your data (<a href="https://creativecommons.org/publicdomain/zero/1.0/">“CC0”</a> or <a href="https://creativecommons.org/licenses/by/4.0/">“CCBY”</a>), as well as the file type of the metadata (<code class="language-plaintext highlighter-rouge">.txt</code>, <code class="language-plaintext highlighter-rouge">.docx</code>, or <code class="language-plaintext highlighter-rouge">.md</code>). See the <a href="https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html">help page for the function</a> for more information. NOTE: The <code class="language-plaintext highlighter-rouge">.txt</code> template files are Tab delimited.</p>
+
+</section>
+
+<section>
+
+<p class="notes">Now that the templates have been created, open the files and add the appropriate metadata.  They are located in the project directory, the metadata templates folder <code class="language-plaintext highlighter-rouge">~/storm_project/metadata_templates/</code>.</p>
+
+<p>You could open the template files in RStudio and edit manually, or export to Excel and edit there, but let’s read them into R and edit them programmatically.  This example can be used to automate the creation of your metadata</p>
+
+<p>We’ll begin by adding a brief abstract.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">abs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"Abstract: Storms can have impacts on people's lives.  These data document some storms in 2006, and the injuries and damage that might have occurred from them."</span><span class="w">
+
+</span><span class="c1"># this function from the readr package writes a simple text file without columns or rows</span><span class="w">
+</span><span class="n">write_file</span><span class="p">(</span><span class="n">abs</span><span class="p">,</span><span class="w"> </span><span class="s2">"~/storm_project/metadata_templates/abstract.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">append</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>Now we’ll add methods.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">methd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"These example data were generated for the purpose of this lesson.  Their only use is for instructional purposes."</span><span class="w">
+
+</span><span class="n">write_file</span><span class="p">(</span><span class="n">methd</span><span class="p">,</span><span class="w"> </span><span class="s2">"~/storm_project/metadata_templates/methods.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">append</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>And some add keywords.</p>
+
+<p>NOTE: This must be a 2 column table. You may leave the Thesaurus column empty if you’re not using a controlled vocabulary for your keywords.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">keyw</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s2">"~/storm_project/metadata_templates/keywords.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\t"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">colClasses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"character"</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">))</span><span class="w">
+
+</span><span class="n">keyw</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">keyw</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,]</span><span class="w"> </span><span class="c1"># create a few blank rows  </span><span class="w">
+</span><span class="n">keyw</span><span class="o">$</span><span class="n">keyword</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"storm"</span><span class="p">,</span><span class="w"> </span><span class="s2">"injury"</span><span class="p">,</span><span class="w"> </span><span class="s2">"damage"</span><span class="p">)</span><span class="w"> </span><span class="c1"># fill in a few keywords</span><span class="w">
+
+</span><span class="n">write.table</span><span class="p">(</span><span class="n">keyw</span><span class="p">,</span><span class="w"> </span><span class="s2">"~/storm_project/metadata_templates/keywords.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\t"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>Let’s edit the personnel template file programmatically.  NOTE: The <code class="language-plaintext highlighter-rouge">.txt</code> template files are Tab delimited.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="c1"># read in the personnel template text file</span><span class="w">
+</span><span class="n">persons</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s2">"~/storm_project/metadata_templates/personnel.txt"</span><span class="p">,</span><span class="w"> 
+                     </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\t"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">colClasses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"character"</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">))</span><span class="w">  
+
+</span><span class="n">persons</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">persons</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,]</span><span class="w"> </span><span class="c1"># create a few blank rows  </span><span class="w">
+
+</span><span class="c1"># edit the personnel information</span><span class="w">
+</span><span class="n">persons</span><span class="o">$</span><span class="n">givenName</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Jane"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Jane"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Jane"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Hank"</span><span class="p">)</span><span class="w">
+</span><span class="n">persons</span><span class="o">$</span><span class="n">middleInitial</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"A"</span><span class="p">,</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w"> </span><span class="s2">"O"</span><span class="p">)</span><span class="w">
+</span><span class="n">persons</span><span class="o">$</span><span class="n">surName</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Doe"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Williams"</span><span class="p">)</span><span class="w">
+</span><span class="n">persons</span><span class="o">$</span><span class="n">organizationName</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"University of Maryland"</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
+</span><span class="n">persons</span><span class="o">$</span><span class="n">electronicMailAddress</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"jadoe@umd.edu"</span><span class="p">,</span><span class="w"> </span><span class="s2">"jadoe@umd.edu"</span><span class="p">,</span><span class="w"> </span><span class="s2">"jadoe@umd.edu"</span><span class="p">,</span><span class="w"> </span><span class="s2">"how@umd.edu"</span><span class="p">)</span><span class="w">
+</span><span class="n">persons</span><span class="o">$</span><span class="n">role</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"PI"</span><span class="p">,</span><span class="w"> </span><span class="s2">"contact"</span><span class="p">,</span><span class="w"> </span><span class="s2">"creator"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Field Technician"</span><span class="p">)</span><span class="w">
+</span><span class="n">persons</span><span class="o">$</span><span class="n">projectTitle</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Storm Events"</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
+</span><span class="n">persons</span><span class="o">$</span><span class="n">fundingAgency</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"NSF"</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
+</span><span class="n">persons</span><span class="o">$</span><span class="n">fundingNumber</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"000-000-0001"</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">  
+
+</span><span class="c1"># write new personnel file</span><span class="w">
+</span><span class="n">write.table</span><span class="p">(</span><span class="n">persons</span><span class="p">,</span><span class="w"> </span><span class="s2">"~/storm_project/metadata_templates/personnel.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\t"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p class="notes">IMPORTANT: In the <code class="language-plaintext highlighter-rouge">personnel.txt</code> file, if a person has more than one role (for example PI and contact), make multiple rows for this person but change the role on each row.  See the help page for the <a href="https://ediorg.github.io/EMLassemblyline/reference/template_core_metadata.html">template function</a> for more details.</p>
+
+</section>
+
+<section>
+
+<p>Geographic coverage: Create the metadata for the geographic extent.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">template_geographic_coverage</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/storm_project/metadata_templates"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="n">data.path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/storm_project/data_objects"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="n">data.table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"StormEvents_d2006.csv"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="n">lat.col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"BEGIN_LAT"</span><span class="p">,</span><span class="w">
+                             </span><span class="n">lon.col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"BEGIN_LON"</span><span class="p">,</span><span class="w">
+                             </span><span class="n">site.col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"STATE"</span><span class="w">
+                             </span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<h3 id="describe-the-file-level-metadata">Describe the file-level metadata.</h3>
+
+<p>Now that we’ve created package-level metadata, we can create the file-level metadata.</p>
+
+<p>Data attributes: Create table attributes template (required when data tables are present)</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">template_table_attributes</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/storm_project/metadata_templates"</span><span class="p">,</span><span class="w">
+                          </span><span class="n">data.path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/storm_project/data_objects"</span><span class="p">,</span><span class="w">
+                          </span><span class="n">data.table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"StormEvents_d2006.csv"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>The template function can’t discover everything, so some columns are still empty. View the file in the metadata templates folder <code class="language-plaintext highlighter-rouge">~/storm_project/metadata_templates/</code> and enter the missing info.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="c1"># read in the attributes template text file</span><span class="w">
+</span><span class="n">attrib</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s2">"~/storm_project/metadata_templates/attributes_StormEvents_d2006.txt"</span><span class="p">,</span><span class="w"> 
+                     </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\t"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">  
+</span></code></pre></div></div>
+
+<div class="language-r input highlighter-rouge" title="Console"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">View</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>We need to add attribute definitions for each column, and units or date/time specifications for numeric or date/time columns classes.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">attrib</span><span class="o">$</span><span class="n">attributeDefinition</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"event id number"</span><span class="p">,</span><span class="w"> </span><span class="s2">"State"</span><span class="p">,</span><span class="w"> </span><span class="s2">"FIPS code for state"</span><span class="p">,</span><span class="w"> </span><span class="s2">"year"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"month"</span><span class="p">,</span><span class="w"> </span><span class="s2">"type of event"</span><span class="p">,</span><span class="w"> </span><span class="s2">"date event started"</span><span class="p">,</span><span class="w"> </span><span class="s2">"timezone"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"date event ended"</span><span class="p">,</span><span class="w"> </span><span class="s2">"injuries as direct result of storm"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"injuries as indirect result of storm"</span><span class="p">,</span><span class="w"> 
+                                </span><span class="s2">"deaths - direct result"</span><span class="p">,</span><span class="w"> </span><span class="s2">"deaths - indirect result"</span><span class="p">,</span><span class="w"> 
+                                </span><span class="s2">"property damage"</span><span class="p">,</span><span class="w"> </span><span class="s2">"crop damage"</span><span class="p">,</span><span class="w"> </span><span class="s2">"source of storm info"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"manitude of damage"</span><span class="p">,</span><span class="w"> </span><span class="s2">"type of magnitude"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"beginning latitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"beginning longitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ending latitude"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"ending longitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"narrative of the episode"</span><span class="p">,</span><span class="w"> 
+                                </span><span class="s2">"narrative of the event"</span><span class="p">,</span><span class="w"> </span><span class="s2">"source of the data"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">attrib</span><span class="o">$</span><span class="n">dateTimeFormatString</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">"YYYY"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">"MM/DD/YYYY HH:MM"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">"three letter time zone"</span><span class="p">,</span><span class="s2">"MM/DD/YYYY HH:MM"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>It is also important to define missing value codes. This is frequently <code class="language-plaintext highlighter-rouge">NA</code>, but should still be defined explicitly.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">attrib</span><span class="o">$</span><span class="n">missingValueCode</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA_character_</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="p">(</span><span class="n">attrib</span><span class="p">))</span><span class="w">
+
+</span><span class="n">attrib</span><span class="o">$</span><span class="n">missingValueCodeExplanation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Missing value"</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="p">(</span><span class="n">attrib</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>In addition, it’s good to double check the class of variables inferred by the templating function.  In this case, we’ve decided four variables would be better described as <em>character</em> rather than <em>categorical</em>.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">attrib</span><span class="o">$</span><span class="n">class</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">attrib</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">select</span><span class="p">(</span><span class="n">attributeName</span><span class="p">,</span><span class="w"> </span><span class="n">class</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+                </span><span class="n">mutate</span><span class="p">(</span><span class="n">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ifelse</span><span class="p">(</span><span class="n">attributeName</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"DAMAGE_PROPERTY"</span><span class="p">,</span><span class="w"> </span><span class="s2">"DAMAGE_CROPS"</span><span class="p">,</span><span class="w"> 
+                                                           </span><span class="s2">"EVENT_TYPE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"SOURCE"</span><span class="p">),</span><span class="w"> 
+                                      </span><span class="s2">"character"</span><span class="p">,</span><span class="w"> </span><span class="n">class</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+                </span><span class="n">select</span><span class="p">(</span><span class="n">class</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">unlist</span><span class="p">(</span><span class="n">use.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>Units need to be defined from a controlled vocabulary of standard units.  Use the function <code class="language-plaintext highlighter-rouge">view_unit_dictionary()</code> to view these standard units.</p>
+
+<p class="notes">If you can’t find your units here, they must be defined in the file <code class="language-plaintext highlighter-rouge">custom_units.txt</code> in the metadata templates folder.   Generally, if you are not comfortable with a definition then it is best to provide a custom unit definition.  There are some non-intuitive definitions, such as using the broad unit “degree” for latitude and longitude such as in our example data here.</p>
+
+<div class="language-r no-eval input highlighter-rouge" title="Console"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">view_unit_dictionary</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">attrib</span><span class="o">$</span><span class="n">unit</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"number"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">"number"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">"number"</span><span class="p">,</span><span class="s2">"number"</span><span class="p">,</span><span class="s2">"number"</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"number"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">"number"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">"degree"</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"degree"</span><span class="p">,</span><span class="s2">"degree"</span><span class="p">,</span><span class="s2">"degree"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>Check your edits are all correct.</p>
+
+<div class="language-r input highlighter-rouge" title="Console"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">View</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Now we can write out the attribute file we just edited.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">write.table</span><span class="p">(</span><span class="n">attrib</span><span class="p">,</span><span class="w"> </span><span class="s2">"~/storm_project/metadata_templates/attributes_StormEvents_d2006.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\t"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>Because we have categorical variables in our data file, we need to define those variables further using the following templating function.</p>
+
+<p>Categorical variables: Create metadata specific to categorical variables (required when the attribute metadata contains variables with a “categorical” class)</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">template_categorical_variables</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/storm_project/metadata_templates"</span><span class="p">,</span><span class="w"> 
+                               </span><span class="n">data.path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/storm_project/data_objects"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$catvars_StormEvents_d2006.txt
+$catvars_StormEvents_d2006.txt$content
+    attributeName           code definition
+1     DATA_SOURCE            CSV           
+2     DATA_SOURCE            PDS           
+3  MAGNITUDE_TYPE             EG           
+4  MAGNITUDE_TYPE             MG           
+5      MONTH_NAME          April           
+6      MONTH_NAME       February           
+7      MONTH_NAME        January           
+8      MONTH_NAME        October           
+9           STATE         ALASKA           
+10          STATE       ARKANSAS           
+11          STATE       COLORADO           
+12          STATE        GEORGIA           
+13          STATE       ILLINOIS           
+14          STATE        INDIANA           
+15          STATE         KANSAS           
+16          STATE       KENTUCKY           
+17          STATE      LOUISIANA           
+18          STATE       MARYLAND           
+19          STATE       MICHIGAN           
+20          STATE     NEW JERSEY           
+21          STATE NORTH CAROLINA           
+22          STATE           OHIO           
+23          STATE       OKLAHOMA           
+24          STATE          TEXAS           
+25          STATE           UTAH           
+26          STATE     WASHINGTON           
+27          STATE  WEST VIRGINIA           
+</code></pre></div></div>
+
+<p>Define categorical variable codes.</p>
+
+<p>NOTE: You must add definitions, even for obvious things like month.  If you don’t add definitions, your EML metadata will be invalid.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="c1"># read in the attributes template text file</span><span class="w">
+</span><span class="n">catvars</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s2">"~/storm_project/metadata_templates/catvars_StormEvents_d2006.txt"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\t"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+
+</span><span class="n">catvars</span><span class="o">$</span><span class="n">definition</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"csv file"</span><span class="p">,</span><span class="w"> </span><span class="s2">"pds file"</span><span class="p">,</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"magnitude"</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">),</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"month"</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">),</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"USA state"</span><span class="p">,</span><span class="w"> </span><span class="m">19</span><span class="p">))</span><span class="w">
+
+</span><span class="n">write.table</span><span class="p">(</span><span class="n">catvars</span><span class="p">,</span><span class="w"> </span><span class="s2">"~/storm_project/metadata_templates/catvars_StormEvents_d2006.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\t"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p class="notes">NOTE: If you have not filled in the table attributes template completely, the  <code class="language-plaintext highlighter-rouge">template_categorical_variables()</code> function may produce errors.  It also produces a useful warning message that you can use to look at the issues.</p>
+
+<p>If you type <code class="language-plaintext highlighter-rouge">issues()</code> in your R console, you’ll get helpful info on which issues you need to fix.</p>
+
+<div class="language-r no-eval input highlighter-rouge" title="Console"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">issues</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<h3 id="write-eml-metadata-file">Write EML metadata file</h3>
+
+<p>Many repositories for environmental data use EML (Ecological Metadata Language) formatting for metadata.  The function <code class="language-plaintext highlighter-rouge">make_eml()</code> converts the text files we’ve been editing into EML document(s).</p>
+
+<p class="notes">Check the function help documentation to see which arguments of <code class="language-plaintext highlighter-rouge">make_eml()</code> are required and which are optional.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">make_eml</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/storm_project/metadata_templates"</span><span class="p">,</span><span class="w">
+         </span><span class="n">data.path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/storm_project/data_objects"</span><span class="p">,</span><span class="w">
+         </span><span class="n">eml.path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/storm_project/eml"</span><span class="p">,</span><span class="w">
+         </span><span class="n">dataset.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Storm Events that occurred in 2006"</span><span class="p">,</span><span class="w">
+         </span><span class="n">temporal.coverage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"2006-01-01"</span><span class="p">,</span><span class="w"> </span><span class="s2">"2006-04-07"</span><span class="p">),</span><span class="w">
+         </span><span class="n">geographic.description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Continental United State of America"</span><span class="p">,</span><span class="w"> 
+         </span><span class="n">geographic.coordinates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="m">-79</span><span class="p">,</span><span class="w"> </span><span class="m">42.5</span><span class="p">,</span><span class="w"> </span><span class="m">-95.5</span><span class="p">),</span><span class="w"> 
+         </span><span class="n">maintenance.description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"In Progress: Some updates to these data are expected"</span><span class="p">,</span><span class="w">
+         </span><span class="n">data.table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"StormEvents_d2006.csv"</span><span class="p">,</span><span class="w">
+         </span><span class="n">data.table.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Storm_Events_2006"</span><span class="p">,</span><span class="w">
+         </span><span class="n">data.table.description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Storm Events in 2006"</span><span class="p">,</span><span class="w"> 
+         </span><span class="c1"># other.entity = c(""),</span><span class="w">
+         </span><span class="c1"># other.entity.name = c(""),</span><span class="w">
+         </span><span class="c1"># other.entity.description = c(""),</span><span class="w">
+         </span><span class="n">user.id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my_user_id"</span><span class="p">,</span><span class="w">
+         </span><span class="n">user.domain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my_user_domain"</span><span class="p">,</span><span class="w"> 
+         </span><span class="n">package.id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"storm_events_package_id"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p class="notes">This function tries to validate your metadata against the EML standard.  If there are problems making your metadata invalid, type <code class="language-plaintext highlighter-rouge">issues()</code> into your console (as above), and you’ll receive useful information on how to make your metadata valid.</p>
+
+</section>
+
+<section>
+
+<p class="notes">After you create your EML file, it might be useful to double check it.  EML isn’t very human-readable, so try using <a href="https://portal.edirepository.org/nis/metadataPreviewer.jsp">the online Metadata Previewer tool</a> from the Environmental Data Initiative for viewing your EML.</p>
+
+</section>
+
+<section>
+</section>
+
+<p class="ToS"><a href="#/slides/metadata">Top of Section</a></p>
+
+<hr />
+<p><a name="/slides/package"></a></p>
+
+<section><h2 id="packaging-your-data">Packaging your data</h2>
+
+<p>Data packages can include metadata, data, and script files, as well as descriptions of the relationships between those files.</p>
+
+<p class="notes">Packaging your data together with the code you used to make the data file, and the metadata that describes the data, can benefit you and your research team because it keeps this information together so you can more easily share it, and it will be ready to publish (perhaps with minor updates if you wish) when you are ready.</p>
+
+</section>
+
+<section>
+
+<p>Currently there are a few ways to make a data package:</p>
+
+<ul>
+  <li><a href="https://frictionlessdata.io/docs/data-package/">Frictionless Data</a> uses json-ld format, and has the R package <a href="https://github.com/frictionlessdata/datapackage-r"><code class="language-plaintext highlighter-rouge">datapackage.r</code></a> which creates metadata files using schema.org specifications and creates a data package.</li>
+</ul>
+
+</section>
+
+<section>
+
+<ul>
+  <li><a href="https://www.dataone.org/">DataONE</a> frequently uses EML format for metadata, and has related R packages <a href="" class="rlib"><code class="language-plaintext highlighter-rouge">datapack</code></a> and <a href="" class="rlib"><code class="language-plaintext highlighter-rouge">dataone</code></a> that create data packages and upload data packages to a repository.</li>
+</ul>
+
+<p>We’ll follow the DataONE way of creating a data package in this lesson.</p>
+
+</section>
+
+<section>
+
+<table>
+  <thead>
+    <tr>
+      <th>R Package</th>
+      <th>What does it do?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">datapack</code></td>
+      <td>creates data package including file relationships</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">uuid</code></td>
+      <td>creates a unique identifier for your metadata</td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
+
+<section>
+
+<h3 id="data-metadata-and-other-objects">Data, Metadata, and other objects</h3>
+
+<p>We’ll create an empty local data package using the <code class="language-plaintext highlighter-rouge">new()</code> function from the <a href="" class="rlib"><code class="language-plaintext highlighter-rouge">datapack</code></a>: R package.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">datapack</span><span class="p">)</span><span class="w"> 
+</span><span class="n">library</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">new</span><span class="p">(</span><span class="s2">"DataPackage"</span><span class="p">)</span><span class="w"> </span><span class="c1"># create empty data package</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>Add the metadata file we created earlier to the blank data package.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">emlFile</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"~/storm_project/eml/storm_events_package_id.xml"</span><span class="w">
+</span><span class="n">emlId</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="s2">"urn:uuid:"</span><span class="p">,</span><span class="w"> </span><span class="n">UUIDgenerate</span><span class="p">(),</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w">
+
+</span><span class="n">mdObj</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">new</span><span class="p">(</span><span class="s2">"DataObject"</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emlId</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"eml://ecoinformatics.org/eml-2.1.1"</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emlFile</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">addMember</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">mdObj</span><span class="p">)</span><span class="w">  </span><span class="c1"># add metadata file to data package</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>Add the data file we saved earlier to the data package.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">datafile</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"~/storm_project/data_objects/StormEvents_d2006.csv"</span><span class="w">
+</span><span class="n">dataId</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="s2">"urn:uuid:"</span><span class="p">,</span><span class="w"> </span><span class="n">UUIDgenerate</span><span class="p">(),</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dataObj</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">new</span><span class="p">(</span><span class="s2">"DataObject"</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataId</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"text/csv"</span><span class="p">,</span><span class="w"> </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">datafile</span><span class="p">)</span><span class="w"> 
+
+</span><span class="n">dp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">addMember</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">dataObj</span><span class="p">)</span><span class="w"> </span><span class="c1"># add data file to data package</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>Define the relationship between the data and metadata files.  The “subject” should be the metadata, and the “object” should be the data.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="c1"># NOTE: We have defined emlId and dataId in the code chunks above.  </span><span class="w">
+</span><span class="n">dp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">insertRelationship</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">subjectID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emlId</span><span class="p">,</span><span class="w"> </span><span class="n">objectIDs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataId</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>You can also add scripts and other files to the data package.  Let’s add a short script to our data package, as well as the two figures it creates.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">scriptfile</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"data/storm_script.R"</span><span class="w">
+</span><span class="n">scriptId</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="s2">"urn:uuid:"</span><span class="p">,</span><span class="w"> </span><span class="n">UUIDgenerate</span><span class="p">(),</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w">
+
+</span><span class="n">scriptObj</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">new</span><span class="p">(</span><span class="s2">"DataObject"</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scriptId</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"application/R"</span><span class="p">,</span><span class="w"> </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scriptfile</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">addMember</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">scriptObj</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">fig1file</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"data/Storms_Fig1.png"</span><span class="w">
+</span><span class="n">fig1Id</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="s2">"urn:uuid:"</span><span class="p">,</span><span class="w"> </span><span class="n">UUIDgenerate</span><span class="p">(),</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w">
+
+</span><span class="n">fig1Obj</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">new</span><span class="p">(</span><span class="s2">"DataObject"</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fig1Id</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"image/png"</span><span class="p">,</span><span class="w"> </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fig1file</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">addMember</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">fig1Obj</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">fig2file</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"data/Storms_Fig2.png"</span><span class="w">
+</span><span class="n">fig2Id</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="s2">"urn:uuid:"</span><span class="p">,</span><span class="w"> </span><span class="n">UUIDgenerate</span><span class="p">(),</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w">
+
+</span><span class="n">fig2Obj</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">new</span><span class="p">(</span><span class="s2">"DataObject"</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fig2Id</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"image/png"</span><span class="p">,</span><span class="w"> </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fig2file</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">addMember</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">fig2Obj</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<h3 id="provenance">Provenance</h3>
+
+<p>Provenance defines the relationships between data, metadata, and other research objects (inputs and outputs) generated throughout the research process, from raw data to publication(s). It can be recorded in several different formats, but we’ll explore a couple here.</p>
+
+<p class="notes">Resource Description Framework (RDF) describes links between objects, and is designed to be read and understood by computers.  RDF is not designed to be read by humans, and is written in XML.  Describing your data package relationships with RDF will help with displaying your data in an online repository.  If you’re interested in the details, you can read more online such as from <a href="https://www.w3schools.com/XML/xml_rdf.asp">w3</a>.</p>
+
+</section>
+
+<section>
+
+<p>We’ll create a Resource Description Framework (RDF) to define the relationships between our data and metadata in XML.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">serializationId</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="s2">"resourceMap"</span><span class="p">,</span><span class="w"> </span><span class="n">UUIDgenerate</span><span class="p">(),</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w">
+</span><span class="n">filePath</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">file.path</span><span class="p">(</span><span class="n">sprintf</span><span class="p">(</span><span class="s2">"%s/%s.rdf"</span><span class="p">,</span><span class="w"> </span><span class="n">tempdir</span><span class="p">(),</span><span class="w"> </span><span class="n">serializationId</span><span class="p">))</span><span class="w">
+</span><span class="n">status</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">serializePackage</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">filePath</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">serializationId</span><span class="p">,</span><span class="w"> </span><span class="n">resolveURI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>When thinking about the relationships between your data, metadata, and other objects, it is often very helpful to create a diagram.  Here an couple example:</p>
+
+<ul>
+  <li>
+    <p>simple path diagram</p>
+
+    <p class="captioned"><img src="https://cdn.jsdelivr.net/gh/SESYNC-ci/data-package-lesson@v0.4/docs/assets/images/simple_grv.png" alt="" width="50%" /></p>
+  </li>
+</ul>
+
+</section>
+
+<section>
+
+<p>Let’s create a conceptual diagram of the relationships between our data, script, and figures.</p>
+
+<div class="language-r no-eval text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">DiagrammeR</span><span class="p">)</span><span class="w">
+
+</span><span class="n">storm_diag</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">grViz</span><span class="p">(</span><span class="s2">"digraph{
+         
+                     graph[rankdir = LR]
+                     
+                     node[shape = rectangle, style = filled]  
+                     A[label = 'Storm data']
+                     B[label = 'storm_script.R']
+                     C[label = 'Fig. 1']
+                     D[label = 'Fig. 2']
+
+                     edge[color = black]
+                     A -&gt; B
+                     B -&gt; C
+                     B -&gt; D
+                     
+                     }"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">storm_diag</span><span class="w">
+</span></code></pre></div></div>
+
+<p class="captioned"><img src="https://cdn.jsdelivr.net/gh/SESYNC-ci/data-package-lesson@v0.4/docs/assets/images/diag_prov.png" alt="" width="75%" /></p>
+
+</section>
+
+<section>
+
+<h3 id="adding-the-provenance-to-your-data-package">Adding the provenance to your data package</h3>
+
+<p class="notes">Human-readable provenance can be added to a data package using <a href="" class="rlib"><code class="language-plaintext highlighter-rouge">datapack</code></a> and the function <code class="language-plaintext highlighter-rouge">describeWorkflow</code>, as in the example code below.<br />
+See the <a href="https://docs.ropensci.org/datapack/articles/datapack-overview.html">overview</a> or the <a href="https://docs.ropensci.org/datapack/reference/describeWorkflow.html">function documentation</a> for more details.</p>
+
+</section>
+
+<section>
+
+<p>We’ll define the relationship between our data, our script that creates 2 figures, and our figures.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="c1"># NOTE: we defined the objects here in the code above</span><span class="w">
+</span><span class="n">dp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">describeWorkflow</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">sources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataObj</span><span class="p">,</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scriptObj</span><span class="p">,</span><span class="w"> </span><span class="n">derivations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">fig1Obj</span><span class="p">,</span><span class="w"> </span><span class="n">fig2Obj</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>Now let’s take a look at those relationships we just defined.</p>
+
+<div class="language-r no-eval text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">igraph</span><span class="p">)</span><span class="w">
+</span><span class="n">plotRelationships</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p class="captioned"><img src="https://cdn.jsdelivr.net/gh/SESYNC-ci/data-package-lesson@v0.4/docs/assets/images/igraph_prov.png" alt="" width="80%" /></p>
+
+<p class="notes">Why does the diagram we created above differ from the provenance diagram created by the function <code class="language-plaintext highlighter-rouge">datapack::describeWorkflow</code>?  The datapack function adds additional descriptive nodes to the diagram that fulfill certain semantic requirements.  However, the basic relationships are still there if you look carefully.</p>
+
+</section>
+
+<section>
+
+<p>Save the data package to a file, using the <a href="https://tools.ietf.org/id/draft-kunze-bagit-16.html">BagIt</a> packaging format.</p>
+
+<p class="notes">Right now this creates a zipped file in the tmp directory.  We’ll have to move the file 
+out of the temp directory after it is created.  Hopefully this will be <a href="https://github.com/ropensci/datapack/issues/108">changed soon</a>!</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">dp_bagit</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">serializeToBagIt</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span><span class="w"> 
+
+</span><span class="n">file.copy</span><span class="p">(</span><span class="n">dp_bagit</span><span class="p">,</span><span class="w"> </span><span class="s2">"~/storm_project/Storm_data_package.zip"</span><span class="p">)</span><span class="w"> 
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+</code></pre></div></div>
+
+<p>The BagIt zipped file is an excellent way to share all of the files and metadata of a data package with a collaborator, or easily publish in a repository.</p>
+
+</section>
+
+<section>
+</section>
+
+<p class="ToS"><a href="#/slides/package">Top of Section</a></p>
+
+<hr />
+<p><a name="/slides/publish"></a></p>
+
+<section><h2 id="publishing-your-data">Publishing your data</h2>
+
+<p>Now that you’ve packaged up your data, it’s easier to publish!</p>
+
+<p>Choosing to publish your data in a long-term repository can:</p>
+
+<ul>
+  <li>enable versioning of your data</li>
+  <li>fulfill a journal requirement to publish data</li>
+  <li>facilitate citing your dataset by assigning a permanent uniquely identifiable code (DOI)</li>
+  <li>improve discovery of and access to your dataset for others</li>
+  <li>enable re-use and greater visibility of your work</li>
+</ul>
+
+</section>
+
+<section>
+
+<h3 id="why-cant-i-just-put-my-data-on-dropbox-google-drive-my-website-etc">Why can’t I just put my data on Dropbox, Google Drive, my website, etc?</h3>
+
+<p><img src="https://cdn.jsdelivr.net/gh/SESYNC-ci/data-package-lesson@v0.4/docs/assets/images/facepalm.png" alt="" width="45%" /></p>
+
+</section>
+
+<section>
+
+<h4 id="key-reasons-to-use-a-repository">Key reasons to use a repository:</h4>
+
+<ul>
+  <li>preservation (permanence)</li>
+  <li>stability (replication / backup)</li>
+  <li>access</li>
+  <li>standards</li>
+</ul>
+
+</section>
+
+<section>
+
+<h3 id="when-to-publish-your-data">When to publish your data?</h3>
+
+<p>Near the beginning?  At the very end?</p>
+
+</section>
+
+<section>
+
+<p>A couple issues to think about:</p>
+
+<p>1) How do you know you’re using the same version of a file as your collaborator?</p>
+
+<ul>
+  <li>Publish your data privately and use the unique ids of datasets to manage versions.</li>
+</ul>
+
+</section>
+
+<section>
+
+<p>2) How do you control access to your data until you’re ready to go public with it?</p>
+
+<ul>
+  <li>Embargoing - controlling access for a certain period of time and then making your data public.</li>
+</ul>
+
+</section>
+
+<section>
+
+<h3 id="get-an-orcid">Get an ORCiD</h3>
+
+<p>ORCiDs identify you and link you to your publications and research products.  They are used by journals, repositories, etc. and often as a log in.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/SESYNC-ci/data-package-lesson@v0.4/docs/assets/images/Sign_In_snap.PNG" alt="" width="100%" /></p>
+
+</section>
+
+<section>
+
+<p>If you don’t have one yet, get an ORCiD.  Register at <a href="https://orcid.org">https://orcid.org</a>.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/SESYNC-ci/data-package-lesson@v0.4/docs/assets/images/orcid_snap2.png" alt="" width="100%" /></p>
+
+</section>
+
+<section>
+
+<h3 id="picking-a-repository">Picking a repository</h3>
+
+<p>There are many repositories out there, and it can seem overwhelming picking a suitable one for your data.</p>
+
+<p>Repositories can be subject or domain specific.  <a href="https://www.re3data.org/">re3data</a> lists repositories by subject and can help you pick an appropriate repository for your data.</p>
+
+</section>
+
+<section>
+
+<p><a href="https://www.dataone.org/">DataONE</a> is a federation of repositories housing many different types of data.  Some of these repositories include Knowledge Network for Biocomplexity <a href="https://knb.ecoinformatics.org/">(KNB)</a>, Environmental Data Initiative <a href="https://environmentaldatainitiative.org/">(EDI)</a>, <a href="https://datadryad.org/">Dryad</a>, <a href="https://data.usgs.gov/datacatalog/">USGS Science Data Catalog</a></p>
+
+<p>For qualitative data, there are a few dedicated repositories: <a href="https://qdr.syr.edu/">QDR</a>, <a href="http://data-pass.org/">Data-PASS</a></p>
+
+</section>
+
+<section>
+
+<p>Though a bit different, <a href="https://zenodo.org/">Zenodo</a> facilitates publishing (with a DOI) and archiving all research outputs from all research fields.</p>
+
+<p class="notes">One example is using Zenodo to publish releases of your code that lives in a GitHub repository.  However, since GitHub is not designed for data storage and is not a persistent repository, this is not a recommended way to store or publish data.</p>
+
+</section>
+
+<section>
+
+<h3 id="uploading-to-a-repository">Uploading to a repository</h3>
+
+<p>Uploading requirements can vary by repository and type of data.  The minimum you usually need is basic metadata, and a data file.</p>
+
+<p>If you have a small number of files, using a repository GUI may be simpler.  For large numbers of files, automating uploads from R will save time.  And it’s reproducible, which is always good!</p>
+
+</section>
+
+<section>
+
+<h4 id="data-upload-example---dataone">Data Upload Example - DataONE:</h4>
+
+<p>If you choose to upload your data package to a repository in the <a href="https://www.dataone.org/">DataONE federation</a> of repositories, the following example may be helpful.  The basic steps we will walk through in detail below are</p>
+
+<p>1) Getting an authentication token (follow steps below)</p>
+
+<p>2) Getting a DOI (if desired) from your chosen repository</p>
+
+<p>3) Uploading your data package using R</p>
+
+</section>
+
+<section>
+
+<table>
+  <thead>
+    <tr>
+      <th>R Package</th>
+      <th>What does it do?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dataone</code></td>
+      <td>uploads data package to repository</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">dataone</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">curl</span><span class="p">)</span><span class="w"> 
+</span><span class="n">library</span><span class="p">(</span><span class="n">redland</span><span class="p">)</span><span class="w"> 
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p><strong>Tokens:</strong></p>
+
+<blockquote>
+  <p>Different environments in DataONE take different authentication tokens.  Essentially, the <em>staging environment is for testing</em>, and the <em>production environment is for publishing</em>.  If you are running the code in this lesson with the example data included here, get a token for the <em>staging environment</em>.  If you are modifying this code to publish your own research data, get a token for the <em>production environment</em>.</p>
+</blockquote>
+
+</section>
+
+<section>
+
+<p>To get a token for the staging environment start here <a href="https://dev.nceas.ucsb.edu">Staging Environment</a>.</p>
+
+<p>To get a token for the production environment start here <a href="https://search.dataone.org">Production Environment</a>.</p>
+
+<p class="notes">If you happen to notice that the staging environment link above is an address at <code class="language-plaintext highlighter-rouge">nceas.ucsb.edu</code>, don’t worry.  <a href="https://www.dataone.org/">DataONE</a> is a project administered by <a href="https://www.nceas.ucsb.edu/">NCEAS</a>, which is a research affiliate of <a href="https://www.ucsb.edu/">UCSB</a>.</p>
+
+</section>
+
+<section>
+
+<p>After following either link above, complete the following steps to get your token.</p>
+
+<ul>
+  <li>Click <em>Sign in</em>, or <em>Sign up</em> if necessary</li>
+  <li>Once signed in, move the cursor over the user name and select <em>My profile</em> in the drop down menu.</li>
+  <li>Click on the <em>Settings</em> tab.</li>
+  <li>Click on <em>Authentication Token</em> in the menu below <em>Welcome</em></li>
+  <li>Click on the <em>Token for DataONE R</em> tab.</li>
+  <li>Click <em>Renew authentication token</em> if the token you have been using has expired.</li>
+  <li>Click on the <em>Copy</em> button below the text window to copy the authentication string to the paste buffer.</li>
+  <li>Paste the token string in the R console.</li>
+</ul>
+
+<p><em>You may want to note the expiration date of the token, which will be displayed on this page.</em></p>
+
+</section>
+
+<section>
+
+<h4 id="set-your-token-now">Set your token now</h4>
+
+<p>Paste your token for DataONE R in the R console, as stated in the instructions above.</p>
+
+</section>
+
+<section>
+
+<h3 id="citation">Citation</h3>
+
+<p>Getting a Digital Object Identifier (DOI) for your data package can make it easier for others to find and cite your data.</p>
+
+</section>
+
+<section>
+
+<p>DOIs are associated with a particular repository or publisher, so you will need to specify the environment and repository (also called a member node) in which you are publishing your data.</p>
+
+<p class="notes">The environment is where you publish your data: “PROD” is production, and “STAGING” is to test uploading your data, and can be used if you’re not yet sure you have everything in order.</p>
+
+<p class="notes">NOTE: “PROD” and “STAGING” require different tokens.<br />
+See above steps to get the appropriate access token.</p>
+
+</section>
+
+<section>
+
+<p>If you don’t know your repository specs, look it up in this table of member node IDs: (data/Nodes.csv)</p>
+
+<div class="language-r no-eval text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">read.csv</span><span class="p">(</span><span class="s2">"data/Nodes.csv"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>You can get a DOI from your target repository if you desire.  We won’t actually do this in the lesson here, because we’re not going to publish our example data.  However, this code is provided for your future use when you are ready to publish your own data with a DOI.</p>
+
+<div class="language-r no-eval text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="c1"># cn &lt;- CNode("PROD")</span><span class="w">
+</span><span class="c1"># mn &lt;- getMNode(cn, "urn:node:KNB")  </span><span class="w">
+
+</span><span class="c1"># doi &lt;- generateIdentifier(mn, "DOI")</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>Then you would overwrite the previous metadata file with the new DOI identified metadata file.  Again, we won’t do this here, as we’re not going to publish our example data.  But the code provided here can be modified when you are ready to publish your own data.</p>
+
+<div class="language-r no-eval text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="c1"># emlFile &lt;- "~/storm_project/eml/storm_events_package_id.xml"</span><span class="w">
+
+</span><span class="c1"># mdObj &lt;- new("DataObject", id = doi, format = "eml://ecoinformatics.org/eml-2.1.1", file = emlFile)</span><span class="w">
+
+</span><span class="c1"># dp &lt;- addMember(dp, mdObj)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Then you would zip up all your files for your data package with BagIt as shown in the previous section.</p>
+
+</section>
+
+<section>
+
+<h4 id="set-access-rules">Set access rules</h4>
+
+<p>NOTE: Replace this example ORCID with your own ORCID!</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">dpAccessRules</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"http://orcid.org/0000-0003-0847-9100"</span><span class="p">,</span><span class="w"> 
+                            </span><span class="n">permission</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"changePermission"</span><span class="p">)</span><span class="w"> 
+</span></code></pre></div></div>
+
+<p>This gives this particular ORCID (person) permission to read, write, and change permissions for others for this package.</p>
+
+</section>
+
+<section>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">dpAccessRules2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"http://orcid.org/0000-0003-0847-9100"</span><span class="p">,</span><span class="w">
+                                         </span><span class="s2">"http://orcid.org/0000-0000-0000-0001"</span><span class="p">),</span><span class="w">
+                             </span><span class="n">permission</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"changePermission"</span><span class="p">,</span><span class="w"> </span><span class="s2">"read"</span><span class="p">)</span><span class="w">
+                             </span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The second person (ORCID) only has access to read the files in this package.</p>
+
+<p>NOTE: When you upload the package, you can set <code class="language-plaintext highlighter-rouge">public = FALSE</code> if you don’t want your package public yet.</p>
+
+</section>
+
+<section>
+
+<h4 id="upload-data-package">Upload data package</h4>
+
+<p>First set the environment and repository you’ll upload to.</p>
+
+<p class="notes">NOTE: We are using the “STAGING2” environment and “TestKNB” repository node here, because we just want to test uploading, but not actually publish our example data package.</p>
+
+<div class="language-r text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">d1c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">D1Client</span><span class="p">(</span><span class="s2">"STAGING2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"urn:node:mnTestKNB"</span><span class="p">)</span><span class="w"> 
+</span></code></pre></div></div>
+
+</section>
+
+<section>
+
+<p>Now do the actual uploading of your data package to the test repository location.</p>
+
+<div class="language-r no-eval text-document highlighter-rouge" title="worksheet-10.R"><div class="highlight"><pre class="highlight"><code><span class="n">packageId</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">uploadDataPackage</span><span class="p">(</span><span class="n">d1c</span><span class="p">,</span><span class="w"> </span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">public</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">accessRules</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dpAccessRules</span><span class="p">,</span><span class="w">
+                               </span><span class="n">quiet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+</section>
+
+<p class="ToS"><a href="#/slides/publish">Top of Section</a></p>
+
+<hr />
+<p><a name="/slides/version"></a></p>
+
+<section><h2 id="versioning-data">Versioning Data</h2>
+
+<p>How do you know you’re using the same version of a data file as your collaborator?</p>
+
+<ul>
+  <li>Do not edit raw data files!  Make edits/changes via your code only, and then output a derived “clean” data file.</li>
+</ul>
+
+</section>
+
+<section>
+
+<p>Potential ways forward:</p>
+
+<ol>
+  <li>
+    <p>Upload successive versions of the data to a repo with versioning, but keep it private until you’ve reached the final version or the end of the project.  (see below)</p>
+  </li>
+  <li>
+    <p>Google Sheets has some support for viewing the edit history of cells, added or deleted columns and rows, changed formatting, etc.</p>
+  </li>
+</ol>
+
+</section>
+
+<section>
+
+<h3 id="updating-your-data-package-on-the-repository">Updating your data package on the repository</h3>
+
+<p>To take advantage of the versioning of data built into many repositories, you can update the data package (replace files with new versions).</p>
+
+<p class="notes">Please see the vignettes for <a href="" class="rlib"><code class="language-plaintext highlighter-rouge">dataone</code></a> , in the section on <a href="https://github.com/DataONEorg/rdataone/blob/master/vignettes/v06-update-package.Rmd">“Replace an object with a newer version”</a>.</p>
+
+<p class="notes">It’s also possible to automate data publication for data that are updated periodically, such as monitoring data, or time-series data.  The R package <a href="https://ediorg.github.io/EMLassemblyline/">EMLassemblyline</a> has a <a href="https://ediorg.github.io/EMLassemblyline/articles/auto_pub.html">vignette describing the process</a>.</p>
+
+</section>
+
+<section>
+
+<h2 id="closing-thoughts">Closing thoughts</h2>
+
+<p>Starting to document your data at the beginning of your project will save you time and headache at the end of your project.</p>
+
+<p>Integrating data documentation and publication into your research workflow will increase collaboration efficiency, reproducibility, and impact in the science community.</p>
+
+</section>
+
+<p class="ToS"><a href="#/slides/version">Top of Section</a></p>
+
+<hr />
+<p><a name="/slides/exercises"></a></p>
+
+<section><h2 id="exercises">Exercises</h2>
+
+</section>
+
+<section>
+
+<h3 id="exercise-1">Exercise 1</h3>
+
+<p>ORCiDs identify you (like a DOI identifies a paper) and link you to your publications and research products.<br />
+If you don’t have an ORCiD, register and obtain your number at  <a href="https://orcid.org">https://orcid.org</a>.</p>
+
+</section>
+
+<section>
+
+<h3 id="exercise-2">Exercise 2</h3>
+
+<p>The DataONE federation of repositories requires a unique authentication token for you to upload a data package.<br />
+Follow the steps <a href="https://github.com/DataONEorg/rdataone/blob/master/vignettes/v02-dataone-federation.Rmd">here</a> to obtain your token.</p>
+
+</section>
+
+<section>
+
+<h3 id="exercise-3">Exercise 3</h3>
+
+<p>There are many repositories you could upload your data package to within the DataONE federation.<br />
+Pick a repository from the list (located at data/Nodes.csv) and upload a test data package to the “STAGING” environment.</p>
+
+<p>Note: Staging environments require a different authentication token than production environments.  See the section on token in the publishing part of the lesson for more details.</p>
+
+<p><a href="#upload-data-package">Use the example code from the lesson.</a></p>
+
+</section>
+
+<section>
+
+<h3 id="exercise-4">Exercise 4</h3>
+
+<p>DOIs (digital object identifiers) are almost univerally used to identify papers.  They also improve citation and discoverability for your published data packages.<br />
+Get a DOI for your published data package.</p>
+
+<p><a href="#citation">Use the example code from the lesson.</a></p>
+
+</section>
+
+<section>
+
+<h3 id="exercise-5">Exercise 5</h3>
+
+<p>If you’re using a data repository to manage versions of your derived data files, you will likely want to update your data file at some point.  Use the vignette from the <code class="language-plaintext highlighter-rouge">dataone</code> package to <a href="https://github.com/DataONEorg/rdataone/blob/master/vignettes/upload-data.Rmd">“replace an older version of your derived data”</a> with a newer version.</p>
+
+</section>
+
+<section>
+
+<h3 id="exercise-6">Exercise 6</h3>
+
+<p>Provenance is an important description of how your data have been obtained, cleaned, processed, and analyzed.  It is being incorporated into descriptions of data packages in some repositories.<br />
+Use the <code class="language-plaintext highlighter-rouge">describeWorkflow()</code> function from the <code class="language-plaintext highlighter-rouge">datapack</code> package to add provenance to your test data package.</p>
+
+<p><a href="#adding-provenance-to-your-data-package">Use the example code from the lesson.</a></p>
+
+</section>
+
+<p class="ToS"><a href="#/slides/exercises">Top of Section</a></p>
+
+
+
+        <hr>
+
+<p>If you need to catch-up before a section of code will work, just squish it's
+🍅 to copy code above it into your clipboard. Then paste into your interpreter's
+console, run, and you'll be ready to start in on that section. Code copied by
+both 🍅 and 📋 will also appear below, where you can edit first, and then copy,
+paste, and run again.</p>
+
+<div class="output">
+  <pre id="ketchup" contenteditable="true"><code># Nothing here yet!</code></pre>
+</div>
+
+<script>
+$(document).ready(function(){
+  
+  // Add code help icons to code blocks
+  $('.input, .text-document').append('<ul class="code-help">');
+  $('.code-help')
+    .append('<li class="clipboard">📋</li>');
+  $('.text-document:not(.no-eval) .code-help')
+    .append('<li class="ketchup">🍅</li>');
+
+  // Bind copy actions to mouse clicks on icons
+  var $ketchup = $('#ketchup');
+  var rng = document.createRange();
+  var sel = window.getSelection();
+  $('.ketchup').click(function(){
+    var $prev = $(this)
+      .parents('.text-document')
+      .prevAll('.text-document:has(.ketchup)');
+    $ketchup.find('code').text($prev.find('pre').text());
+    rng.selectNodeContents($ketchup[0]);
+    sel.removeAllRanges();
+    sel.addRange(rng);
+    document.execCommand("copy");
+    sel.removeAllRanges();
+  });
+  $('.text-document .clipboard').click(function(){
+    var pre = $(this).parents('.text-document').find('pre').text();
+    $ketchup.find('code').text(pre);
+    rng.selectNodeContents($ketchup[0]);
+    sel.removeAllRanges();
+    sel.addRange(rng);
+    document.execCommand("copy");
+    sel.removeAllRanges();
+  });
+  $('.input .clipboard').click(function(){
+    var pre = $(this).parents('.input').find('pre').text();
+    pre = pre.replace(/(^|\n)[>+] /g, '$1');
+    $ketchup.find('code').text(pre);
+    rng.selectNodeContents($ketchup[0]);
+    sel.removeAllRanges();
+    sel.addRange(rng);
+    document.execCommand("copy");
+    sel.removeAllRanges();
+  });
+});
+</script>
+      </div>
+    </div>
+    <script>
+$(document).ready(function(){
+  // Add links to R and Python package repositories
+  $('a.rlib').map(function(){
+    this.href = 'https://cran.r-project.org/package=' + this.innerText;
+  });
+  $('a.pylib').map(function(){
+    this.href = 'https://pypi.python.org/pypi/' + this.innerText;
+  });
+});
+</script>
+
+  </body>
+</html>
