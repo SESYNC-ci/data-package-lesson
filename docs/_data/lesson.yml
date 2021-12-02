@@ -6,12 +6,13 @@ handouts:
   - data/storm_script.R
   - data/Storms_Fig1.png
   - data/Storms_Fig2.png
-tag: v0.4
+tag: v0.5
 lesson: 10
 instructor: Rachael Blake
 lifecycle: beta # status for lifecycle badge
 badgecolor: blue # color for lifecycle badge
 warning: true # whether to include note about lifecycle status
+doi: 10.5281/zenodo.5708345
 authors:
   - Rachael Blake
 sorter:
