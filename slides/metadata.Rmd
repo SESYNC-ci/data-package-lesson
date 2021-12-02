@@ -277,7 +277,7 @@ attrib <- read.table("~/storm_project/metadata_templates/attributes_StormEvents_
                      sep = "\t", header = TRUE)  
 ```
 
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
 View(attrib)
 ```
 
@@ -344,7 +344,7 @@ attrib$unit <- c("number","","number","","","","","","","number","number","numbe
 ===
 
 Check your edits are all correct.
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
 View(attrib)
 ```
 

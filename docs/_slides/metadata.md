@@ -322,7 +322,7 @@ attrib <- read.table("~/storm_project/metadata_templates/attributes_StormEvents_
 ~~~r
 > View(attrib)
 ~~~
-{:title="Console" .input}
+{:title="Console" .no-eval .input}
 
 
 ===
@@ -413,7 +413,7 @@ Check your edits are all correct.
 ~~~r
 > View(attrib)
 ~~~
-{:title="Console" .input}
+{:title="Console" .no-eval .input}
 
 
 Now we can write out the attribute file we just edited.
