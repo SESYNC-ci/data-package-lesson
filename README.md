@@ -1,5 +1,5 @@
 [![lifecycle](https://img.shields.io/badge/lifecycle-beta-blue.svg)](https://github.com/SESYNC-ci/sesync-ci.github.io/blob/master/lesson/lesson-lifecycle.md#beta)
-[![DOI](https://zenodo.org/badge/186479865.svg)](https://zenodo.org/badge/latestdoi/186479865)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5708344.svg)](https://doi.org/10.5281/zenodo.5708344)
 
 # Data package lesson
    
